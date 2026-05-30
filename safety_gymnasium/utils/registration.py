@@ -26,7 +26,6 @@ from gymnasium.envs.registration import spec  # noqa: F401 # pylint: disable=unu
 from gymnasium.envs.registration import EnvSpec, _check_metadata, _find_spec, load_env_creator
 from gymnasium.envs.registration import register as gymnasium_register
 from gymnasium.wrappers import HumanRendering, OrderEnforcing, RenderCollection
-from gymnasium.wrappers.compatibility import EnvCompatibility
 
 from safety_gymnasium.wrappers import SafeAutoResetWrapper, SafePassiveEnvChecker, SafeTimeLimit
 
@@ -153,9 +152,7 @@ def make(
                 f'that is not in the possible render_modes ({render_modes}).',
             )
 
-    if apply_api_compatibility or (
-        apply_api_compatibility is None and env_spec.apply_api_compatibility
-    ):
+    if apply_api_compatibility:
         # If we use the compatibility layer, we treat the render mode explicitly and don't pass it to the env creator
         render_mode = env_spec_kwargs.pop('render_mode', None)
     else:
@@ -183,9 +180,7 @@ def make(
         nondeterministic=env_spec.nondeterministic,
         max_episode_steps=None,
         order_enforce=False,
-        autoreset=False,
         disable_env_checker=True,
-        apply_api_compatibility=False,
         kwargs=env_spec_kwargs,
         additional_wrappers=(),
         vector_entry_point=env_spec.vector_entry_point,
@@ -205,10 +200,11 @@ def make(
             )
 
     # Add step API wrapper
-    if apply_api_compatibility is True or (
-        apply_api_compatibility is None and env_spec.apply_api_compatibility is True
-    ):
-        env = EnvCompatibility(env, render_mode)
+    if apply_api_compatibility is True:
+        logger.warn(
+            "apply_api_compatibility=True is ignored in Gymnasium >= 1.0.0 "
+            "as all environments natively use the new step API."
+        )
 
     # Run the environment checker as the lowest level wrapper
     if disable_env_checker is False or (
@@ -227,7 +223,7 @@ def make(
         env = SafeTimeLimit(env, env_spec.max_episode_steps)
 
     # Add the auto-reset wrapper
-    if autoreset is True or (autoreset is None and env_spec.autoreset is True):
+    if autoreset is True:
         env = SafeAutoResetWrapper(env)
 
     for wrapper_spec in env_spec.additional_wrappers[num_prior_wrappers:]:
