@@ -240,7 +240,7 @@ class Underlying(abc.ABC):  # pylint: disable=too-many-instance-attributes
             config (dict): Configuration dictionary.
         """
         for key, value in config.items():
-            if key in ['agent_name', 'task_name']:
+            if key in ['agent_name', 'task_name', 'task_class']:
                 continue
             if '.' in key:
                 obj, key = key.split('.')

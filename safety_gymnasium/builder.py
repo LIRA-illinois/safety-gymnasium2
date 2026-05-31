@@ -143,13 +143,36 @@ class Builder(gymnasium.Env, gymnasium.utils.EzPickle):
         self.task = self._get_task()
         self.set_seed()
 
+    def _import_task_class(self, path: str) -> type[BaseTask]:
+        """Import a task class from a string path."""
+        import importlib
+        if ':' in path:
+            module_name, class_name = path.split(':', 1)
+        else:
+            module_name, _, class_name = path.rpartition('.')
+            if not module_name:
+                raise ValueError(
+                    f"Task path '{path}' must be a full module path (e.g. 'my_module:MyTaskClass' or 'my_module.MyTaskClass')."
+                )
+        module = importlib.import_module(module_name)
+        task_class = getattr(module, class_name)
+        return task_class
+
     def _get_task(self) -> BaseTask:
         """Instantiate a task object."""
-        class_name = self.config.get('task_name', get_task_class_name(self.task_id))
-        assert hasattr(tasks, class_name), f'Task={class_name} not implemented.'
-        task_class = getattr(tasks, class_name)
-        task = task_class(config=self.config)
+        task_class = self.config.get('task_class', None)
+        if task_class is not None:
+            if isinstance(task_class, str):
+                task_class = self._import_task_class(task_class)
+        else:
+            class_name = self.config.get('task_name', get_task_class_name(self.task_id))
+            if isinstance(class_name, str) and (':' in class_name or '.' in class_name):
+                task_class = self._import_task_class(class_name)
+            else:
+                assert hasattr(tasks, class_name), f'Task={class_name} not implemented.'
+                task_class = getattr(tasks, class_name)
 
+        task = task_class(config=self.config)
         task.build_observation_space()
         return task
 
