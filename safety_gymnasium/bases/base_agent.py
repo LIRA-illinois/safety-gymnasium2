@@ -18,7 +18,9 @@ from __future__ import annotations
 
 import abc
 import os
-from dataclasses import dataclass, field
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import glfw
 import gymnasium
@@ -35,7 +37,7 @@ from safety_gymnasium.world import Engine
 BASE_DIR = os.path.dirname(safety_gymnasium.__file__)
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class SensorConf:
     r"""Sensor observations configuration.
 
@@ -52,7 +54,7 @@ class SensorConf:
     sensors_angle_components: bool = True
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class SensorInfo:
     r"""Sensor information generated in running.
 
@@ -70,14 +72,14 @@ class SensorInfo:
 
     hinge_pos_names: list = field(default_factory=list)
     hinge_vel_names: list = field(default_factory=list)
-    freejoint_pos_name: str = None
-    freejoint_qvel_name: str = None
+    freejoint_pos_name: str | None = None
+    freejoint_qvel_name: str | None = None
     ballquat_names: list = field(default_factory=list)
     ballangvel_names: list = field(default_factory=list)
     sensor_dim: list = field(default_factory=dict)
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class BodyInfo:
     r"""Body information generated in running.
 
@@ -92,14 +94,14 @@ class BodyInfo:
         geom_names (list): List of geom names in agent.
     """
 
-    nq: int = None
-    nv: int = None
-    nu: int = None
-    nbody: int = None
+    nq: int | None = None
+    nv: int | None = None
+    nu: int | None = None
+    nbody: int | None = None
     geom_names: list = field(default_factory=list)
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class DebugInfo:
     r"""Debug information generated in running.
 

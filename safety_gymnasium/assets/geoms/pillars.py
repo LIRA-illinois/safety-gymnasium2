@@ -14,7 +14,11 @@
 # ==============================================================================
 """Pillar."""
 
-from dataclasses import dataclass, field
+from __future__ import annotations
+
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import numpy as np
 
@@ -23,7 +27,7 @@ from safety_gymnasium.assets.group import GROUP
 from safety_gymnasium.bases.base_object import Geom
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Pillars(Geom):  # pylint: disable=too-many-instance-attributes
     """Pillars (immovable obstacles we should not touch)"""
 
@@ -31,7 +35,7 @@ class Pillars(Geom):  # pylint: disable=too-many-instance-attributes
     num: int = 0  # Number of pillars in the world
     size: float = 0.2  # Size of pillars
     height: float = 0.5  # Height of pillars
-    placements: list = None  # Pillars placements list (defaults to full extents)
+    placements: list | None = None  # Pillars placements list (defaults to full extents)
     locations: list = field(default_factory=list)  # Fixed locations to override placements
     keepout: float = 0.3  # Radius for placement of pillars
     cost: float = 1.0  # Cost (per step) for being in contact with a pillar

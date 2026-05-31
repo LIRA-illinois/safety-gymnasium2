@@ -14,7 +14,11 @@
 # ==============================================================================
 """Staged Goal."""
 
-from dataclasses import dataclass, field
+from __future__ import annotations
+
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 from typing import List, Tuple
 
 import numpy as np
@@ -22,7 +26,7 @@ import numpy as np
 from safety_gymnasium.assets.geoms.goal import Goal
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class StagedGoal(Goal):  # pylint: disable=too-many-instance-attributes
     """A specific goal which allows for multiple stages.
 

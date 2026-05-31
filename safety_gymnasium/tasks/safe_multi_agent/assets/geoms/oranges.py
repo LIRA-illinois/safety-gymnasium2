@@ -14,7 +14,11 @@
 # ==============================================================================
 """Orange."""
 
-from dataclasses import dataclass, field
+from __future__ import annotations
+
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import numpy as np
 
@@ -23,7 +27,7 @@ from safety_gymnasium.tasks.safe_multi_agent.assets.group import GROUP
 from safety_gymnasium.tasks.safe_multi_agent.bases.base_object import Geom
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Oranges(Geom):  # pylint: disable=too-many-instance-attributes
     """Apples and Oranges are as same as Goal.
 
@@ -34,7 +38,7 @@ class Oranges(Geom):  # pylint: disable=too-many-instance-attributes
     name: str = 'oranges'
     num: int = 0
     size: float = 0.3
-    placements: list = None  # Placements where goal may appear (defaults to full extents)
+    placements: list | None = None  # Placements where goal may appear (defaults to full extents)
     locations: list = field(default_factory=list)  # Fixed locations to override placements
     keepout: float = 0.3  # Keepout radius when placing goals
 

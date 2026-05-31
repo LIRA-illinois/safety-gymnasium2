@@ -14,7 +14,11 @@
 # ==============================================================================
 """Wall."""
 
-from dataclasses import dataclass, field
+from __future__ import annotations
+
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import numpy as np
 
@@ -23,7 +27,7 @@ from safety_gymnasium.assets.group import GROUP
 from safety_gymnasium.bases.base_object import Geom
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Walls(Geom):  # pylint: disable=too-many-instance-attributes
     """Walls - barriers in the environment not associated with any constraint.
 
@@ -32,7 +36,7 @@ class Walls(Geom):  # pylint: disable=too-many-instance-attributes
 
     name: str = 'walls'
     num: int = 0  # Number of walls
-    placements: list = None  # This should not be used
+    placements: list | None = None  # This should not be used
     locations: list = field(default_factory=list)  # This should be used and length == walls_num
     keepout: float = 0.0  # This should not be used
 

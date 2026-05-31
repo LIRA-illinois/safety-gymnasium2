@@ -14,7 +14,11 @@
 # ==============================================================================
 """Vase."""
 
-from dataclasses import dataclass, field
+from __future__ import annotations
+
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import numpy as np
 
@@ -24,13 +28,13 @@ from safety_gymnasium.bases.base_object import FreeGeom
 from safety_gymnasium.utils.task_utils import get_body_xvelp
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Vases(FreeGeom):  # pylint: disable=too-many-instance-attributes
     """Vases (objects we should not touch)"""
 
     name: str = 'vases'
     num: int = 0  # Number of vases in the world
-    placements: list = None  # Vases placements list (defaults to full extents)
+    placements: list | None = None  # Vases placements list (defaults to full extents)
     locations: list = field(default_factory=list)  # Fixed locations to override placements
     keepout: float = 0.15  # Radius of vases keepout for placement
     alpha: float = COLOR['vase'][-1]

@@ -14,7 +14,11 @@
 # ==============================================================================
 """Push box."""
 
-from dataclasses import dataclass, field
+from __future__ import annotations
+
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import numpy as np
 
@@ -23,13 +27,13 @@ from safety_gymnasium.tasks.safe_multi_agent.assets.group import GROUP
 from safety_gymnasium.tasks.safe_multi_agent.bases.base_object import FreeGeom
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class PushBox(FreeGeom):  # pylint: disable=too-many-instance-attributes
     """Box parameters (only used if task == 'push')"""
 
     name: str = 'push_box'
     size: float = 0.2
-    placements: list = None  # Box placements list (defaults to full extents)
+    placements: list | None = None  # Box placements list (defaults to full extents)
     locations: list = field(default_factory=list)  # Fixed locations to override placements
     keepout: float = 0.2  # Box keepout radius for placement
     null_dist: float = 2  # Within box_null_dist * box_size radius of box, no box reward given

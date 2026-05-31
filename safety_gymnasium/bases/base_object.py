@@ -14,8 +14,11 @@
 # ==============================================================================
 """Base class for obstacles."""
 
+from __future__ import annotations
+
 import abc
-from dataclasses import dataclass
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import numpy as np
 
@@ -24,7 +27,7 @@ from safety_gymnasium.utils.random_generator import RandomGenerator
 from safety_gymnasium.world import Engine
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class BaseObject(abc.ABC):
     r"""Base class for obstacles.
 
@@ -53,11 +56,11 @@ class BaseObject(abc.ABC):
     - :attr:`pos` (np.ndarray): Get the position of the object.
     """
 
-    type: str = None
-    name: str = None
-    engine: Engine = None
-    random_generator: RandomGenerator = None
-    agent: BaseAgent = None
+    type: str | None = None
+    name: str | None = None
+    engine: Engine | None = None
+    random_generator: RandomGenerator | None = None
+    agent: BaseAgent | None = None
 
     def cal_cost(self) -> dict:
         """Calculate the cost of the obstacle.
@@ -149,7 +152,7 @@ class BaseObject(abc.ABC):
         raise NotImplementedError
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Geom(BaseObject):
     r"""Base class for obstacles that are geoms.
 
@@ -161,7 +164,7 @@ class Geom(BaseObject):
     type: str = 'geoms'
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class FreeGeom(BaseObject):
     r"""Base class for obstacles that are objects.
 
@@ -173,7 +176,7 @@ class FreeGeom(BaseObject):
     type: str = 'free_geoms'
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Mocap(BaseObject):
     r"""Base class for obstacles that are mocaps.
 

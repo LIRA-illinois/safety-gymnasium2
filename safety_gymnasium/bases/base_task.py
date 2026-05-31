@@ -19,7 +19,8 @@ from __future__ import annotations
 import abc
 import os
 from collections import OrderedDict
-from dataclasses import dataclass
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import gymnasium
 import mujoco
@@ -32,7 +33,7 @@ from safety_gymnasium.utils.common_utils import ResamplingError, camel_to_snake
 from safety_gymnasium.utils.task_utils import theta2vec
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class LidarConf:
     r"""Lidar observation parameters.
 
@@ -51,7 +52,7 @@ class LidarConf:
     alias: bool = True
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class CompassConf:
     r"""Compass observation parameters.
 
@@ -62,7 +63,7 @@ class CompassConf:
     shape: int = 2
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class RewardConf:
     r"""Reward options.
 
@@ -81,7 +82,7 @@ class RewardConf:
     reward_clip: float = 10
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class CostConf:
     r"""Cost options.
 
@@ -92,7 +93,7 @@ class CostConf:
     constrain_indicator: bool = True
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class MechanismConf:
     r"""Mechanism options.
 
@@ -110,7 +111,7 @@ class MechanismConf:
     terminate_resample_failure: bool = True
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class ObservationInfo:
     r"""Observation information generated in running.
 
@@ -118,7 +119,7 @@ class ObservationInfo:
         obs_space_dict (:class:`gymnasium.spaces.Dict`): Observation space dictionary.
     """
 
-    obs_space_dict: gymnasium.spaces.Dict = None
+    obs_space_dict: gymnasium.spaces.Dict | None = None
 
 
 class BaseTask(Underlying):  # pylint: disable=too-many-instance-attributes,too-many-public-methods

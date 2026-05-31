@@ -14,7 +14,11 @@
 # ==============================================================================
 """Circle."""
 
-from dataclasses import dataclass, field
+from __future__ import annotations
+
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import numpy as np
 
@@ -23,13 +27,13 @@ from safety_gymnasium.assets.group import GROUP
 from safety_gymnasium.bases.base_object import Geom
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Circle(Geom):  # pylint: disable=too-many-instance-attributes
     """CircleTask specific."""
 
     name: str = 'circle'
     radius: float = 1.5
-    placements: list = None
+    placements: list | None = None
     locations: tuple = ((0, 0),)
     keepout: float = 0.0
 

@@ -14,8 +14,12 @@
 # ==============================================================================
 """Robot."""
 
+from __future__ import annotations
+
 import os
-from dataclasses import InitVar, dataclass, field
+from dataclasses import InitVar, field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import mujoco
 
@@ -25,17 +29,17 @@ import safety_gymnasium
 BASE_DIR = os.path.dirname(safety_gymnasium.__file__)
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Robot:  # pylint: disable=too-many-instance-attributes
     """Simple utility class for getting mujoco-specific info about a robot."""
 
     path: InitVar[str]
 
-    placements: list = None  # Robot placements list (defaults to full extents)
+    placements: list | None = None  # Robot placements list (defaults to full extents)
     locations: list = field(default_factory=list)  # Explicitly place robot XY coordinate
     keepout: float = 0.4  # Needs to be set to match the robot XML used
     base: str = 'assets/xmls/car.xml'  # Which robot XML to use as the base
-    rot: float = None  # Override robot starting angle
+    rot: float | None = None  # Override robot starting angle
 
     def __post_init__(self, path) -> None:
         self.base = path

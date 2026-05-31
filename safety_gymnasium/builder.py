@@ -17,7 +17,9 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 from typing import Any, ClassVar
 
 import gymnasium
@@ -29,7 +31,7 @@ from safety_gymnasium.utils.common_utils import ResamplingError, quat2zalign
 from safety_gymnasium.utils.task_utils import get_task_class_name
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class RenderConf:
     r"""Render options.
 
@@ -44,11 +46,11 @@ class RenderConf:
             ``camera_id`` and ``camera_name`` can only be set one of them.
     """
 
-    mode: str = None
+    mode: str | None = None
     width: int = 256
     height: int = 256
-    camera_id: int = None
-    camera_name: str = None
+    camera_id: int | None = None
+    camera_name: str | None = None
 
 
 # pylint: disable-next=too-many-instance-attributes
@@ -362,7 +364,7 @@ class Builder(gymnasium.Env, gymnasium.utils.EzPickle):
         return self.terminated or self.truncated
 
     @property
-    def render_mode(self) -> str:
+    def render_mode(self) -> str | None:
         """The render mode."""
         return self.render_parameters.mode
 

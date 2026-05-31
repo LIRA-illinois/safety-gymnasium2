@@ -14,7 +14,11 @@
 # ==============================================================================
 """Hazard."""
 
-from dataclasses import dataclass, field
+from __future__ import annotations
+
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import numpy as np
 
@@ -23,7 +27,7 @@ from safety_gymnasium.assets.group import GROUP
 from safety_gymnasium.bases.base_object import Geom
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Sigwalls(Geom):  # pylint: disable=too-many-instance-attributes
     """None collision walls.
 
@@ -34,7 +38,7 @@ class Sigwalls(Geom):  # pylint: disable=too-many-instance-attributes
     num: int = 2
     locate_factor: float = 1.125
     size: float = 3.5
-    placements: list = None
+    placements: list | None = None
     keepout: float = 0.0
 
     color: np.array = field(default_factory=lambda: COLOR['sigwall'])

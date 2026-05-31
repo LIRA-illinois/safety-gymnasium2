@@ -14,7 +14,11 @@
 # ==============================================================================
 """Gremlin."""
 
-from dataclasses import dataclass, field
+from __future__ import annotations
+
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import numpy as np
 
@@ -23,14 +27,14 @@ from safety_gymnasium.assets.group import GROUP
 from safety_gymnasium.bases.base_object import Mocap
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Gremlins(Mocap):  # pylint: disable=too-many-instance-attributes
     """Gremlins (moving objects we should avoid)"""
 
     name: str = 'gremlins'
     num: int = 0  # Number of gremlins in the world
     size: float = 0.1
-    placements: list = None  # Gremlins placements list (defaults to full extents)
+    placements: list | None = None  # Gremlins placements list (defaults to full extents)
     locations: list = field(default_factory=list)  # Fixed locations to override placements
     keepout: float = 0.5  # Radius for keeping out (contains gremlin path)
     travel: float = 0.3  # Radius of the circle traveled in

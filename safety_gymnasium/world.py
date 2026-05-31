@@ -19,7 +19,8 @@ from __future__ import annotations
 import os
 from collections import OrderedDict
 from copy import deepcopy
-from dataclasses import dataclass
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 from typing import Any, ClassVar
 
 import mujoco
@@ -36,13 +37,13 @@ from safety_gymnasium.utils.task_utils import get_body_xvelp
 BASE_DIR = os.path.dirname(safety_gymnasium.__file__)
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Engine:
     """Physical engine."""
 
     # pylint: disable=no-member
-    model: mujoco.MjModel = None
-    data: mujoco.MjData = None
+    model: mujoco.MjModel | None = None
+    data: mujoco.MjData | None = None
 
     def update(self, model, data):
         """Set engine."""

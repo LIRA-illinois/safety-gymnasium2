@@ -18,7 +18,8 @@ from __future__ import annotations
 
 import abc
 from copy import deepcopy
-from dataclasses import dataclass
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import gymnasium
 import mujoco
@@ -41,7 +42,7 @@ from safety_gymnasium.utils.random_generator import RandomGenerator
 from safety_gymnasium.world import World
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class RenderConf:
     r"""Render options.
 
@@ -62,7 +63,7 @@ class RenderConf:
     lidar_offset_delta: float = 0.06
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class PlacementsConf:
     r"""Placement options.
 
@@ -78,7 +79,7 @@ class PlacementsConf:
     margin = 0.0
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class SimulationConf:
     r"""Simulation options.
 
@@ -96,7 +97,7 @@ class SimulationConf:
     frameskip_binom_p: float = 1.0
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class VisionEnvConf:
     r"""Vision observation parameters.
 
@@ -107,7 +108,7 @@ class VisionEnvConf:
     vision_size = (256, 256)
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class FloorConf:
     r"""Floor options.
 
@@ -120,7 +121,7 @@ class FloorConf:
     size: tuple = (3.5, 3.5, 0.1)
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class WorldInfo:
     r"""World information generated in running.
 
@@ -130,9 +131,9 @@ class WorldInfo:
         world_config_dict (dict): World configuration dictionary.
     """
 
-    layout: dict = None
-    reset_layout: dict = None
-    world_config_dict: dict = None
+    layout: dict | None = None
+    reset_layout: dict | None = None
+    world_config_dict: dict | None = None
 
 
 class Underlying(abc.ABC):  # pylint: disable=too-many-instance-attributes

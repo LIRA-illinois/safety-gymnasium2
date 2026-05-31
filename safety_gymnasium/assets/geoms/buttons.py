@@ -14,7 +14,11 @@
 # ==============================================================================
 """Button."""
 
-from dataclasses import dataclass, field
+from __future__ import annotations
+
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import numpy as np
 
@@ -23,20 +27,20 @@ from safety_gymnasium.assets.group import GROUP
 from safety_gymnasium.bases.base_object import Geom
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Buttons(Geom):  # pylint: disable=too-many-instance-attributes
     """Buttons are small immovable spheres, to the environment."""
 
     name: str = 'buttons'
     num: int = 0  # Number of buttons to add
     size: float = 0.1
-    placements: list = None  # Buttons placements list (defaults to full extents)
+    placements: list | None = None  # Buttons placements list (defaults to full extents)
     locations: list = field(default_factory=list)  # Fixed locations to override placements
     keepout: float = 0.2  # Buttons keepout radius for placement
-    goal_button: int = None  # Button to be the goal
+    goal_button: int | None = None  # Button to be the goal
 
     resampling_delay: float = 10  # Buttons have a timeout period (steps) before resampling
-    timer: int = None
+    timer: int | None = None
 
     cost: float = 1.0  # Cost for pressing the wrong button, if constrain_buttons
     reward_goal: float = 1.0  # Sparse reward for being inside the goal area

@@ -14,7 +14,11 @@
 # ==============================================================================
 """Hazard."""
 
-from dataclasses import dataclass, field
+from __future__ import annotations
+
+from dataclasses import field
+from pydantic.dataclasses import dataclass
+from pydantic import ConfigDict
 
 import numpy as np
 
@@ -23,14 +27,14 @@ from safety_gymnasium.assets.group import GROUP
 from safety_gymnasium.bases.base_object import Geom
 
 
-@dataclass
+@dataclass(config=ConfigDict(arbitrary_types_allowed=True))
 class Hazards(Geom):  # pylint: disable=too-many-instance-attributes
     """Hazardous areas."""
 
     name: str = 'hazards'
     num: int = 0  # Number of hazards in an environment
     size: float = 0.2
-    placements: list = None  # Placements list for hazards (defaults to full extents)
+    placements: list | None = None  # Placements list for hazards (defaults to full extents)
     locations: list = field(default_factory=list)  # Fixed locations to override placements
     keepout: float = 0.4  # Radius of hazard keepout for placement
     alpha: float = 0.25
