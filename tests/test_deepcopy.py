@@ -20,6 +20,7 @@ import gymnasium
 import numpy as np
 
 import helpers
+import safety_gymnasium
 
 
 @helpers.parametrize(

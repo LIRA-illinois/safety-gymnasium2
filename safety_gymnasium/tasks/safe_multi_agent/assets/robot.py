@@ -75,7 +75,7 @@ class Robot:  # pylint: disable=too-many-instance-attributes
                 self.model.sensor(id).objtype
                 == mujoco.mjtObj.mjOBJ_JOINT  # pylint: disable=no-member
             ):  # pylint: disable=no-member
-                joint_id = self.model.sensor(id).objid
+                joint_id = int(self.model.sensor(id).objid[0])
                 joint_type = self.model.jnt(joint_id).type
                 if joint_type == mujoco.mjtJoint.mjJNT_HINGE:  # pylint: disable=no-member
                     if sensor_type == mujoco.mjtSensor.mjSENS_JOINTPOS:  # pylint: disable=no-member

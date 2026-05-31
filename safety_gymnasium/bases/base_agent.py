@@ -251,7 +251,7 @@ class BaseAgent(abc.ABC):  # pylint: disable=too-many-instance-attributes
                 self.engine.model.sensor(sensor_id).objtype
                 == mujoco.mjtObj.mjOBJ_JOINT  # pylint: disable=no-member
             ):  # pylint: disable=no-member
-                joint_id = self.engine.model.sensor(sensor_id).objid
+                joint_id = int(self.engine.model.sensor(sensor_id).objid[0])
                 joint_type = self.engine.model.jnt(joint_id).type
                 if joint_type == mujoco.mjtJoint.mjJNT_HINGE:  # pylint: disable=no-member
                     if sensor_type == mujoco.mjtSensor.mjSENS_JOINTPOS:  # pylint: disable=no-member
@@ -416,7 +416,7 @@ class BaseAgent(abc.ABC):  # pylint: disable=too-many-instance-attributes
         # Process angular position sensors
         if self.sensor_conf.sensors_angle_components:
             for sensor in self.sensor_info.hinge_pos_names:
-                theta = float(self.get_sensor(sensor))  # Ensure not 1D, 1-element array
+                theta = float(self.get_sensor(sensor)[0])  # Ensure not 1D, 1-element array
                 obs[sensor] = np.array([np.sin(theta), np.cos(theta)])
             for sensor in self.sensor_info.ballquat_names:
                 quat = self.get_sensor(sensor)

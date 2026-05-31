@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 name = "safety-gymnasium2"
 description = "A highly scalable and customizable safe reinforcement learning environment."
 readme = "README.md"
-requires-python = ">= 3.8"
+requires-python = ">= 3.11"
 authors = [{ name = "Safety-Gymnasium Contributors" }]
 license = { text = "Apache License, Version 2.0" }
 keywords = ["Safe Reinforcement Learning", "RL Environment", "MuJoCo"]
@@ -16,10 +16,10 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Software Development :: Libraries :: Python Modules",
@@ -34,6 +34,10 @@ dependencies = [
     "imageio >= 2.27.0",
 ]
 dynamic = ["version"]
+
+[dependency-groups]
+dev = ["pytest>=8.4.2"]
+
 
 [project.urls]
 Homepage = "https://github.com/PKU-Alignment/safety-gymnasium"
@@ -65,7 +69,7 @@ test = ["pytest", "pytest-cov", "pytest-xdist"]
 include-package-data = true
 
 [tool.setuptools.dynamic]
-version = {attr = "safety_gymnasium.version.__version__"}
+version = { attr = "safety_gymnasium.version.__version__" }
 
 [tool.setuptools.packages.find]
 include = ["safety_gymnasium", "safety_gymnasium.*"]
