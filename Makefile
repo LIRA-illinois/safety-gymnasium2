@@ -6,6 +6,7 @@ COMPATIBILITY_PATHS = $(PROJECT_PATH)/utils/registration.py $(PROJECT_PATH)/asse
 FORMAT_PATHS = $(COMPATIBILITY_PATHS) examples tests docs asset_packs
 TEST_EXTRAS = --extra racing --extra building
 TESTOPTS ?=
+SPHINXOPTS ?=
 
 .PHONY: default install install-editable install-e uninstall build test lint ruff ruff-fix \
         py-format pre-commit type type-compat format addlicense docs docs-build \
@@ -67,7 +68,7 @@ docs:
 	$(UV) run --locked --group docs sphinx-autobuild --watch $(PROJECT_PATH) docs docs/_build/html
 
 docs-build:
-	$(UV) run --locked --group docs sphinx-build -W -b html docs docs/_build/html
+	$(UV) run --locked --group docs sphinx-build -W -b html $(SPHINXOPTS) docs docs/_build/html
 
 docstyle:
 	$(UV) run --locked --group docs doc8 docs
