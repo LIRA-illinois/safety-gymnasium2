@@ -2,15 +2,10 @@
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 # ==============================================================================
 """Register and make native Safety Gymnasium environments."""
 
@@ -26,7 +21,6 @@ from gymnasium.envs.registration import EnvSpec, load_env_creator
 from gymnasium.wrappers import HumanRendering, OrderEnforcing, RenderCollection
 
 from safety_gymnasium2.wrappers import SafeAutoResetWrapper, SafePassiveEnvChecker, SafeTimeLimit
-
 
 if TYPE_CHECKING:
     from safety_gymnasium2.builder import Builder
@@ -84,7 +78,9 @@ def spec(id: str) -> EnvSpec:
     try:
         return safe_registry[id]
     except KeyError as exc:
-        raise error.NameNotFound(f'Environment {id!r} is not registered in Safety Gymnasium 2.') from exc
+        raise error.NameNotFound(
+            f'Environment {id!r} is not registered in Safety Gymnasium 2.'
+        ) from exc
 
 
 def _environment_kwargs(env_spec: EnvSpec, overrides: Mapping[str, Any]) -> dict[str, Any]:
@@ -121,14 +117,20 @@ def _create_environment(
     render_mode = env_kwargs.get('render_mode')
     render_wrapper = None
     if render_mode is not None and render_modes is not None and render_mode not in render_modes:
-        if render_mode == 'human' and ('rgb_array' in render_modes or 'rgb_array_list' in render_modes):
-            env_kwargs['render_mode'] = 'rgb_array' if 'rgb_array' in render_modes else 'rgb_array_list'
+        if render_mode == 'human' and (
+            'rgb_array' in render_modes or 'rgb_array_list' in render_modes
+        ):
+            env_kwargs['render_mode'] = (
+                'rgb_array' if 'rgb_array' in render_modes else 'rgb_array_list'
+            )
             render_wrapper = _SafeHumanRendering
         elif render_mode.endswith('_list') and render_mode.removesuffix('_list') in render_modes:
             env_kwargs['render_mode'] = render_mode.removesuffix('_list')
             render_wrapper = RenderCollection
         else:
-            logger.warn(f'Render mode {render_mode!r} is not in the supported modes {render_modes}.')
+            logger.warn(
+                f'Render mode {render_mode!r} is not in the supported modes {render_modes}.'
+            )
 
     env = creator(**env_kwargs)
     if not isinstance(env, Env):
@@ -177,7 +179,7 @@ def make(
     if base_spec is None:
         raise error.Error(f'Environment {env_spec.id!r} did not retain its specification.')
     prior_wrappers = base_spec.additional_wrappers
-    if env_spec.additional_wrappers[:len(prior_wrappers)] != prior_wrappers:
+    if env_spec.additional_wrappers[: len(prior_wrappers)] != prior_wrappers:
         raise ValueError(f'Pre-wrapped environment does not match the spec for {env_spec.id!r}.')
 
     disable_checker = (
@@ -193,17 +195,24 @@ def make(
         if env_spec.entry_point in _builder_entry_points:
             builder = cast('Builder | MultiAgentBuilder', env.unwrapped)
             task_steps = builder.task.num_steps
-            max_episode_steps = task_steps if max_episode_steps is None else min(
-                task_steps, max_episode_steps,
+            max_episode_steps = (
+                task_steps
+                if max_episode_steps is None
+                else min(
+                    task_steps,
+                    max_episode_steps,
+                )
             )
     if max_episode_steps is not None and max_episode_steps != -1:
         env = SafeTimeLimit(env, max_episode_steps)
     if autoreset or (autoreset is None and _autoreset_by_id.get(env_spec.id, False)):
         env = SafeAutoResetWrapper(env)
 
-    for wrapper_spec in env_spec.additional_wrappers[len(prior_wrappers):]:
+    for wrapper_spec in env_spec.additional_wrappers[len(prior_wrappers) :]:
         if wrapper_spec.kwargs is None:
-            raise ValueError(f'Wrapper {wrapper_spec.name!r} does not record its constructor arguments.')
+            raise ValueError(
+                f'Wrapper {wrapper_spec.name!r} does not record its constructor arguments.'
+            )
         wrapper = load_env_creator(wrapper_spec.entry_point)
         wrapped = wrapper(env=env, **wrapper_spec.kwargs)
         if not isinstance(wrapped, Env):

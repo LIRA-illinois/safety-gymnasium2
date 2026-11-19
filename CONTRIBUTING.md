@@ -1,115 +1,32 @@
-## Contributing to Safety Gymnasium 2
+# Contributing to Safety Gymnasium 2
 
-If you are interested in contributing to Safety Gymnasium 2, your contributions will fall
-into two categories:
+Use the [fork's issue tracker](https://github.com/LIRA-illinois/safety-gymnasium2/issues) to discuss bugs and feature proposals. Open pull requests against `main` and describe the behavior change and how you checked it.
 
-1. You want to propose a new Feature and implement it
-    - Create an issue about your intended feature, and we shall discuss the design and
-    implementation. Once we agree that the plan looks good, go ahead and implement it.
-2. You want to implement a feature or bug-fix for an outstanding issue
-    - Look at the outstanding issues here: <https://github.com/LIRA-illinois/safety-gymnasium2/issues>
-    - Pick an issue or feature and comment on the task that you want to work on this feature.
-    - If you need more context on a particular issue, please ask and we shall provide.
-
-Once you finish implementing a feature or bug-fix, please send a Pull Request to <https://github.com/LIRA-illinois/safety-gymnasium2>
-
-If you are not familiar with creating a Pull Request, here are some guides:
-
-- <http://stackoverflow.com/questions/14680711/how-to-do-a-github-pull-request>
-- <https://help.github.com/articles/creating-a-pull-request/>
-
-## Developing Safety Gymnasium 2
-
-To develop Safety Gymnasium 2 on your machine, here are some tips:
-
-1. Clone a copy of Safety Gymnasium 2 from GitHub:
+## Development setup
 
 ```bash
-git clone https://github.com/LIRA-illinois/safety-gymnasium2
+git clone https://github.com/LIRA-illinois/safety-gymnasium2.git
 cd safety-gymnasium2
-```
-
-2. Install Safety Gymnasium 2 in develop mode, with support for building the docs and running tests:
-
-```bash
 uv sync --locked --group test --group lint --group docs --extra racing --extra building
 ```
 
-## Codestyle
+On headless Ubuntu, install `libosmesa6` and set `MUJOCO_GL=osmesa` and `PYOPENGL_PLATFORM=osmesa` before running rendering tests.
 
-We are using [black codestyle](https://github.com/psf/black) (max line length of 127 characters) together with [isort](https://github.com/timothycrosley/isort) to sort the imports.
+## Tests and checks
 
-**Please run `make format`** to reformat your code. You can check the codestyle using `make py-format` and `make lint`.
-
-Please document each function/method and [type](https://google.github.io/pytype/user_guide.html) them using the following template:
-
-```python
-def my_function(arg1: type1, arg2: type2) -> returntype:
-    """
-    Short description of the function.
-
-    :param arg1: describe what is arg1
-    :param arg2: describe what is arg2
-    :return: describe what is returned
-    """
-    ...
-    return my_variable
-```
-
-## Pull Request (PR)
-
-Before proposing a PR, please open an issue, where the feature will be discussed. This prevent from duplicated PR to be proposed and also ease the code review process.
-
-Each PR need to be reviewed and accepted by at least one of the maintainers (Borong Zhang, [Jiayi Zhou](https://github.com/Gaiejj), [JTao Dai](https://github.com/calico-1226), [Weidong Huang](https://github.com/hdadong), [Xuehai Pan](https://github.com/XuehaiPan) and [Jiamg Ji](https://github.com/zmsn-2077)).
-A PR must pass the Continuous Integration tests to be merged with the master branch.
-
-## Tests
-
-All new features must add tests in the `tests/` folder ensuring that everything works fine.
-We use [pytest](https://pytest.org/).
-Also, when a bug fix is proposed, tests should be added to avoid regression.
-
-To run tests with `pytest`:
+Tests use `absl.testing`. Add regression coverage for behavior changes and close environments with `addCleanup` or a context manager.
 
 ```bash
-make pytest
-```
-
-Type checking with `ty`:
-
-```bash
-make type
-```
-
-Codestyle check with `black`, `isort` and `flake8`:
-
-```bash
-make py-format
-make lint
-```
-
-To run type checking and lint checks together:
-
-```bash
+make test
+make test TESTOPTS='-k episode_limit'
 make commit-checks
-```
-
-Build the documentation:
-
-```bash
 make docs-build
 ```
 
-Check documentation spelling (you need to install `sphinxcontrib.spelling` package for that):
+`make test` writes the XML coverage report to `tests/coverage.xml`. `make commit-checks` runs Ruff lint and format checks and the scoped `ty` check used by CI. Import ordering and formatting checks cover the compatibility layer, tests, examples, docs, and asset packages. Use `make format` on that scope or pass `FORMAT_PATHS` to select other files. `make type` runs the full-package type check.
 
-```bash
-make spelling
-```
+Optional Git hooks run the same Python checks and inspect repository files. Install them with `uv run --locked --group lint pre-commit install` and run them on the whole checkout with `make pre-commit`.
 
-## Changelog and Documentation
-
-Please do not forget to update the changelog (`docs/misc/changelog.rst`) and add documentation if needed.
-You should add your username next to each changelog entry that you added. If this is your first contribution, please add your username at the bottom too.
-A README is present in the `docs/` folder for instructions on how to build the documentation.
+Document user-visible changes in `CHANGELOG.md`. Use the historical benchmark plots and upstream links as provenance when describing research results.
 
 Credits: this contributing guide is based on the [PyTorch](https://github.com/pytorch/pytorch/) one.

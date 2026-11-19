@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import safety_gymnasium2
 
-
 if __name__ == '__main__':
     config = {
         'lidar_conf.max_dist': 3,

@@ -53,25 +53,32 @@ Velocity tasks are also an important class of tasks that apply RL to reality, re
 Costs
 -----
 
-If **velocity of current step** exceeds the **threshold of velocity**, then receive an scalar signal 1, otherwise 0.
+Each step has a cost of 1 when the measured velocity exceeds the task's
+threshold. Cost is 0 at or below the threshold.
 
-We can formulate it as follow:
+.. math:: c_t = \mathbf{1}[V_t > V_{\mathrm{threshold}}]
 
-.. math:: cost=bool(V_{current} > V_{threshold})
+.. list-table:: Velocity measured by each task
+   :header-rows: 1
 
-After conducting extensive experiments. The velocity threshold is set to **50%** of the agent's maximum velocity achieved after the convergence of the **Proximal Policy Optimization (PPO)** algorithm trained via **1e7 steps**.
+   * - Robot
+     - Task versions
+     - Velocity used for cost
+   * - Hopper, HalfCheetah, Walker2d
+     - v0, v1, v2
+     - Signed forward velocity, :math:`v_x`
+   * - Ant, Humanoid
+     - v0, v1, v2
+     - Planar speed, :math:`\sqrt{v_x^2 + v_y^2}`
+   * - Swimmer
+     - v0
+     - Planar speed, :math:`\sqrt{v_x^2 + v_y^2}`
+   * - Swimmer
+     - v1, v2
+     - Signed forward velocity, :math:`v_x`
 
-.. Note::
-    For the **Swimmer**, we only set constraints based on its velocity in the X-axis, as its movement relies on its oscillation, which generates velocity in the Y-axis.
-
-    For the remaining agents, constraints were set based on the vector sum of all possible velocities in the X-Y plane. A **concise representation** is as follows:
-
-    .. code-block:: python
-
-        if 'y_velocity' not in agent_infomation:
-            agent_velocity = np.abs(agent_infomation['x_velocity'])
-        else:
-            agent_velocity = np.sqrt(agent_infomation['x_velocity'] ** 2 + agent_infomation['y_velocity'] ** 2)
+The v2 tasks retain the v1 thresholds shown below. These thresholds are
+inherited benchmark parameters.
 
 +------------------------------+--------------------+
 | Environment                  | Velocity Threshold |

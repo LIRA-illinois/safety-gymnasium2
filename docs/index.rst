@@ -1,30 +1,20 @@
 
-Safety-Gymnasium
-================
+Safety Gymnasium 2
+==================
 
-Safety-Gymnasium is a standard API for safe reinforcement learning, and a diverse collection of reference environments.
+Safety Gymnasium 2 provides MuJoCo environments for safe reinforcement learning.
 
 .. image:: _static/images/car_demo.gif
    :alt: racecar
    :width: 500
    :align: center
 
-.. code-block:: python
+The headless quickstart demonstrates the single and vector APIs. Vector lanes
+reset on the step when their episodes finish. Use the terminal observation
+mask to recover the pre-reset observations for replay.
 
-   import safety_gymnasium2
-
-   env = safety_gymnasium2.vector.make("SafetyCarGoal1-v0", render_mode="human", num_envs=8)
-   observation, info = env.reset(seed=0)
-
-   for _ in range(1000):
-      action = env.action_space.sample()  # this is where you would insert your policy
-      observation, reward, cost, terminated, truncated, info = env.step(action)
-
-      if terminated or truncated:
-         observation, info = env.reset()
-
-   env.close()
-
+.. literalinclude:: ../examples/quickstart.py
+   :language: python
 
 .. toctree::
    :hidden:
@@ -67,6 +57,6 @@ Safety-Gymnasium is a standard API for safe reinforcement learning, and a divers
    :hidden:
    :caption: Development
 
-`Github <https://github.com/PKU-Alignment/safety-gymnasium>`__
+`GitHub <https://github.com/LIRA-illinois/safety-gymnasium2>`__
 
-`Contribute to the Docs <https://github.com/PKU-Alignment/safety-gymnasium/blob/main/CONTRIBUTING.md>`__
+`Contribute to the Docs <https://github.com/LIRA-illinois/safety-gymnasium2/blob/main/CONTRIBUTING.md>`__

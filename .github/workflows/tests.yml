@@ -13,6 +13,10 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+env:
+  MUJOCO_GL: osmesa
+  PYOPENGL_PLATFORM: osmesa
+
 jobs:
   test-ubuntu:
     name: Test on Python ${{ matrix.python-version }}
@@ -21,10 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.13"]
-    env:
-      MUJOCO_GL: osmesa
-      PYOPENGL_PLATFORM: osmesa
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
@@ -34,5 +35,31 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --yes libosmesa6
-      - name: Run tests
-        run: make pytest
+      - name: Run Abseil tests and documentation examples
+        run: |
+          make test
+          uv run --locked python examples/quickstart.py
+
+  minimum-dependencies:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          python-version: "3.11"
+      - name: Install headless rendering libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libosmesa6
+      - name: Smoke-test minimum direct dependencies
+        run: |
+          uv pip compile --python 3.11 --resolution lowest-direct pyproject.toml \
+            --output-file "$RUNNER_TEMP/minimum.txt"
+          uv build --package safety-gymnasium2 --no-sources --out-dir "$RUNNER_TEMP/dist"
+          smoke="$GITHUB_WORKSPACE/tests/smoke_install.py"
+          cd "$RUNNER_TEMP"
+          uv venv --seed minimum
+          minimum/bin/python -m pip install -c minimum.txt dist/safety_gymnasium2-*.whl
+          minimum/bin/python -m pip check
+          minimum/bin/python -I "$smoke" core

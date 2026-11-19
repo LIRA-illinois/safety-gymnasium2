@@ -1,15 +1,20 @@
-# Benchmark results in environments
+# Safety Gymnasium benchmark history
 
-We tested our environments on some safe reinforcement learning algorithms using [OmniSafe](https://github.com/PKU-Alignment/omnisafe) as an out-of-the-box RL framework. The results are shown below.
+The figures below are inherited results from the original Safety Gymnasium project, collected with [OmniSafe](https://github.com/PKU-Alignment/omnisafe). The upstream report lists an AMD EPYC 7H12 processor, the OmniSafe default algorithm settings, and seeds 0, 5, 10, 15, and 20. These plots describe the upstream software stack.
 
-## Important notes
-- All the algorithms are tested on the same hardware [AMD EPYC 7H12 64-Core Processor].
-- The algorithms are tested with the same hyperparameters which are defaulted in [OmniSafe](https://github.com/PKU-Alignment/omnisafe/tree/main/omnisafe/configs/on-policy).
-- Each algorithm is tested on at least 5 seeds and the average performance and standard deviation are shown in the figure. And the five seeds are [0, 5, 10, 15, 20]. We believe that the results are stable.
-- The `Goal`, `Push`, and `Button` in `v0` series tasks of Safe Navigation are implemented as the original settings of [Safety-Gym](https://openai.com/research/safety-gym), We just made them more intelligible and accessible. The same situation happens on agents which appear in Safety-Gym. Further, we will fix some defects of design in the original Safety-Gym and release the new version of tasks as `v1` to facilitate research in the SafeRL community.
-- The `Racecar` and `Ant` agents are newly added to `Safety-Gymnasium`, We are currently fine-tuning the physical parameters of these agents to make them more realistic and more compatible with various tasks. If you find any issues when using them, please feel free to open an issue, and we are welcome to PRs.
+## Reproducing new runs
 
-## Benchmark results
+Record the following next to the results of each Safety Gymnasium 2 run.
+
+- The fork commit (`git rev-parse HEAD`) and any local changes (`git status --short`).
+- The environment ID, constructor configuration, episode horizon, wrapper order and settings, and environment and learner seeds.
+- The Python version, platform, renderer and hardware if relevant, `uv.lock`, the installed package versions (`uv pip freeze`), and the versions of any installed asset packs.
+- The learner and configuration used, including its repository commit if it is developed separately. The [built-in OmniSafe adapter](https://github.com/PKU-Alignment/omnisafe/blob/main/omnisafe/envs/safety_gymnasium_env.py) imports the original `safety_gymnasium` package. Verify the trainer loads `safety_gymnasium2` for fork experiments.
+
+Run the same-stack fixed-action replay check with `uv run --locked --group test python -m unittest discover -s tests -p 'test_research_contracts.py' -k replay`. It checks repeatability within the installed simulation stack. Record dependency changes when comparing results across stacks.
+
+## Upstream benchmark figures
+
 ### SafetyAntVelocity-v1(1e6)
 <center>
     <img style="border-radius: 0.3125em;

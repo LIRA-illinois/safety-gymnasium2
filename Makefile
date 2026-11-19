@@ -1,11 +1,14 @@
 UV ?= uv
 PROJECT_PATH = safety_gymnasium2
-SOURCE_FOLDERS = $(PROJECT_PATH) examples tests docs
+SOURCE_FOLDERS = $(PROJECT_PATH) examples tests docs asset_packs
+COMPATIBILITY_PATHS = $(PROJECT_PATH)/utils/registration.py $(PROJECT_PATH)/assets/paths.py \
+                      $(PROJECT_PATH)/vector $(PROJECT_PATH)/wrappers
+FORMAT_PATHS = $(COMPATIBILITY_PATHS) examples tests docs asset_packs
 TEST_EXTRAS = --extra racing --extra building
-PYTESTOPTS ?=
+TESTOPTS ?=
 
-.PHONY: default install install-editable install-e uninstall build pytest test lint ruff ruff-fix \
-        pylint flake8 py-format pre-commit mypy type format addlicense docs docs-build \
+.PHONY: default install install-editable install-e uninstall build test lint ruff ruff-fix \
+        py-format pre-commit type type-compat format addlicense docs docs-build \
         docstyle spelling clean-docs clean-py clean-build clean commit-checks
 
 default: install
@@ -24,12 +27,11 @@ uninstall:
 build:
 	$(UV) build --all-packages --no-sources
 
-pytest:
-	$(UV) run --locked --group test $(TEST_EXTRAS) pytest tests $(PYTESTOPTS) \
-		--cov=$(PROJECT_PATH) --cov-config=tests/.coveragerc \
-		--cov-report=term-missing --cov-report=xml:tests/coverage.xml
-
-test: pytest
+test:
+	$(UV) run --locked --group test $(TEST_EXTRAS) coverage run -m unittest discover \
+		-s tests -p 'test_*.py' $(TESTOPTS)
+	$(UV) run --locked --group test coverage report
+	$(UV) run --locked --group test coverage xml
 
 ruff:
 	$(UV) run --locked --group lint ruff check $(SOURCE_FOLDERS)
@@ -37,32 +39,26 @@ ruff:
 ruff-fix:
 	$(UV) run --locked --group lint ruff check --fix $(SOURCE_FOLDERS)
 
-pylint:
-	$(UV) run --locked --group lint pylint $(PROJECT_PATH)
-
-flake8:
-	$(UV) run --locked --group lint flake8 --count --show-source --statistics $(SOURCE_FOLDERS)
-
 py-format:
-	$(UV) run --locked --group lint isort --check $(SOURCE_FOLDERS)
-	$(UV) run --locked --group lint black --check $(SOURCE_FOLDERS)
+	$(UV) run --locked --group lint ruff check --select I $(FORMAT_PATHS)
+	$(UV) run --locked --group lint ruff format --check $(FORMAT_PATHS)
 
 format:
-	$(UV) run --locked --group lint isort $(SOURCE_FOLDERS)
-	$(UV) run --locked --group lint black $(SOURCE_FOLDERS)
+	$(UV) run --locked --group lint ruff check --select I --fix $(FORMAT_PATHS)
+	$(UV) run --locked --group lint ruff format $(FORMAT_PATHS)
 
 pre-commit:
 	$(UV) run --locked --group lint pre-commit run --all-files
 
-mypy:
-	$(UV) run --locked --group lint mypy $(PROJECT_PATH)
-
 type:
 	$(UV) run --locked --group lint ty check $(PROJECT_PATH)
 
-lint: ruff flake8 py-format pylint
+type-compat:
+	$(UV) run --locked --group lint ty check $(COMPATIBILITY_PATHS)
 
-commit-checks: lint type
+lint: ruff py-format
+
+commit-checks: lint type-compat
 
 addlicense:
 	go run github.com/google/addlicense@latest -check -l apache $(SOURCE_FOLDERS)
@@ -74,7 +70,7 @@ docs-build:
 	$(UV) run --locked --group docs sphinx-build -W -b html docs docs/_build/html
 
 docstyle:
-	$(UV) run --locked --group lint doc8 docs
+	$(UV) run --locked --group docs doc8 docs
 
 spelling:
 	$(UV) run --locked --group docs sphinx-build -t spelling -b spelling docs docs/_build/spelling

@@ -1,17 +1,10 @@
 """Configuration for the Sphinx documentation build."""
 
 from importlib.metadata import version as package_version
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from sphinx.util.tags import Tags
-
-    tags: Tags
-
 
 project = 'Safety Gymnasium 2'
 copyright = '2023, PKU-Alignment'
-author = 'PKU-Alignment'
+author = 'Safety Gymnasium 2 Contributors'
 release = package_version('safety-gymnasium2')
 version = release
 
@@ -28,7 +21,7 @@ extensions = [
     'sphinx_design',
 ]
 # Sphinx injects the active build tags into this configuration.
-if tags.has('spelling'):  # noqa: F821
+if globals()['tags'].has('spelling'):
     extensions.append('sphinxcontrib.spelling')
 
 templates_path = ['_templates']
@@ -44,16 +37,15 @@ autoclass_content = 'both'
 autodoc_preserve_defaults = True
 
 html_theme = 'furo'
-html_title = 'Safety-Gymnasium Documentation'
-html_baseurl = 'https://www.safety-gymnasium.com'
+html_title = 'Safety Gymnasium 2 Documentation'
 html_copy_source = False
 html_context: dict[str, str | bool] = {
     'conf_py_path': '/docs/',
     'display_github': False,
-    'github_user': 'PKU-Alignment',
-    'github_repo': 'safety-gymnasium',
+    'github_user': 'LIRA-illinois',
+    'github_repo': 'safety-gymnasium2',
     'github_version': 'main',
-    'slug': 'safety-gymnasium',
+    'slug': 'safety-gymnasium2',
 }
 
 html_static_path = ['_static']

@@ -2,21 +2,16 @@
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 # ==============================================================================
 """Normalize observations, rewards, and costs for native safety transitions."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Self, cast
+from typing import TYPE_CHECKING, Any, Generic, Self, TypeVar, cast
 
 import gymnasium as gym
 import numpy as np
@@ -28,10 +23,13 @@ if TYPE_CHECKING:
     from safety_gymnasium2.utils._types import NativeStep
 
 
-class _ObservationNormalization:
+_WrappedEnv = TypeVar('_WrappedEnv', gym.Env, VectorEnv)
+
+
+class _ObservationNormalization(Generic[_WrappedEnv]):
     """Running observation statistics shared by both wrapper interfaces."""
 
-    env: gym.Env | VectorEnv
+    env: _WrappedEnv
 
     def _init_normalization(
         self,
@@ -42,7 +40,10 @@ class _ObservationNormalization:
         if not isinstance(single_space, gym.spaces.Box):
             raise TypeError('SafeNormalizeObservation requires a Box observation space.')
         normalized_space = gym.spaces.Box(
-            -np.inf, np.inf, shape=single_space.shape, dtype=np.float64,
+            -np.inf,
+            np.inf,
+            shape=single_space.shape,
+            dtype=np.float64,
         )
         if num_envs is None:
             self.observation_space = normalized_space
@@ -82,20 +83,24 @@ class _ObservationNormalization:
 
     def _step(self, action: Any) -> NativeStep:
         result = cast('NativeStep', self.env.step(action))
-        observation, reward, cost, terminated, truncated, info = result
+        observation, reward, cost, terminated, truncated, info_by_key = result
         observation = self._normalize_observation(observation)
-        if 'final_observation' in info:
-            final = info['final_observation']
+        if 'final_observation' in info_by_key:
+            final = info_by_key['final_observation']
             normalized = (
-                self._normalize_final(final, info['_final_observation'])
+                self._normalize_final(final, info_by_key['_final_observation'])
                 if self.is_vector_env
                 else self._normalize_observation(final)
             )
-            info = {**info, 'original_final_observation': final, 'final_observation': normalized}
-        return observation, reward, cost, terminated, truncated, info
+            info_by_key = {
+                **info_by_key,
+                'original_final_observation': final,
+                'final_observation': normalized,
+            }
+        return observation, reward, cost, terminated, truncated, info_by_key
 
 
-class _VectorNormalizeObservation(_ObservationNormalization, VectorWrapper):
+class _VectorNormalizeObservation(_ObservationNormalization[VectorEnv], VectorWrapper):
     def __init__(self, env: VectorEnv, epsilon: float) -> None:
         VectorWrapper.__init__(self, env)
         self._init_normalization(env.single_observation_space, epsilon, env.num_envs)
@@ -106,11 +111,15 @@ class _VectorNormalizeObservation(_ObservationNormalization, VectorWrapper):
 
 
 class SafeNormalizeObservation(
-    _ObservationNormalization, gym.Wrapper, gym.utils.RecordConstructorArgs,
+    _ObservationNormalization[gym.Env],
+    gym.Wrapper,
+    gym.utils.RecordConstructorArgs,
 ):
     """Normalize observations in a native single or vector environment."""
 
-    def __new__(cls, env: gym.Env | VectorEnv, epsilon: float = 1e-8) -> Self | _VectorNormalizeObservation:
+    def __new__(
+        cls, env: gym.Env | VectorEnv, epsilon: float = 1e-8
+    ) -> Self | _VectorNormalizeObservation:
         if isinstance(env, VectorEnv):
             return _VectorNormalizeObservation(env, epsilon)
         return super().__new__(cls)
@@ -125,10 +134,10 @@ class SafeNormalizeObservation(
         return self._step(action)
 
 
-class _ReturnNormalization:
+class _ReturnNormalization(Generic[_WrappedEnv]):
     """Running discounted statistics for a reward or a cost."""
 
-    env: gym.Env | VectorEnv
+    env: _WrappedEnv
     _normalize_reward: bool
 
     def _init_normalization(
@@ -150,12 +159,26 @@ class _ReturnNormalization:
             self.return_rms.update(self.returns)
         return values / np.sqrt(self.return_rms.var + self.epsilon)
 
+    def reset(self, **kwargs: Any) -> tuple[Any, dict[str, Any]]:
+        """Clear discounted returns for reset lanes while retaining running statistics."""
+        options = kwargs.get('options')
+        mask = None
+        if self.is_vector_env and options is not None:
+            # Upstream vector reset consumes the mask from its options dictionary.
+            mask = options.get('reset_mask')
+            kwargs = {**kwargs, 'options': options.copy()}
+        observation, info = self.env.reset(**kwargs)
+        self.returns[mask if mask is not None else slice(None)] = 0.0
+        return observation, info
+
     def _step(self, action: Any) -> NativeStep:
         result = cast('NativeStep', self.env.step(action))
         obs, reward, cost, terminated, truncated, info = result
         values = np.asarray(reward if self._normalize_reward else cost)
-        self.returns = self.returns * self.gamma * (1 - np.asarray(terminated)) + values
+        self.returns = self.returns * self.gamma + values
         normalized = self.normalize(values)
+        finished = np.atleast_1d(np.logical_or(terminated, truncated))
+        self.returns[finished] = 0.0
         if not self.is_vector_env:
             normalized = float(normalized)
         if self._normalize_reward:
@@ -165,7 +188,7 @@ class _ReturnNormalization:
         return obs, reward, cost, terminated, truncated, info
 
 
-class _VectorNormalizeReturn(_ReturnNormalization, VectorWrapper):
+class _VectorNormalizeReturn(_ReturnNormalization[VectorEnv], VectorWrapper):
     def __init__(
         self,
         env: VectorEnv,
@@ -182,9 +205,16 @@ class _VectorNormalizeReturn(_ReturnNormalization, VectorWrapper):
         return self._step(actions)
 
 
-class _NormalizeReturn(_ReturnNormalization, gym.Wrapper, gym.utils.RecordConstructorArgs):
+class _NormalizeReturn(
+    _ReturnNormalization[gym.Env],
+    gym.Wrapper,
+    gym.utils.RecordConstructorArgs,
+):
     def __new__(
-        cls, env: gym.Env | VectorEnv, gamma: float = 0.99, epsilon: float = 1e-8,
+        cls,
+        env: gym.Env | VectorEnv,
+        gamma: float = 0.99,
+        epsilon: float = 1e-8,
     ) -> Self | _VectorNormalizeReturn:
         if isinstance(env, VectorEnv):
             return _VectorNormalizeReturn(env, gamma, epsilon, cls._normalize_reward)

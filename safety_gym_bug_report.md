@@ -10,8 +10,8 @@ The original Natural Lidar in [Safety-Gym](https://github.com/openai/safety-gym)
       <td>
         <figure class="align-default">
           <img
-              alt="https://github.com/zmsn-2077/safety-gymnasium-zmsn/raw/HEAD/images/bug_report/detect_high_lying_0.jpg"
-              src="https://github.com/zmsn-2077/safety-gymnasium-zmsn/raw/HEAD/images/bug_report/detect_high_lying_0.jpg" style="width: 230px;">
+              alt="Lidar detecting an elevated object from the first position"
+              src="images/bug_report/detect_high_lying_0.jpg" style="width: 230px;">
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">can detect high_lying object</span></a></strong>
@@ -20,8 +20,8 @@ The original Natural Lidar in [Safety-Gym](https://github.com/openai/safety-gym)
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/zmsn-2077/safety-gymnasium-zmsn/raw/HEAD/images/bug_report/detect_high_lying_1.jpg"
-              src="https://github.com/zmsn-2077/safety-gymnasium-zmsn/raw/HEAD/images/bug_report/detect_high_lying_1.jpg" style="width: 230px;"></a>
+              alt="Lidar detecting an elevated object from the second position"
+              src="images/bug_report/detect_high_lying_1.jpg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">can detect high_lying object</span></a></strong>
@@ -32,8 +32,8 @@ The original Natural Lidar in [Safety-Gym](https://github.com/openai/safety-gym)
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/zmsn-2077/safety-gymnasium-zmsn/raw/HEAD/images/bug_report/detect_low_lying_0.jpg"
-              src="https://github.com/zmsn-2077/safety-gymnasium-zmsn/raw/HEAD/images/bug_report/detect_low_lying_0.jpg" style="width: 230px;"></a>
+              alt="Lidar missing a low object from the first position"
+              src="images/bug_report/detect_low_lying_0.jpg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">cannot detect low_lying object</span></a></strong>
@@ -42,8 +42,8 @@ The original Natural Lidar in [Safety-Gym](https://github.com/openai/safety-gym)
       <td>
         <figure class="align-default">
           <a class="reference external image-reference" href="./button#button2"><img
-              alt="https://github.com/zmsn-2077/safety-gymnasium-zmsn/raw/HEAD/images/bug_report/detect_low_lying_1.jpg"
-              src="https://github.com/zmsn-2077/safety-gymnasium-zmsn/raw/HEAD/images/bug_report/detect_low_lying_1.jpg" style="width: 230px;"></a>
+              alt="Lidar missing a low object from the second position"
+              src="images/bug_report/detect_low_lying_1.jpg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">cannot detect low_lying object</span></a></strong>

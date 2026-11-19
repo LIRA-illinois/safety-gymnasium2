@@ -14,16 +14,57 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  package-checks:
+  project-checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
         with:
           python-version: "3.11"
-      - name: Check resolution and build distributions
+      - name: Validate the lock and Python code
         run: |
           uv lock --check
+          make commit-checks
+      - name: Build documentation and validate citation metadata
+        run: |
+          make docs-build
+          uvx cffconvert --validate
+
+  package-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      MUJOCO_GL: osmesa
+      PYOPENGL_PLATFORM: osmesa
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          python-version: "3.11"
+      - name: Install headless rendering libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libosmesa6
+      - name: Build and inspect the distributions
+        run: |
           make build
-      - name: Check Python syntax and undefined names
-        run: uv run --locked --group lint ruff check --select E9,F63,F7,F82 safety_gymnasium2 tests examples
+          uv run --no-project python tests/smoke_install.py archives
+      - name: Smoke-test independent pip installs
+        run: |
+          wheelhouse="$GITHUB_WORKSPACE/dist"
+          smoke="$GITHUB_WORKSPACE/tests/smoke_install.py"
+          core_wheel=$(find "$wheelhouse" -maxdepth 1 -name 'safety_gymnasium2-*.whl')
+          core_source=$(find "$wheelhouse" -maxdepth 1 -name 'safety_gymnasium2-*.tar.gz')
+          cd "$RUNNER_TEMP"
+
+          for mode in core racing building; do
+            uv venv --seed "$mode"
+            case "$mode" in
+              core) artifact="$core_wheel" ;;
+              racing) artifact="$core_wheel[racing]" ;;
+              building) artifact="$core_source[building]" ;;
+            esac
+            "$mode/bin/python" -m pip install --find-links "$wheelhouse" "$artifact"
+            "$mode/bin/python" -m pip check
+            "$mode/bin/python" -I "$smoke" "$mode"
+          done

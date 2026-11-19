@@ -7,43 +7,40 @@
 <div align="center">
 
   <a>![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-brightgreen.svg)</a>
-  <a href="https://safety-gymnasium.readthedocs.io">![Documentation Status](https://img.shields.io/readthedocs/safety-gymnasium?logo=readthedocs)</a>
-  <a href="https://github.com/PKU-Alignment/safety-gymnasium/stargazers">![GitHub Repo Stars](https://img.shields.io/github/stars/PKU-Alignment/safety-gymnasium?color=brightgreen&logo=github)</a>
-  <a href="https://github.com/PKU-Alignment/safety-gymnasium/blob/HEAD/LICENSE">![License](https://img.shields.io/github/license/PKU-Alignment/safety-gymnasium?label=license&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjZmZmZmZmIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMi43NSAyLjc1YS43NS43NSAwIDAwLTEuNSAwVjQuNUg5LjI3NmExLjc1IDEuNzUgMCAwMC0uOTg1LjMwM0w2LjU5NiA1Ljk1N0EuMjUuMjUgMCAwMTYuNDU1IDZIMi4zNTNhLjc1Ljc1IDAgMTAwIDEuNUgzLjkzTC41NjMgMTUuMThhLjc2Mi43NjIgMCAwMC4yMS44OGMuMDguMDY0LjE2MS4xMjUuMzA5LjIyMS4xODYuMTIxLjQ1Mi4yNzguNzkyLjQzMy42OC4zMTEgMS42NjIuNjIgMi44NzYuNjJhNi45MTkgNi45MTkgMCAwMDIuODc2LS42MmMuMzQtLjE1NS42MDYtLjMxMi43OTItLjQzMy4xNS0uMDk3LjIzLS4xNTguMzEtLjIyM2EuNzUuNzUgMCAwMC4yMDktLjg3OEw1LjU2OSA3LjVoLjg4NmMuMzUxIDAgLjY5NC0uMTA2Ljk4NC0uMzAzbDEuNjk2LTEuMTU0QS4yNS4yNSAwIDAxOS4yNzUgNmgxLjk3NXYxNC41SDYuNzYzYS43NS43NSAwIDAwMCAxLjVoMTAuNDc0YS43NS43NSAwIDAwMC0xLjVIMTIuNzVWNmgxLjk3NGMuMDUgMCAuMS4wMTUuMTQuMDQzbDEuNjk3IDEuMTU0Yy4yOS4xOTcuNjMzLjMwMy45ODQuMzAzaC44ODZsLTMuMzY4IDcuNjhhLjc1Ljc1IDAgMDAuMjMuODk2Yy4wMTIuMDA5IDAgMCAuMDAyIDBhMy4xNTQgMy4xNTQgMCAwMC4zMS4yMDZjLjE4NS4xMTIuNDUuMjU2Ljc5LjRhNy4zNDMgNy4zNDMgMCAwMDIuODU1LjU2OCA3LjM0MyA3LjM0MyAwIDAwMi44NTYtLjU2OWMuMzM4LS4xNDMuNjA0LS4yODcuNzktLjM5OWEzLjUgMy41IDAgMDAuMzEtLjIwNi43NS43NSAwIDAwLjIzLS44OTZMMjAuMDcgNy41aDEuNTc4YS43NS43NSAwIDAwMC0xLjVoLTQuMTAyYS4yNS4yNSAwIDAxLS4xNC0uMDQzbC0xLjY5Ny0xLjE1NGExLjc1IDEuNzUgMCAwMC0uOTg0LS4zMDNIMTIuNzVWMi43NXpNMi4xOTMgMTUuMTk4YTUuNDE4IDUuNDE4IDAgMDAyLjU1Ny42MzUgNS40MTggNS40MTggMCAwMDIuNTU3LS42MzVMNC43NSA5LjM2OGwtMi41NTcgNS44M3ptMTQuNTEtLjAyNGMuMDgyLjA0LjE3NC4wODMuMjc1LjEyNi41My4yMjMgMS4zMDUuNDUgMi4yNzIuNDVhNS44NDYgNS44NDYgMCAwMDIuNTQ3LS41NzZMMTkuMjUgOS4zNjdsLTIuNTQ3IDUuODA3eiI+PC9wYXRoPjwvc3ZnPgo=)</a>
+  <a href="https://github.com/LIRA-illinois/safety-gymnasium2/stargazers">![GitHub Repo Stars](https://img.shields.io/github/stars/LIRA-illinois/safety-gymnasium2?color=brightgreen&logo=github)</a>
+  <a href="LICENSE">![License](https://img.shields.io/github/license/LIRA-illinois/safety-gymnasium2?label=license&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjZmZmZmZmIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMi43NSAyLjc1YS43NS43NSAwIDAwLTEuNSAwVjQuNUg5LjI3NmExLjc1IDEuNzUgMCAwMC0uOTg1LjMwM0w2LjU5NiA1Ljk1N0EuMjUuMjUgMCAwMTYuNDU1IDZIMi4zNTNhLjc1Ljc1IDAgMTAwIDEuNUgzLjkzTC41NjMgMTUuMThhLjc2Mi43NjIgMCAwMC4yMS44OGMuMDguMDY0LjE2MS4xMjUuMzA5LjIyMS4xODYuMTIxLjQ1Mi4yNzguNzkyLjQzMy42OC4zMTEgMS42NjIuNjIgMi44NzYuNjJhNi45MTkgNi45MTkgMCAwMDIuODc2LS42MmMuMzQtLjE1NS42MDYtLjMxMi43OTItLjQzMy4xNS0uMDk3LjIzLS4xNTguMzEtLjIyM2EuNzUuNzUgMCAwMC4yMDktLjg3OEw1LjU2OSA3LjVoLjg4NmMuMzUxIDAgLjY5NC0uMTA2Ljk4NC0uMzAzbDEuNjk2LTEuMTU0QS4yNS4yNSAwIDAxOS4yNzUgNmgxLjk3NXYxNC41SDYuNzYzYS43NS43NSAwIDAwMCAxLjVoMTAuNDc0YS43NS43NSAwIDAwMC0xLjVIMTIuNzVWNmgxLjk3NGMuMDUgMCAuMS4wMTUuMTQuMDQzbDEuNjk3IDEuMTU0Yy4yOS4xOTcuNjMzLjMwMy45ODQuMzAzaC44ODZsLTMuMzY4IDcuNjhhLjc1Ljc1IDAgMDAuMjMuODk2Yy4wMTIuMDA5IDAgMCAuMDAyIDBhMy4xNTQgMy4xNTQgMCAwMC4zMS4yMDZjLjE4NS4xMTIuNDUuMjU2Ljc5LjRhNy4zNDMgNy4zNDMgMCAwMDIuODU1LjU2OCA3LjM0MyA3LjM0MyAwIDAwMi44NTYtLjU2OWMuMzM4LS4xNDMuNjA0LS4yODcuNzktLjM5OWEzLjUgMy41IDAgMDAuMzEtLjIwNi43NS43NSAwIDAwLjIzLS44OTZMMjAuMDcgNy41aDEuNTc4YS43NS43NSAwIDAwMC0xLjVoLTQuMTAyYS4yNS4yNSAwIDAxLS4xNC0uMDQzbC0xLjY5Ny0xLjE1NGExLjc1IDEuNzUgMCAwMC0uOTg0LS4zMDNIMTIuNzVWMi43NXpNMi4xOTMgMTUuMTk4YTUuNDE4IDUuNDE4IDAgMDAyLjU1Ny42MzUgNS40MTggNS40MTggMCAwMDIuNTU3LS42MzVMNC43NSA5LjM2OGwtMi41NTcgNS44M3ptMTQuNTEtLjAyNGMuMDgyLjA0LjE3NC4wODMuMjc1LjEyNi41My4yMjMgMS4zMDUuNDUgMi4yNzIuNDVhNS44NDYgNS44NDYgMCAwMDIuNTQ3LS41NzZMMTkuMjUgOS4zNjdsLTIuNTQ3IDUuODA3eiI+PC9wYXRoPjwvc3ZnPgo=)</a>
 
 </div>
 
 <p align="center">
-<a href="https://github.com/PKU-Alignment/safety-gymnasium#why-safety-gymnasium">Why Safety-Gymnasium?</a> |
-  <a href="https://www.safety-gymnasium.com">Documentation</a> |
+<a href="#why-safety-gymnasium2">Why Safety-Gymnasium2?</a> |
+  <a href="docs/">Documentation</a> |
   <a href="#installation">Install guide</a> |
-  <a href="https://github.com/PKU-Alignment/safety-gymnasium#customize-your-environments">Customization</a> | <a href="https://sites.google.com/view/safety-gymnasium">Video</a>
+  <a href="#customize-your-environments">Customization</a> | <a href="https://sites.google.com/view/safety-gymnasium">Upstream video</a>
 </p>
 
-Safety Gymnasium 2 is the LIRA research fork of Safety Gymnasium for safe reinforcement learning.
-It aims to deliver a good view of benchmarking SafeRL algorithms and a standardized set of environments.
-We provide a set of standard APIs which are compatible with information on constraints.
-Users can explore new insights via an elegant code framework and well-designed environments.
+Safety Gymnasium 2 is the LIRA research fork of Safety Gymnasium for safe reinforcement learning. Its native API exposes a safety cost alongside the reward, and its Gymnasium API exposes the cost in `info["cost"]`.
 
-## Citing Safety-Gymnasium
+## Citing Safety-Gymnasium2
 
-If you find Safety-Gymnasium useful, please cite it in your publications.
+Cite this repository when using the fork in research and record the Git commit used in your experiments.
 
 ```bibtex
-@inproceedings{ji2023safety,
-  title={Safety Gymnasium: A Unified Safe Reinforcement Learning Benchmark},
-  author={Jiaming Ji and Borong Zhang and Jiayi Zhou and Xuehai Pan and Weidong Huang and Ruiyang Sun and Yiran Geng and Yifan Zhong and Josef Dai and Yaodong Yang},
-  booktitle={Thirty-seventh Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
-  year={2023},
-  url={https://openreview.net/forum?id=WZmlxIuIGR}
+@misc{safetygymnasium2,
+  author = {{Safety Gymnasium 2 Contributors}},
+  title = {Safety Gymnasium 2},
+  howpublished = {GitHub repository},
+  url = {https://github.com/LIRA-illinois/safety-gymnasium2}
 }
 ```
 
+See [CITATION.cff](CITATION.cff) for citation metadata. This fork builds on the [original Safety Gymnasium project](https://github.com/PKU-Alignment/safety-gymnasium) and its [benchmark paper](https://openreview.net/forum?id=WZmlxIuIGR).
+
 --------------------------------------------------------------------------------
 
-## Why Safety-Gymnasium?
+## Why Safety-Gymnasium2?
 
-Here we provide a table for comparison of **Safety-Gymnasium** and existing SafeRL Environments libraries.
+The original [Safety Gymnasium](https://github.com/PKU-Alignment/safety-gymnasium) has seen little recent maintenance and still pins Gymnasium 0.28.1, Gymnasium-Robotics 1.2.2, and MuJoCo 2.3.3. Safety Gymnasium 2 supports Python 3.11+, Gymnasium 1.2+, Gymnasium-Robotics 1.4.2+, and MuJoCo 4.0.1+. It uses ranged dependencies and a `uv` lockfile for reproducible development.
 
 |                                                                                   SafeRL<br/>Envs                                                                                   |            Engine             | Vectorized<br/> Environments | New Gym API<sup>**(3)**</sup> |    Vision Input     |
 | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------: | :--------------------------: | :---------------------------: | :-----------------: |
@@ -51,7 +48,7 @@ Here we provide a table for comparison of **Safety-Gymnasium** and existing Safe
 | [safe-control-gym](https://github.com/utiasDSL/safe-control-gym)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/utiasDSL/safe-control-gym?label=last%20update) |           PyBullet            |              ❌               |               ❌               |          ❌          |
 |                                                                       Velocity-Constraints<sup>**(2)**</sup>                                                                        |              N/A              |              ❌               |               ❌               |          ❌          | ❌ |
 |    [mujoco-circle](https://github.com/ymzhang01/mujoco-circle)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/ymzhang01/mujoco-circle?label=last%20update)     |            PyTorch            |              ❌               |               ❌               |          ❌          | ❌ |
-|                                  Safety-Gymnasium<br/>![GitHub last commit](https://img.shields.io/github/last-commit/PKU-Alignment/safety-gymnasium)                                  |       **MuJoCo 4.0.1+**       |              ✅               |               ✅               |          ✅          |
+|                                  [Safety-Gymnasium2](https://github.com/LIRA-illinois/safety-gymnasium2)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/LIRA-illinois/safety-gymnasium2)                                  |       **MuJoCo 4.0.1+**       |              ✅               |               ✅               |          ✅          |
 
 <sup>(1): Maintenance (expect bug fixes and minor updates); the last commit is 19 Nov 2021. Safety-Gym depends on `mujoco-py` 2.0.2.7, which was updated on Oct 12, 2019.</sup><br/>
 <sup>(2): There is no official library for speed-related environments, and its associated cost constraints are constructed from info. But the task is widely used in the study of SafeRL, and we encapsulate it in Safety-Gymnasium.</sup><br/>
@@ -61,13 +58,7 @@ Here we provide a table for comparison of **Safety-Gymnasium** and existing Safe
 
 ## Environments
 
-We designed a variety of safety-enhanced learning tasks and integrated the contributions from the RL community: `safety-velocity`, `safety-run`, `safety-circle`, `safety-goal`, `safety-button`, etc.
-We introduce a unified safety-enhanced learning benchmark environment library called `Safety-Gymnasium.`
-
-Further, to facilitate the progress of community research, we redesigned [Safety-Gym](https://github.com/openai/safety-gym) and removed the dependency on `mujoco-py`.
-We built it on top of [MuJoCo](https://github.com/deepmind/mujoco) and fixed some bugs, more specific bug reports can refer to [Safety-Gym's BUG Report](https://github.com/PKU-Alignment/safety-gymnasium/blob/main/safety_gym_bug_report.md).
-
-Here is a list of all the environments we support for now:
+The fork carries forward the original project's safe reinforcement learning tasks, including velocity, navigation, and vision-based benchmarks. The original Safety Gymnasium ported tasks from [Safety-Gym](https://github.com/openai/safety-gym) to the native [MuJoCo](https://github.com/google-deepmind/mujoco) bindings and documented the resulting [Safety-Gym fixes](safety_gym_bug_report.md).
 
 <table border="1">
   <thead>
@@ -192,9 +183,9 @@ Here are some screenshots of the **Safe Navigation** tasks.
     <tr class="row-odd">
       <td>
         <figure class="align-default">
-          <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/point_front.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/point_front.jpeg"
+          <a class="reference external image-reference" href="docs/components_of_environments/agents/point.rst"><img
+              alt="Point agent"
+              src="images/point_front.jpeg"
               style="width: 130px;"></a>
         </figure>
         <p class="centered">
@@ -203,9 +194,9 @@ Here are some screenshots of the **Safe Navigation** tasks.
       </td>
       <td>
         <figure class="align-default">
-          <a class="reference external image-reference" href="agents/car.html"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/car_front.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/car_front.jpeg"
+          <a class="reference external image-reference" href="docs/components_of_environments/agents/car.rst"><img
+              alt="Car agent"
+              src="images/car_front.jpeg"
               style="width: 130px;"></a>
         </figure>
         <p class="centered">
@@ -214,9 +205,9 @@ Here are some screenshots of the **Safe Navigation** tasks.
       </td>
       <td>
         <figure class="align-default">
-          <a class="reference external image-reference" href="agents/racecar.html"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/racecar_front.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/racecar_front.jpeg"
+          <a class="reference external image-reference" href="docs/components_of_environments/agents/racecar.rst"><img
+              alt="Racecar agent"
+              src="images/racecar_front.jpeg"
               style="width: 130px;"></a>
         </figure>
         <p class="centered">
@@ -225,9 +216,9 @@ Here are some screenshots of the **Safe Navigation** tasks.
       </td>
       <td>
         <figure class="align-default">
-          <a class="reference external image-reference" href="agents/doggo.html"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/doggo_front.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/doggo_front.jpeg"
+          <a class="reference external image-reference" href="docs/components_of_environments/agents/doggo.rst"><img
+              alt="Doggo agent"
+              src="images/doggo_front.jpeg"
               style="width: 130px;"></a>
         </figure>
         <p class="centered">
@@ -236,9 +227,9 @@ Here are some screenshots of the **Safe Navigation** tasks.
       </td>
       <td>
         <figure class="align-default">
-          <a class="reference external image-reference" href="agents/ant.html"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/ant_front.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/ant_front.jpeg"
+          <a class="reference external image-reference" href="docs/components_of_environments/agents/ant.rst"><img
+              alt="Ant agent"
+              src="images/ant_front.jpeg"
               style="width: 130px;"></a>
         </figure>
         <p class="centered">
@@ -257,8 +248,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/goal0.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/goal0.jpeg" style="width: 230px;"></a>
+              alt="Goal 0 environment"
+              src="images/goal0.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Goal0</span></a></strong>
@@ -267,8 +258,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/goal1.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/goal1.jpeg" style="width: 230px;"></a>
+              alt="Goal 1 environment"
+              src="images/goal1.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Goal1</span></a></strong>
@@ -277,8 +268,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/goal2.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/goal2.jpeg" style="width: 230px;"></a>
+              alt="Goal 2 environment"
+              src="images/goal2.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Goal2</span></a></strong>
@@ -289,8 +280,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/button0.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/button0.jpeg" style="width: 230px;"></a>
+              alt="Button 0 environment"
+              src="images/button0.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Button0</span></a></strong>
@@ -299,8 +290,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference" href="./button#button1"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/button1.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/button1.jpeg" style="width: 230px;"></a>
+              alt="Button 1 environment"
+              src="images/button1.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Button1</span></a></strong>
@@ -309,8 +300,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference" href="./button#button2"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/button2.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/button2.jpeg" style="width: 230px;"></a>
+              alt="Button 2 environment"
+              src="images/button2.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Button2</span></a></strong>
@@ -321,8 +312,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/push0.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/push0.jpeg" style="width: 230px;"></a>
+              alt="Push 0 environment"
+              src="images/push0.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Push0</span></a></strong>
@@ -331,8 +322,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/push1.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/push1.jpeg" style="width: 230px;"></a>
+              alt="Push 1 environment"
+              src="images/push1.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Push1</span></a></strong>
@@ -341,8 +332,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/push2.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/push2.jpeg" style="width: 230px;"></a>
+              alt="Push 2 environment"
+              src="images/push2.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Push2</span></a></strong>
@@ -353,8 +344,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/circle0.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/circle0.jpeg" style="width: 230px;"></a>
+              alt="Circle 0 environment"
+              src="images/circle0.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Circle0</span></a></strong>
@@ -363,8 +354,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/circle1.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/circle1.jpeg" style="width: 230px;"></a>
+              alt="Circle 1 environment"
+              src="images/circle1.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Circle1</span></a></strong>
@@ -373,8 +364,8 @@ Here are some screenshots of the **Safe Navigation** tasks.
       <td>
         <figure class="align-default">
           <a class="reference external image-reference" href="./circle#circle2"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/circle2.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/images/circle2.jpeg" style="width: 230px;"></a>
+              alt="Circle 2 environment"
+              src="images/circle2.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Circle2</span></a></strong>
@@ -386,11 +377,7 @@ Here are some screenshots of the **Safe Navigation** tasks.
 
 ### Vision-based Safe RL
 
-Vision-based SafeRL lacks realistic scenarios.
-Although the original `Safety-Gym` could minimally support visual input, the scenarios were too similar.
-To facilitate the validation of visual-based SafeRL algorithms, we have developed a set of realistic vision-based SafeRL tasks, which are currently being validated on the baseline.
-
-For the appetizer, the images are as follows:
+The vision-based benchmarks provide pixel observations for racing tasks on several tracks.
 
 <table class="docutils align-default">
   <tbody>
@@ -398,8 +385,8 @@ For the appetizer, the images are as follows:
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/race0.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/race0.jpeg" style="width: 230px;"></a>
+              alt="Race 0 environment"
+              src="docs/_static/images/race0.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Race0</span></a></strong>
@@ -408,8 +395,8 @@ For the appetizer, the images are as follows:
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/race1.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/race1.jpeg" style="width: 230px;"></a>
+              alt="Race 1 environment"
+              src="docs/_static/images/race1.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Race1</span></a></strong>
@@ -418,8 +405,8 @@ For the appetizer, the images are as follows:
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/race2.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/race2.jpeg" style="width: 230px;"></a>
+              alt="Race 2 environment"
+              src="docs/_static/images/race2.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">Race2</span></a></strong>
@@ -430,8 +417,8 @@ For the appetizer, the images are as follows:
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/formula_one0.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/formula_one0.jpeg" style="width: 230px;"></a>
+              alt="Formula One 0 environment"
+              src="docs/_static/images/formula_one0.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">FormulaOne0</span></a></strong>
@@ -440,8 +427,8 @@ For the appetizer, the images are as follows:
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/formula_one1.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/formula_one1.jpeg" style="width: 230px;"></a>
+              alt="Formula One 1 environment"
+              src="docs/_static/images/formula_one1.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">FormulaOne1</span></a></strong>
@@ -450,8 +437,8 @@ For the appetizer, the images are as follows:
       <td>
         <figure class="align-default">
           <a class="reference external image-reference"><img
-              alt="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/formula_one2.jpeg"
-              src="https://github.com/PKU-Alignment/safety-gymnasium/raw/HEAD/docs/_static/images/formula_one2.jpeg" style="width: 230px;"></a>
+              alt="Formula One 2 environment"
+              src="docs/_static/images/formula_one2.jpeg" style="width: 230px;"></a>
         </figure>
         <p class="centered">
           <strong><a class="reference internal"><span class="std std-ref">FormulaOne2</span></a></strong>
@@ -528,7 +515,7 @@ def make_safe_env(env_id):
     )
 ```
 
-Single-agent tasks also have standard Gymnasium IDs under `SafetyGymnasium2/`. Their five-value `step()` puts the safety cost in `info["cost"]`.
+Single-agent tasks also have standard Gymnasium IDs under `SafetyGymnasium2/`. Their five-value `step()` puts the safety cost in `info["cost"]`, including on `env.unwrapped`. Use `gymnasium.make(..., max_episode_steps=...)` to set the alias horizon and `env.unwrapped.native_env` to access the underlying safety environment.
 
 ```python
 import gymnasium
@@ -561,7 +548,7 @@ On headless Ubuntu, install `libosmesa6` and set `MUJOCO_GL=osmesa` before start
 
 ### Benchmark versions
 
-`Safety{Robot}Velocity-v0` and `-v1` use Gymnasium's v4 locomotion implementations. `-v2` uses upstream v5 observations, rewards, and termination with Safety Velocity v1 costs and horizons. Ant observations change from 27 to 105 values by default, and Humanoid observations change from 376 to 348. The Robotics upgrade also changes some multi-agent observation shapes. For example, Ant with `2x4` changes from 21 to 63 values per agent. Record the task ID, fork revision, resolved dependencies, and seed with each experiment.
+`Safety{Robot}Velocity-v0` and `-v1` use Gymnasium's v4 locomotion implementations. `-v2` uses upstream v5 observations, rewards, and termination with Safety Velocity v1 costs and horizons. Ant observations change from 27 to 105 values by default, and Humanoid observations change from 376 to 348. The Robotics upgrade also changes some multi-agent observation shapes. For example, Ant with `2x4` changes from 21 to 63 values per agent. See the [benchmark notes](benchmarks/README.md#reproducing-new-runs) for what to record with each experiment.
 
 ## Debug with your keyboard
 
@@ -575,7 +562,7 @@ For more intricate agents, you can also craft custom control logic based on spec
 
 We construct a highly expandable framework of code so that you can easily comprehend it and design your environments to facilitate your research with no more than 100 lines of code on average.
 
-For details, please refer to our [documentation](https://www.safety-gymnasium.com/en/latest/components_of_environments/tasks/task_example.html).
+For details, please refer to our [documentation](docs/components_of_environments/tasks/task_example.rst).
 Here is a minimal example:
 
 ```python

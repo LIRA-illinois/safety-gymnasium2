@@ -6,148 +6,74 @@
 #
 # Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
-# ==============================================================================
-"""Test environments."""
 
-import helpers
-import safety_gymnasium2
+from __future__ import annotations
 
+from numbers import Real
+from typing import cast
 
-@helpers.parametrize(
-    agent_id=['Point', 'Car', 'Racecar', 'Ant', 'Doggo'],
-    env_id=['Goal', 'Push', 'Button', 'Circle'],
-    level=['0', '1', '2'],
-    render_mode=['rgb_array', 'depth_array'],
-)
-def test_env_render(agent_id, env_id, level, render_mode):
-    """Test env."""
-    env_name = 'Safety' + agent_id + env_id + level + '-v0'
-    env = safety_gymnasium2.make(env_name, render_mode=render_mode)
-    obs, _ = env.reset()
-    ep_ret, ep_cost = 0, 0
-    for step in range(4):
-        if step == 2:
-            print(f'Episode Return: {ep_ret} \t Episode Cost: {ep_cost}')
-            ep_ret, ep_cost = 0, 0
-            obs, _ = env.reset()
-        assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
-        assert env.action_space.contains(act)
-
-        obs, reward, cost, _, _, _ = env.step(act)
-        ep_ret += reward
-        ep_cost += cost
-
-        env.render()
+import safety_gymnasium2 as sg2
+from absl.testing import absltest, parameterized
+from safety_gymnasium2.utils._types import NativeStep
 
 
-@helpers.parametrize(
-    agent_id=['Point', 'Car', 'Racecar', 'Ant', 'Doggo'],
-    env_id=['Run'],
-    level=['0'],
-    render_mode=['rgb_array', 'depth_array'],
-)
-def test_run_env_render(agent_id, env_id, level, render_mode):
-    """Test env."""
-    env_name = 'Safety' + agent_id + env_id + level + '-v0'
-    env = safety_gymnasium2.make(env_name, render_mode=render_mode)
-    obs, _ = env.reset()
-    ep_ret, ep_cost = 0, 0
-    for step in range(4):
-        if step == 2:
-            print(f'Episode Return: {ep_ret} \t Episode Cost: {ep_cost}')
-            ep_ret, ep_cost = 0, 0
-            obs, _ = env.reset()
-        assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
-        assert env.action_space.contains(act)
+class EnvironmentRenderTest(parameterized.TestCase):
+    def _exercise_environment(self, env_id: str, render_mode: str) -> None:
+        env = sg2.make(env_id, render_mode=render_mode)
+        self.addCleanup(env.close)
+        collect_frames = render_mode.endswith('_list')
+        for _ in range(2):
+            observation, _ = env.reset()
+            for _ in range(2):
+                self.assertTrue(env.observation_space.contains(observation))
+                action = env.action_space.sample()
+                self.assertTrue(env.action_space.contains(action))
+                observation, reward, cost, _, _, _ = cast(
+                    'NativeStep',
+                    env.step(action),
+                )
+                self.assertIsInstance(reward, Real)
+                self.assertIsInstance(cost, Real)
+                if not collect_frames:
+                    env.render()
+        if collect_frames:
+            self.assertIsInstance(env.render(), list)
 
-        obs, reward, cost, _, _, _ = env.step(act)
-        ep_ret += reward
-        ep_cost += cost
+    @parameterized.product(
+        agent_id=['Point', 'Car', 'Racecar', 'Ant', 'Doggo'],
+        task=['Goal', 'Push', 'Button', 'Circle'],
+        level=['0', '1', '2'],
+        render_mode=['rgb_array', 'depth_array'],
+    )
+    def test_env_render(self, agent_id: str, task: str, level: str, render_mode: str) -> None:
+        self._exercise_environment(f'Safety{agent_id}{task}{level}-v0', render_mode)
 
-        env.render()
+    @parameterized.product(
+        agent_id=['Point', 'Car', 'Racecar', 'Ant', 'Doggo'],
+        render_mode=['rgb_array', 'depth_array'],
+    )
+    def test_run_env_render(self, agent_id: str, render_mode: str) -> None:
+        self._exercise_environment(f'Safety{agent_id}Run0-v0', render_mode)
 
+    @parameterized.product(
+        agent_id=['Humanoid', 'Ant', 'Hopper', 'HalfCheetah', 'Swimmer', 'Walker2d'],
+        render_mode=['rgb_array', 'depth_array'],
+        version=['v0', 'v1', 'v2'],
+    )
+    def test_velocity_env_render(self, agent_id: str, render_mode: str, version: str) -> None:
+        self._exercise_environment(f'Safety{agent_id}Velocity-{version}', render_mode)
 
-@helpers.parametrize(
-    agent_id=['Humanoid', 'Ant', 'Hopper', 'HalfCheetah', 'Swimmer', 'Walker2d'],
-    env_id=['Velocity'],
-    render_mode=['rgb_array', 'depth_array'],
-    version=['v0', 'v1', 'v2'],
-)
-def test_velocity_env_render(agent_id, env_id, render_mode, version):
-    """Test env."""
-    env_name = 'Safety' + agent_id + env_id + '-' + version
-    env = safety_gymnasium2.make(env_name, render_mode=render_mode)
-    obs, _ = env.reset()
-    ep_ret, ep_cost = 0, 0
-    for step in range(4):
-        if step == 2:
-            print(f'Episode Return: {ep_ret} \t Episode Cost: {ep_cost}')
-            ep_ret, ep_cost = 0, 0
-            obs, _ = env.reset()
-        assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
-        assert env.action_space.contains(act)
+    @parameterized.product(render_mode=['rgb_array_list', 'depth_array_list'])
+    def test_env_render_list(self, render_mode: str) -> None:
+        self._exercise_environment('SafetyPointGoal0-v0', render_mode)
 
-        obs, reward, cost, _, _, _ = env.step(act)
-        ep_ret += reward
-        ep_cost += cost
-
-        env.render()
-
-
-@helpers.parametrize(
-    agent_id=['Point'],
-    env_id=['Goal'],
-    level=['0'],
-    render_mode=['rgb_array_list', 'depth_array_list'],
-)
-def test_env_render_list(agent_id, env_id, level, render_mode):
-    """Test env."""
-    env_name = 'Safety' + agent_id + env_id + level + '-v0'
-    env = safety_gymnasium2.make(env_name, render_mode=render_mode)
-    obs, _ = env.reset()
-    ep_ret, ep_cost = 0, 0
-    for step in range(4):
-        if step == 2:
-            print(f'Episode Return: {ep_ret} \t Episode Cost: {ep_cost}')
-            ep_ret, ep_cost = 0, 0
-            obs, _ = env.reset()
-        assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
-        assert env.action_space.contains(act)
-
-        obs, reward, cost, _, _, _ = env.step(act)
-        ep_ret += reward
-        ep_cost += cost
-
-    assert isinstance(env.render(), list)
+    @parameterized.product(
+        render_mode=['rgb_array_list', 'depth_array_list'],
+        version=['v0', 'v1', 'v2'],
+    )
+    def test_velocity_env_render_list(self, render_mode: str, version: str) -> None:
+        self._exercise_environment(f'SafetyHumanoidVelocity-{version}', render_mode)
 
 
-@helpers.parametrize(
-    agent_id=['Humanoid'],
-    env_id=['Velocity'],
-    render_mode=['rgb_array_list', 'depth_array_list'],
-    version=['v0', 'v1', 'v2'],
-)
-def test_velocity_env_render_list(agent_id, env_id, render_mode, version):
-    """Test env."""
-    env_name = 'Safety' + agent_id + env_id + '-' + version
-    env = safety_gymnasium2.make(env_name, render_mode=render_mode)
-    obs, _ = env.reset()
-    ep_ret, ep_cost = 0, 0
-    for step in range(4):
-        if step == 2:
-            print(f'Episode Return: {ep_ret} \t Episode Cost: {ep_cost}')
-            ep_ret, ep_cost = 0, 0
-            obs, _ = env.reset()
-        assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
-        assert env.action_space.contains(act)
-
-        obs, reward, cost, _, _, _ = env.step(act)
-        ep_ret += reward
-        ep_cost += cost
-
-    assert isinstance(env.render(), list)
+if __name__ == '__main__':
+    absltest.main()

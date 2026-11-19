@@ -121,7 +121,6 @@ Sergey
 TRPO
 Vuong
 Quan
-Zhang
 Yiming
 FOCOPS
 Kakade
@@ -173,15 +172,9 @@ Lillicrap
 Erez
 Yuval
 Tassa
-Jiaming
-Ji
-Juntao
-Dai
 Linrui
 Binbin
-Zhou
 Pengfei
-Yaodong
 buf
 Aivar
 Sootla
@@ -292,7 +285,6 @@ Liu
 Zhiwei
 Zhao
 Cen
-Borong
 mathcal
 EpCost
 EpRet

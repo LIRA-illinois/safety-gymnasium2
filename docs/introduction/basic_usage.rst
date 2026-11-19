@@ -16,39 +16,48 @@ to install both from the workspace.
 Specification
 -------------
 
-`Gymnasium <https://github.com/Farama-Foundation/Gymnasium>`__ provides a well-defined and widely accepted API by the RL Community, and our library exactly adheres to this specification and provides a Safe RL-specific interface.So researchers accustomed to Gymnasium can get started with our library at near zero migration cost, for some basic API and code tools refer to: `Gymnasium Documentation <https://www.gymlibrary.dev/>`__.
+The native Safety Gymnasium 2 API returns observation, reward, cost,
+termination, truncation, and info from ``step()``. Single-agent Gymnasium
+aliases under ``SafetyGymnasium2/`` return five values and carry the safety
+cost in ``info["cost"]``. See the `Gymnasium API documentation
+<https://gymnasium.farama.org/api/env/>`__ for the standard interface.
 
 Initializing the environment
 ----------------------------
 
+Run the headless examples with ``uv run --locked python examples/quickstart.py``.
+
 .. code-block:: python
 
-    import safety_gymnasium2
-    env = safety_gymnasium2.make('SafetyPointCircle0-v0', render_mode='human')
-    '''
-    Vision Environment
-        env = safety_gymnasium2.make('SafetyPointCircle0Vision-v0', render_mode='human')
-    Keyboard Debug environment
-    due to the complexity of the agent's inherent dynamics, only partial support for the agent.
-	env = safety_gymnasium2.make('SafetyPointCircle0Debug-v0', render_mode='human')
-    '''
-    obs, info = env.reset()
-    # Set seeds
-    # obs, _ = env.reset(seed=0)
-    terminated, truncated = False, False
-    ep_ret, ep_cost = 0, 0
-    for _ in range(1000):
-        assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
-        assert env.action_space.contains(act)
-        # modified for Safe RL, added cost
-        obs, reward, cost, terminated, truncated, info = env.step(act)
-        ep_ret += reward
-        ep_cost += cost
-        if terminated or truncated:
-            observation, info = env.reset()
+    from contextlib import closing
 
-	env.close()
+    import safety_gymnasium2 as sg2
+
+.. literalinclude:: ../../examples/quickstart.py
+   :language: python
+   :pyobject: single_environment
+
+For a Gymnasium alias, import ``safety_gymnasium2`` to register the IDs and
+then use ``gymnasium.make('SafetyGymnasium2/SafetyPointGoal0Gymnasium-v0',
+max_episode_steps=2)``. Use ``max_episode_steps`` to set the alias horizon.
+The alias and its ``unwrapped`` environment both return the five-value
+Gymnasium step. Use ``env.unwrapped.native_env`` to access the native
+environment directly.
+
+Vector environments
+-------------------
+
+.. literalinclude:: ../../examples/quickstart.py
+   :language: python
+   :pyobject: vector_environments
+
+On a finished lane, ``next_obs`` contains the reset observation. The mask
+``info['_final_observation']`` marks lanes with a saved terminal observation
+in ``info['final_observation']``. Preserve those terminal observations in
+replay buffers and use the returned reset observations to choose the next
+actions. For workers started with ``spawn``, pass
+``multiprocessing_context='spawn'`` to ``sg2.vector.make()`` and construct the
+vector environment under the script's ``if __name__ == '__main__':`` guard.
 
 Observation Space
 -----------------

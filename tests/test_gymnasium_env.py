@@ -6,90 +6,49 @@
 #
 # Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
-# ==============================================================================
-"""Test API conversion."""
+
+from __future__ import annotations
+
+from numbers import Real
 
 import gymnasium
-
-import helpers
-import safety_gymnasium2
-
-
-@helpers.parametrize(
-    agent_id=['Point'],
-    env_id=['Goal'],
-    level=['0'],
-)
-def test_navigation_env(agent_id, env_id, level):
-    """Test SafetyGymnasium2Gymnasium env."""
-    env_name = 'SafetyGymnasium2/Safety' + agent_id + env_id + level + 'Gymnasium' + '-v0'
-    env = gymnasium.make(env_name)
-    obs, _ = env.reset()
-    ep_ret, ep_cost = 0, 0
-    for step in range(4):
-        if step == 2:
-            print(f'Episode Return: {ep_ret} \t Episode Cost: {ep_cost}')
-            ep_ret, ep_cost = 0, 0
-            obs, _ = env.reset()
-        assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
-        assert env.action_space.contains(act)
-
-        obs, reward, _, _, info = env.step(act)
-        ep_ret += reward
-        ep_cost += info['cost']
+import safety_gymnasium2 as sg2
+from absl.testing import absltest
 
 
-@helpers.parametrize(
-    agent_id=['Point'],
-    env_id=['Goal'],
-    level=['0'],
-)
-def test_convert_api(agent_id, env_id, level):
-    """Test Gymnasium2SafetyGymnasium env."""
-    env_name = 'SafetyGymnasium2/Safety' + agent_id + env_id + level + 'Gymnasium' + '-v0'
-    env = gymnasium.make(env_name)
-    env = gymnasium.wrappers.ClipAction(env)
-    env = safety_gymnasium2.wrappers.Gymnasium2SafetyGymnasium(env)
-    obs, _ = env.reset()
-    ep_ret, ep_cost = 0, 0
-    for step in range(4):
-        if step == 2:
-            print(f'Episode Return: {ep_ret} \t Episode Cost: {ep_cost}')
-            ep_ret, ep_cost = 0, 0
-            obs, _ = env.reset()
-        assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
-        assert env.action_space.contains(act)
+class GymnasiumConversionTest(absltest.TestCase):
+    def _check_rollout(self, env: gymnasium.Env, step_length: int) -> None:
+        self.addCleanup(env.close)
+        for _ in range(2):
+            observation, _ = env.reset()
+            for _ in range(2):
+                self.assertTrue(env.observation_space.contains(observation))
+                action = env.action_space.sample()
+                self.assertTrue(env.action_space.contains(action))
+                transition = env.step(action)
+                self.assertLen(transition, step_length)
+                observation = transition[0]
+                cost = transition[-1]['cost'] if step_length == 5 else transition[2]
+                self.assertIsInstance(transition[1], Real)
+                self.assertIsInstance(cost, Real)
 
-        obs, reward, cost, _, _, _ = env.step(act)
-        ep_ret += reward
-        ep_cost += cost
+    def test_navigation_env(self) -> None:
+        env = gymnasium.make('SafetyGymnasium2/SafetyPointGoal0Gymnasium-v0')
+        self._check_rollout(env, step_length=5)
+
+    def test_convert_api(self) -> None:
+        env = gymnasium.make('SafetyGymnasium2/SafetyPointGoal0Gymnasium-v0')
+        clipped = gymnasium.wrappers.ClipAction(env)
+        native = sg2.wrappers.Gymnasium2SafetyGymnasium(clipped)
+        self._check_rollout(native, step_length=6)
+
+    def test_with_wrappers(self) -> None:
+        env = sg2.wrappers.with_gymnasium_wrappers(
+            sg2.make('SafetyPointGoal0-v0'),
+            gymnasium.wrappers.ClipAction,
+        )
+        self._check_rollout(env, step_length=6)
 
 
-@helpers.parametrize(
-    agent_id=['Point'],
-    env_id=['Goal'],
-    level=['0'],
-)
-def test_with_wrappers(agent_id, env_id, level):
-    """Test with_wrappers use case."""
-    env_name = 'Safety' + agent_id + env_id + level + '-v0'
-    env = safety_gymnasium2.wrappers.with_gymnasium_wrappers(
-        safety_gymnasium2.make(env_name),
-        gymnasium.wrappers.ClipAction,
-    )
-    obs, _ = env.reset()
-    ep_ret, ep_cost = 0, 0
-    for step in range(4):
-        if step == 2:
-            print(f'Episode Return: {ep_ret} \t Episode Cost: {ep_cost}')
-            ep_ret, ep_cost = 0, 0
-            obs, _ = env.reset()
-        assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
-        assert env.action_space.contains(act)
-
-        obs, reward, cost, _, _, _ = env.step(act)
-        ep_ret += reward
-        ep_cost += cost
+if __name__ == '__main__':
+    absltest.main()

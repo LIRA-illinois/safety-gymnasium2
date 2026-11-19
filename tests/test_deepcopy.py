@@ -6,66 +6,62 @@
 #
 # Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
-# ==============================================================================
-"""Test copy of environments."""
+
+from __future__ import annotations
 
 from copy import deepcopy
+from typing import Any
 
+import gymnasium
 import numpy as np
-
-import helpers
 import safety_gymnasium2 as sg2
+from absl.testing import absltest, parameterized
 
 
-def _assert_equal_step(actual, expected):
-    observation, *outcomes = actual
-    expected_observation, *expected_outcomes = expected
-    np.testing.assert_array_equal(observation, expected_observation)
-    assert outcomes == expected_outcomes
+class DeepCopyTest(parameterized.TestCase):
+    def _make_env(self, agent_id: str, level: str) -> gymnasium.Env:
+        env = sg2.gymnasium_make(f'SafetyGymnasium2/Safety{agent_id}Goal{level}Gymnasium-v0')
+        self.addCleanup(env.close)
+        env.reset(seed=29)
+        env.action_space.seed(29)
+        return env
+
+    def _copy_env(self, env: gymnasium.Env) -> gymnasium.Env:
+        copied = deepcopy(env)
+        self.addCleanup(copied.close)
+        return copied
+
+    def _assert_equal_step(self, actual: tuple[Any, ...], expected: tuple[Any, ...]) -> None:
+        observation, *outcomes = actual
+        expected_observation, *expected_outcomes = expected
+        np.testing.assert_array_equal(observation, expected_observation)
+        self.assertEqual(outcomes, expected_outcomes)
+
+    def test_equal_outcomes_branch(self) -> None:
+        env = self._make_env('Point', '0')
+        branch = self._copy_env(env)
+        action = env.action_space.sample()
+        expected = env.step(action)
+        self._assert_equal_step(branch.step(action), expected)
+
+        branches = branch, self._copy_env(env), self._copy_env(branch)
+        action = env.action_space.sample()
+        expected = env.step(action)
+        for copy in branches:
+            self._assert_equal_step(copy.step(action), expected)
+
+    @parameterized.product(agent_id=['Point', 'Car', 'Doggo'], level=['0', '2'])
+    def test_equal_outcomes_long(self, agent_id: str, level: str) -> None:
+        env = self._make_env(agent_id, level)
+        for _ in range(16):
+            env.step(env.action_space.sample())
+
+        copied = self._copy_env(env)
+        for _ in range(32):
+            action = env.action_space.sample()
+            expected = env.step(action)
+            self._assert_equal_step(copied.step(action), expected)
 
 
-@helpers.parametrize(
-    agent_id=['Point'],
-    env_id=['Goal'],
-    level=['0'],
-)
-def test_equal_outcomes_branch(agent_id, env_id, level):
-    """Test copyable env."""
-    env_name = 'SafetyGymnasium2/Safety' + agent_id + env_id + level + 'Gymnasium' + '-v0'
-    env1 = sg2.gymnasium_make(env_name)
-    env1.reset(seed=29)
-    env1.action_space.seed(29)
-
-    env2 = deepcopy(env1)
-    move = env1.action_space.sample()
-    expected = env1.step(move)
-    _assert_equal_step(env2.step(move), expected)
-
-    env3 = deepcopy(env1)
-    env4 = deepcopy(env2)
-    move = env1.action_space.sample()
-    expected = env1.step(move)
-    for env in (env2, env3, env4):
-        _assert_equal_step(env.step(move), expected)
-
-
-@helpers.parametrize(
-    agent_id=['Point', 'Car', 'Doggo'],
-    env_id=['Goal'],
-    level=['0', '2'],
-)
-def test_equal_outcomes_long(agent_id, env_id, level):
-    """Test SafetyGymnasium2Gymnasium env."""
-    env_name = 'SafetyGymnasium2/Safety' + agent_id + env_id + level + 'Gymnasium' + '-v0'
-    env1 = sg2.gymnasium_make(env_name)
-    env1.reset(seed=29)
-    env1.action_space.seed(29)
-
-    for _ in range(16):
-        env1.step(env1.action_space.sample())
-
-    env2 = deepcopy(env1)
-    for _ in range(32):
-        move = env1.action_space.sample()
-        expected = env1.step(move)
-        _assert_equal_step(env2.step(move), expected)
+if __name__ == '__main__':
+    absltest.main()

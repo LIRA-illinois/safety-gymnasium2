@@ -6,79 +6,74 @@
 #
 # Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
-# ==============================================================================
-"""Test multi-agent environments."""
 
-import pytest
+from __future__ import annotations
 
-import helpers
-import safety_gymnasium2
+from typing import cast
 
-
-@pytest.mark.parametrize(
-    ('scenario', 'agent_conf'),
-    [
-        ('Ant', '2x4'),
-        ('Ant', '4x2'),
-        ('HalfCheetah', '6x1'),
-        ('HalfCheetah', '2x3'),
-        ('Hopper', '3x1'),
-        ('Humanoid', '9|8'),
-        ('Swimmer', '2x1'),
-        ('Walker2d', '2x3'),
-    ],
-)
-def test_safe_ma(scenario, agent_conf):
-    """Check reset and step for each Robotics agent configuration."""
-    env = safety_gymnasium2.make_ma(scenario, agent_conf)
-    try:
-        obs, _ = env.reset()
-        for step in range(4):
-            if step == 2:
-                obs, _ = env.reset()
-
-            action_by_agent = {}
-            for agent in env.agents:
-                assert env.observation_space(agent).contains(obs[agent])
-                action_by_agent[agent] = env.action_space(agent).sample()
-                assert env.action_space(agent).contains(action_by_agent[agent])
-
-            obs, _, _, _, _, _ = env.step(action_by_agent)
-    finally:
-        env.close()
+import safety_gymnasium2 as sg2
+from absl.testing import absltest, parameterized
+from safety_gymnasium2.utils._types import NativeStep
 
 
-@helpers.parametrize(
-    agent_id=['Point', 'Ant'],
-    env_id=['MultiGoal'],
-    level=['0', '1', '2'],
-    render_mode=['rgb_array', 'depth_array'],
-)
-def test_multi_goal(agent_id, env_id, level, render_mode):
-    """Random run."""
-    env_name = 'Safety' + agent_id + env_id + level + '-v0'
-    env = safety_gymnasium2.make(env_name, render_mode=render_mode)
-    obs, _ = env.reset()
-    # Use below to specify seed.
-    # obs, _ = env.reset(seed=0)
-    _, _ = {'agent_0': False}, {'agent_0': False}
-    ep_ret, ep_cost = 0, 0
-    for step in range(4):
-        if step == 2:
-            print(f'Episode Return: {ep_ret} \t Episode Cost: {ep_cost}')
-            ep_ret, ep_cost = 0, 0
+class MultiAgentTest(parameterized.TestCase):
+    @parameterized.named_parameters(
+        ('ant_2x4', 'Ant', '2x4'),
+        ('ant_4x2', 'Ant', '4x2'),
+        ('half_cheetah_6x1', 'HalfCheetah', '6x1'),
+        ('half_cheetah_2x3', 'HalfCheetah', '2x3'),
+        ('hopper', 'Hopper', '3x1'),
+        ('humanoid', 'Humanoid', '9|8'),
+        ('swimmer', 'Swimmer', '2x1'),
+        ('walker', 'Walker2d', '2x3'),
+    )
+    def test_safe_ma(self, scenario: str, agent_conf: str) -> None:
+        env = sg2.make_ma(scenario, agent_conf)
+        self.addCleanup(env.close)
+        for _ in range(2):
             obs, _ = env.reset()
+            for _ in range(2):
+                self.assertTrue(
+                    all(env.observation_space(agent).contains(obs[agent]) for agent in env.agents)
+                )
+                actions_by_agent = {agent: env.action_space(agent).sample() for agent in env.agents}
+                self.assertTrue(
+                    all(
+                        env.action_space(agent).contains(actions_by_agent[agent])
+                        for agent in env.agents
+                    ),
+                )
+                obs, _, _, _, _, _ = env.step(actions_by_agent)
 
-        action_by_agent = {}
-        for agent in env.agents:
-            assert env.observation_space(agent).contains(obs[agent])
-            action_by_agent[agent] = env.action_space(agent).sample()
-            assert env.action_space(agent).contains(action_by_agent[agent])
+    @parameterized.product(
+        agent_id=['Point', 'Ant'],
+        level=['0', '1', '2'],
+        render_mode=['rgb_array', 'depth_array'],
+    )
+    def test_multi_goal(self, agent_id: str, level: str, render_mode: str) -> None:
+        env = sg2.make(f'Safety{agent_id}MultiGoal{level}-v0', render_mode=render_mode)
+        self.addCleanup(env.close)
+        action_space = env.get_wrapper_attr('action_space')
+        observation_space = env.get_wrapper_attr('observation_space')
+        for _ in range(2):
+            obs, _ = env.reset()
+            for _ in range(2):
+                agents = env.get_wrapper_attr('agents')
+                self.assertTrue(
+                    all(observation_space(agent).contains(obs[agent]) for agent in agents)
+                )
+                actions_by_agent = {agent: action_space(agent).sample() for agent in agents}
+                self.assertTrue(
+                    all(action_space(agent).contains(actions_by_agent[agent]) for agent in agents)
+                )
+                obs, reward_by_agent, cost_by_agent, _, _, _ = cast(
+                    'NativeStep',
+                    env.step(actions_by_agent),
+                )
+                stepped_agents = set(env.get_wrapper_attr('agents'))
+                self.assertEmpty(stepped_agents - (reward_by_agent.keys() & cost_by_agent.keys()))
+                env.render()
 
-        obs, reward, cost, _, _, _ = env.step(action_by_agent)
 
-        for agent in env.agents:
-            ep_ret += reward[agent]
-            ep_cost += cost[agent]
-
-        env.render()
+if __name__ == '__main__':
+    absltest.main()

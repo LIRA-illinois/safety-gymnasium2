@@ -12,10 +12,8 @@
 import argparse
 import os
 
-from gymnasium.utils.save_video import save_video
-
 import safety_gymnasium2
-
+from gymnasium.utils.save_video import save_video
 
 DIR = os.path.join(os.path.dirname(__file__), 'cached_test_vision_video')
 

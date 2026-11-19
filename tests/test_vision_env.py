@@ -6,70 +6,57 @@
 #
 # Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
-# ==============================================================================
-"""Test vision environments."""
 
-import helpers
-import safety_gymnasium2
+from __future__ import annotations
 
+from numbers import Real
+from typing import cast
 
-@helpers.parametrize(
-    agent_id=['Point', 'Car', 'Racecar', 'Ant'],
-    env_id=[
-        'Goal',
-        'Push',
-        'Button',
-        'Race',
-        'FadingEasy',
-        'FadingHard',
-        'BuildingGoal',
-        'BuildingPush',
-        'BuildingButton',
-        'FormulaOne',
-    ],
-    level=['0', '1', '2'],
-)
-def test_vision_env(agent_id, env_id, level):
-    """Test vision env."""
-    env_name = 'Safety' + agent_id + env_id + level + 'Vision' + '-v0'
-    env = safety_gymnasium2.make(env_name)
-    obs, _ = env.reset()
-    ep_ret, ep_cost = 0, 0
-    for step in range(4):
-        if step == 2:
-            print(f'Episode Return: {ep_ret} \t Episode Cost: {ep_cost}')
-            ep_ret, ep_cost = 0, 0
-            obs, _ = env.reset()
-        assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
-        assert env.action_space.contains(act)
-        obs, reward, cost, _, _, _ = env.step(act)
-
-        ep_ret += reward
-        ep_cost += cost
+import safety_gymnasium2 as sg2
+from absl.testing import absltest, parameterized
+from safety_gymnasium2.utils._types import NativeStep
 
 
-@helpers.parametrize(
-    agent_id=['Point', 'Car', 'Racecar', 'Ant'],
-    env_id=['Run'],
-    level=['0'],
-)
-def test_new_env(agent_id, env_id, level):
-    """Test env."""
-    env_name = 'Safety' + agent_id + env_id + level + 'Vision' + '-v0'
-    env = safety_gymnasium2.make(env_name)
-    obs, _ = env.reset()
-    ep_ret, ep_cost = 0, 0
-    for step in range(4):
-        if step == 2:
-            print(f'Episode Return: {ep_ret} \t Episode Cost: {ep_cost}')
-            ep_ret, ep_cost = 0, 0
-            obs, _ = env.reset()
-        assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
-        assert env.action_space.contains(act)
+class VisionEnvironmentTest(parameterized.TestCase):
+    def _exercise_environment(self, env_id: str) -> None:
+        env = sg2.make(env_id)
+        self.addCleanup(env.close)
+        for _ in range(2):
+            observation, _ = env.reset()
+            for _ in range(2):
+                self.assertTrue(env.observation_space.contains(observation))
+                action = env.action_space.sample()
+                self.assertTrue(env.action_space.contains(action))
+                observation, reward, cost, _, _, _ = cast(
+                    'NativeStep',
+                    env.step(action),
+                )
+                self.assertIsInstance(reward, Real)
+                self.assertIsInstance(cost, Real)
 
-        obs, reward, cost, _, _, _ = env.step(act)
+    @parameterized.product(
+        agent_id=['Point', 'Car', 'Racecar', 'Ant'],
+        task=[
+            'Goal',
+            'Push',
+            'Button',
+            'Race',
+            'FadingEasy',
+            'FadingHard',
+            'BuildingGoal',
+            'BuildingPush',
+            'BuildingButton',
+            'FormulaOne',
+        ],
+        level=['0', '1', '2'],
+    )
+    def test_vision_env(self, agent_id: str, task: str, level: str) -> None:
+        self._exercise_environment(f'Safety{agent_id}{task}{level}Vision-v0')
 
-        ep_ret += reward
-        ep_cost += cost
+    @parameterized.product(agent_id=['Point', 'Car', 'Racecar', 'Ant'])
+    def test_run_vision_env(self, agent_id: str) -> None:
+        self._exercise_environment(f'Safety{agent_id}Run0Vision-v0')
+
+
+if __name__ == '__main__':
+    absltest.main()

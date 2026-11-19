@@ -2,15 +2,10 @@
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 # ==============================================================================
 """Adapt native safety transitions for Gymnasium vectorization."""
 
@@ -24,6 +19,7 @@ import gymnasium
 import numpy as np
 
 from safety_gymnasium2.vector.utils.tile_images import tile_images
+from safety_gymnasium2.wrappers.autoreset import SafeAutoResetWrapper
 
 if TYPE_CHECKING:
     from safety_gymnasium2.utils._types import NativeStep
@@ -42,6 +38,13 @@ class _VectorMember(gymnasium.Wrapper):
         observation_space: gymnasium.Space | None,
         action_space: gymnasium.Space | None,
     ) -> None:
+        wrapper = env
+        while isinstance(wrapper, gymnasium.Wrapper):
+            if isinstance(wrapper, SafeAutoResetWrapper):
+                env.close()
+                raise ValueError('Vector members cannot use SafeAutoResetWrapper.')
+            wrapper = wrapper.env
+
         super().__init__(env)
         self.metadata = env.metadata.copy()
         if observation_space is not None and env.observation_space != observation_space:
@@ -106,7 +109,7 @@ def restore_costs(result):
         final_info.pop(_COST_MASK)
         terminal_infos = np.full(rewards.shape, None, dtype=object)
         for index in np.flatnonzero(done):
-            terminal_infos[index] = _info_at(final_info, index)
+            terminal_infos[index] = _info_at(final_info, int(index))
         infos['final_info'] = terminal_infos
         infos['final_observation'] = infos.pop('final_obs')
         infos['_final_observation'] = infos.pop('_final_obs')
@@ -118,6 +121,7 @@ class SafetyVectorRender:
     """Retain tiled rendering for Gymnasium-backed safety vectors."""
 
     if TYPE_CHECKING:
+
         def call(self, name: str) -> tuple[np.ndarray, ...]: ...
 
     def get_images(self) -> list[np.ndarray]:
