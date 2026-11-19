@@ -57,15 +57,15 @@ Level0
 
 **The Level 0 of BuildingButton** requires the agent to proficiently operate multiple machines within a construction site.
 
-+-----------------------------+-------------------------------------------------------------------+
-| Specific Observation Space  | Box(-inf, inf, (32,), float64)                                    |
-+=============================+===================================================================+
-| Specific Observation High   | inf                                                               |
-+-----------------------------+-------------------------------------------------------------------+
-| Specific Observation Low    | -inf                                                              |
-+-----------------------------+-------------------------------------------------------------------+
-| Import                      | ``safety_gymnasium.make("Safety[Agent]BuildingButton0-v0")``      |
-+-----------------------------+-------------------------------------------------------------------+
++-----------------------------+--------------------------------------------------------------------+
+| Specific Observation Space  | Box(-inf, inf, (32,), float64)                                     |
++=============================+====================================================================+
+| Specific Observation High   | inf                                                                |
++-----------------------------+--------------------------------------------------------------------+
+| Specific Observation Low    | -inf                                                               |
++-----------------------------+--------------------------------------------------------------------+
+| Import                      | ``safety_gymnasium2.make("Safety[Agent]BuildingButton0-v0")``      |
++-----------------------------+--------------------------------------------------------------------+
 
 
 Specific Observation Space
@@ -107,15 +107,15 @@ Level1
 
 **The Level 1 of BuildingButton** requires the agent to proficiently and accurately operate multiple machines within a construction site, while concurrently evading other robots and obstacles present in the area.
 
-+-----------------------------+--------------------------------------------------------------+
-| Specific Observation Space  | Box(-inf, inf, (64,), float64)                               |
-+=============================+==============================================================+
-| Specific Observation High   | inf                                                          |
-+-----------------------------+--------------------------------------------------------------+
-| Specific Observation Low    | -inf                                                         |
-+-----------------------------+--------------------------------------------------------------+
-| Import                      | ``safety_gymnasium.make("Safety[Agent]BuildingButton1-v0")`` |
-+-----------------------------+--------------------------------------------------------------+
++-----------------------------+---------------------------------------------------------------+
+| Specific Observation Space  | Box(-inf, inf, (64,), float64)                                |
++=============================+===============================================================+
+| Specific Observation High   | inf                                                           |
++-----------------------------+---------------------------------------------------------------+
+| Specific Observation Low    | -inf                                                          |
++-----------------------------+---------------------------------------------------------------+
+| Import                      | ``safety_gymnasium2.make("Safety[Agent]BuildingButton1-v0")`` |
++-----------------------------+---------------------------------------------------------------+
 
 
 Specific Observation Space
@@ -176,15 +176,15 @@ Level2
 
 **The Level 2 of BuildingButton** requires the agent to proficiently and accurately operate multiple machines within a construction site, while concurrently evading a heightened number of other robots and obstacles in the area.
 
-+-----------------------------+------------------------------------------------------------+
-| Specific Observation Space  | Box(-inf, inf, (64,), float64)                             |
-+=============================+============================================================+
-| Specific Observation High   | inf                                                        |
-+-----------------------------+------------------------------------------------------------+
-| Specific Observation Low    | -inf                                                       |
-+-----------------------------+------------------------------------------------------------+
-| Import                      |``safety_gymnasium.make("Safety[Agent]BuildingButton2-v0")``|
-+-----------------------------+------------------------------------------------------------+
++-----------------------------+-------------------------------------------------------------+
+| Specific Observation Space  | Box(-inf, inf, (64,), float64)                              |
++=============================+=============================================================+
+| Specific Observation High   | inf                                                         |
++-----------------------------+-------------------------------------------------------------+
+| Specific Observation Low    | -inf                                                        |
++-----------------------------+-------------------------------------------------------------+
+| Import                      |``safety_gymnasium2.make("Safety[Agent]BuildingButton2-v0")``|
++-----------------------------+-------------------------------------------------------------+
 
 
 Specific Observation Space

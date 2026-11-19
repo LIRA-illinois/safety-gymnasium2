@@ -416,3 +416,6 @@ Sessionx.vim
 tags
 # Persistent undo
 [._]*.un~
+
+# Local MuJoCo diagnostics
+MUJOCO_LOG.TXT

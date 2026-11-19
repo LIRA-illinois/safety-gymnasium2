@@ -23,9 +23,9 @@ Drawing insights from :doc:`../safe_velocity/`, velocity safety constraints have
 +-----------------------------+------------------------------------------------------------------+
 
 
-+-----------------------------+------------------------------------------------------------------+
-| **Import**                  | ``safety_gymnasium.make_ma([scenario], [agent_conf])``           |
-+-----------------------------+------------------------------------------------------------------+
++-----------------------------+-------------------------------------------------------------------+
+| **Import**                  | ``safety_gymnasium2.make_ma([scenario], [agent_conf])``           |
++-----------------------------+-------------------------------------------------------------------+
 
 Distinct threshold values were established through experimentation for different agents as well as various subagent partitioning methods.
 

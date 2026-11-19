@@ -1,45 +1,45 @@
-## Contributing to Safety-Gymnasium
+## Contributing to Safety Gymnasium 2
 
-If you are interested in contributing to Safety-Gymnasium, your contributions will fall
+If you are interested in contributing to Safety Gymnasium 2, your contributions will fall
 into two categories:
 
 1. You want to propose a new Feature and implement it
     - Create an issue about your intended feature, and we shall discuss the design and
     implementation. Once we agree that the plan looks good, go ahead and implement it.
 2. You want to implement a feature or bug-fix for an outstanding issue
-    - Look at the outstanding issues here: <https://github.com/PKU-Alignment/safety-gymnasium/issues>
+    - Look at the outstanding issues here: <https://github.com/LIRA-illinois/safety-gymnasium2/issues>
     - Pick an issue or feature and comment on the task that you want to work on this feature.
     - If you need more context on a particular issue, please ask and we shall provide.
 
-Once you finish implementing a feature or bug-fix, please send a Pull Request to <https://github.com/PKU-Alignment/safety-gymnasium>
+Once you finish implementing a feature or bug-fix, please send a Pull Request to <https://github.com/LIRA-illinois/safety-gymnasium2>
 
 If you are not familiar with creating a Pull Request, here are some guides:
 
 - <http://stackoverflow.com/questions/14680711/how-to-do-a-github-pull-request>
 - <https://help.github.com/articles/creating-a-pull-request/>
 
-## Developing Safety-Gymnasium
+## Developing Safety Gymnasium 2
 
-To develop Safety-Gymnasium on your machine, here are some tips:
+To develop Safety Gymnasium 2 on your machine, here are some tips:
 
-1. Clone a copy of Safety-Gymnasium from GitHub:
+1. Clone a copy of Safety Gymnasium 2 from GitHub:
 
 ```bash
-git clone https://github.com/PKU-Alignment/safety-gymnasium
-cd Safety-Gymnasium/
+git clone https://github.com/LIRA-illinois/safety-gymnasium2
+cd safety-gymnasium2
 ```
 
-2. Install Safety-Gymnasium in develop mode, with support for building the docs and running tests:
+2. Install Safety Gymnasium 2 in develop mode, with support for building the docs and running tests:
 
 ```bash
-pip install -e .[docs,tests,extra]
+uv sync --locked --group test --group lint --group docs --extra racing --extra building
 ```
 
 ## Codestyle
 
 We are using [black codestyle](https://github.com/psf/black) (max line length of 127 characters) together with [isort](https://github.com/timothycrosley/isort) to sort the imports.
 
-**Please run `make format`** to reformat your code. You can check the codestyle using `make check-codestyle` and `make lint`.
+**Please run `make format`** to reformat your code. You can check the codestyle using `make py-format` and `make lint`.
 
 Please document each function/method and [type](https://google.github.io/pytype/user_guide.html) them using the following template:
 
@@ -75,7 +75,7 @@ To run tests with `pytest`:
 make pytest
 ```
 
-Type checking with `pytype`:
+Type checking with `ty`:
 
 ```bash
 make type
@@ -84,11 +84,11 @@ make type
 Codestyle check with `black`, `isort` and `flake8`:
 
 ```bash
-make check-codestyle
+make py-format
 make lint
 ```
 
-To run `pytype`, `format` and `lint` in one command:
+To run type checking and lint checks together:
 
 ```bash
 make commit-checks
@@ -97,7 +97,7 @@ make commit-checks
 Build the documentation:
 
 ```bash
-make docs
+make docs-build
 ```
 
 Check documentation spelling (you need to install `sphinxcontrib.spelling` package for that):

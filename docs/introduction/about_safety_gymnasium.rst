@@ -16,8 +16,10 @@ In recent years, RL (reinforcement learning) algorithms, especially DeepRL algor
         :class-card: sd-outline-success sd-border-{3} sd-shadow-sm sd-rounded-3
         :columns: 12 6 6 6
 
-        Problems
-        ^^^^^^^^^^^^^
+        .. card-header::
+
+            Problems
+
         Agents may learn
 
         - Reward Hacking
@@ -32,8 +34,10 @@ In recent years, RL (reinforcement learning) algorithms, especially DeepRL algor
         :class-card: sd-outline-success sd-border-{3} sd-shadow-sm sd-rounded-3
         :columns: 12 6 6 6
 
-        Solutions
-        ^^^^^^^^^^^^^^^^^
+        .. card-header::
+
+            Solutions
+
         Therefore, the **Safe RL algorithm aims to** train the Agent to act while
 
         - Maximizing the reward

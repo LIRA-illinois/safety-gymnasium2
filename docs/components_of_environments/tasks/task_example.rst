@@ -11,9 +11,9 @@ Goal0
     """Goal level 0."""
 
     # Introduce the required objects
-    from safety_gymnasium.assets.geoms import Goal
+    from safety_gymnasium2.assets.geoms import Goal
     # Need to inherit from BaseTask
-    from safety_gymnasium.bases.base_task import BaseTask
+    from safety_gymnasium2.bases.base_task import BaseTask
 
 
     class GoalLevel0(BaseTask):
@@ -88,10 +88,10 @@ Goal1
     """Goal level 1."""
 
     # Import the objects to be used
-    from safety_gymnasium.assets.geoms import Hazards
-    from safety_gymnasium.assets.objects import Vases
+    from safety_gymnasium2.assets.geoms import Hazards
+    from safety_gymnasium2.assets.objects import Vases
     # Inherit the previous difficulty
-    from safety_gymnasium.tasks.safe_navigation.goal.goal_level0 import GoalLevel0
+    from safety_gymnasium2.tasks.safe_navigation.goal.goal_level0 import GoalLevel0
 
 
     class GoalLevel1(GoalLevel0):
@@ -120,7 +120,7 @@ Goal2
     """Goal level 2."""
 
     # Inherit the previous difficulty
-    from safety_gymnasium.tasks.safe_navigation.goal.goal_level1 import GoalLevel1
+    from safety_gymnasium2.tasks.safe_navigation.goal.goal_level1 import GoalLevel1
 
 
     class GoalLevel2(GoalLevel1):

@@ -3,13 +3,13 @@ Safe Velocity
 
 .. _SingleVelocity:
 
-The Safe velocity tasks introduce velocity constraints for agents based on the `Gymnasium's MuJoCo-v4 <https://gymnasium.farama.org/environments/mujoco/>`__ series. For specific information regarding the agents, please refer to the Gymnasium documentation.
+Safety Velocity v0 and v1 use upstream MuJoCo v4 implementations. Safety Velocity v2 uses upstream v5 observation, reward, and termination behavior with the v1 safety cost rules. See the `Gymnasium MuJoCo documentation <https://gymnasium.farama.org/environments/mujoco/>`__ for changes between upstream versions.
 
 Velocity tasks are also an important class of tasks that apply RL to reality, requiring an agent to move as quickly as possible while adhering to **velocity constraint**. These tasks have significant implications in various domains, including robotics, autonomous vehicles, and industrial automation.
 
-+-----------------------------+------------------------------------------------------------------+
-| **Import**                  | ``safety_gymnasium.make("Safety[Agent]Velocity-v1")``            |
-+-----------------------------+------------------------------------------------------------------+
++-----------------------------+-------------------------------------------------------------------+
+| **Import**                  | ``safety_gymnasium2.make("Safety[Agent]Velocity-v1")``            |
++-----------------------------+-------------------------------------------------------------------+
 
 .. list-table::
 

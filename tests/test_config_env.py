@@ -2,27 +2,22 @@
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 
 from __future__ import annotations
 
 import numpy as np
 
 import helpers
-import safety_gymnasium
-from safety_gymnasium.tasks.safe_navigation.button.button_configs import button_level0
-from safety_gymnasium.tasks.safe_navigation.circle.circle_configs import circle_level0
-from safety_gymnasium.tasks.safe_navigation.goal.goal_configs import goal_level0
-from safety_gymnasium.tasks.safe_navigation.push.push_configs import push_level0
-from safety_gymnasium.tasks.safe_navigation.run.run_configs import run_level0
+import safety_gymnasium2
+from safety_gymnasium2.tasks.safe_navigation.button.button_configs import button_level0
+from safety_gymnasium2.tasks.safe_navigation.circle.circle_configs import circle_level0
+from safety_gymnasium2.tasks.safe_navigation.goal.goal_configs import goal_level0
+from safety_gymnasium2.tasks.safe_navigation.push.push_configs import push_level0
+from safety_gymnasium2.tasks.safe_navigation.run.run_configs import run_level0
 
 
 @helpers.parametrize(
@@ -37,10 +32,8 @@ from safety_gymnasium.tasks.safe_navigation.run.run_configs import run_level0
 def test_config(environments):
     """Test config environments"""
     env_id, base_env_id, config = environments
-    # environment from the config
-    env = safety_gymnasium.make(base_env_id, config=config)
-    # the registered environment
-    env2 = safety_gymnasium.make(env_id)
+    env = safety_gymnasium2.make(base_env_id, config=config)
+    env2 = safety_gymnasium2.make(env_id)
     s, _ = env.reset(seed=42)
     s2, _ = env2.reset(seed=42)
     all_done = False

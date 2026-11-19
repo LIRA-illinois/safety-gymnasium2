@@ -1,6 +1,8 @@
 Safe Isaac Gym
 ==============
 
+Safe Isaac Gym is a standalone legacy integration that requires a separate NVIDIA Isaac Gym environment. The source lives under ``legacy/`` in the repository.
+
 Safe Isaac Gym introduces constraints based on real-world requirements and designing the heterogeneous multi-agent system, FreightFranka.
 
 .. Note::

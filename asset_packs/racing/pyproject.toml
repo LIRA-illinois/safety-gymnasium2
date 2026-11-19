@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "safety-gymnasium2-racing-assets"
+version = "1.0.0"
+description = "Race and FormulaOne assets for Safety Gymnasium 2."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+
+[tool.setuptools]
+include-package-data = false
+packages = ["safety_gymnasium2_racing_assets"]
+
+[tool.setuptools.package-data]
+safety_gymnasium2_racing_assets = ["meshes/*", "textures/*"]

@@ -4,15 +4,13 @@ Basic Usage
 Installation
 ------------
 
-.. code-block:: bash
+Safety Gymnasium 2 requires Python 3.11 or newer. Install from a checkout using
+``python -m pip install .`` in an active virtual environment, or use
+``uv sync --locked`` for development.
 
-    # From the Python Package Index (PyPI)
-    pip install safety-gymnasium
-
-    # From the source code
-    git clone https://github.com/PKU-Alignment/safety-gymnasium.git
-    cd safety-gymnasium
-    pip install -e .
+Race and FormulaOne require the ``racing`` extra. Building requires the
+``building`` extra. Run ``uv sync --locked --extra racing --extra building``
+to install both from the workspace.
 
 
 Specification
@@ -25,14 +23,14 @@ Initializing the environment
 
 .. code-block:: python
 
-    import safety_gymnasium
-    env = safety_gymnasium.make('SafetyPointCircle0-v0', render_mode='human')
+    import safety_gymnasium2
+    env = safety_gymnasium2.make('SafetyPointCircle0-v0', render_mode='human')
     '''
     Vision Environment
-        env = safety_gymnasium.make('SafetyPointCircle0Vision-v0', render_mode='human')
+        env = safety_gymnasium2.make('SafetyPointCircle0Vision-v0', render_mode='human')
     Keyboard Debug environment
     due to the complexity of the agent's inherent dynamics, only partial support for the agent.
-	env = safety_gymnasium.make('SafetyPointCircle0Debug-v0', render_mode='human')
+	env = safety_gymnasium2.make('SafetyPointCircle0Debug-v0', render_mode='human')
     '''
     obs, info = env.reset()
     # Set seeds
@@ -57,7 +55,7 @@ Observation Space
 
 .. code-block:: python
 
-    env = safety_gymnasium.make('SafetyPointCircle0-v0', render_mode='human')
+    env = safety_gymnasium2.make('SafetyPointCircle0-v0', render_mode='human')
     obs, info = env.reset()
     print(env.observation_space)
     '''
@@ -68,7 +66,7 @@ Observation Space
     '''
 
 
-    print(env.obs_space_dict)
+    print(env.get_wrapper_attr('obs_space_dict'))
     '''
     Dict('accelerometer': Box(-inf, inf, (3,), float64),
          'velocimeter': Box(-inf, inf, (3,), float64),
@@ -94,7 +92,7 @@ Action Space
 
 .. code-block:: python
 
-    env = safety_gymnasium.make('SafetyPointCircle0-v0', render_mode='human')
+    env = safety_gymnasium2.make('SafetyPointCircle0-v0', render_mode='human')
     obs, info = env.reset()
     print(env.action_space)
     # Box(-1.0, 1.0, (2,), float64)

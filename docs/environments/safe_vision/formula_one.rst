@@ -49,15 +49,15 @@ Level0
 
 **The Level 0 of FormulaOne** requires the agent to maximize its reach to the goal position. For each episode, the agent is randomly initialized at one of the seven checkpoints.
 
-+-----------------------------+------------------------------------------------------------------+
-| Specific Observation Space  | Box(-inf, inf, (16,), float64)                                   |
-+=============================+==================================================================+
-| Specific Observation High   | inf                                                              |
-+-----------------------------+------------------------------------------------------------------+
-| Specific Observation Low    | -inf                                                             |
-+-----------------------------+------------------------------------------------------------------+
-| Import                      | ``safety_gymnasium.make("Safety[Agent]FormulaOne0-v0")``         |
-+-----------------------------+------------------------------------------------------------------+
++-----------------------------+-------------------------------------------------------------------+
+| Specific Observation Space  | Box(-inf, inf, (16,), float64)                                    |
++=============================+===================================================================+
+| Specific Observation High   | inf                                                               |
++-----------------------------+-------------------------------------------------------------------+
+| Specific Observation Low    | -inf                                                              |
++-----------------------------+-------------------------------------------------------------------+
+| Import                      | ``safety_gymnasium2.make("Safety[Agent]FormulaOne0-v0")``         |
++-----------------------------+-------------------------------------------------------------------+
 
 
 Specific Observation Space
@@ -107,15 +107,15 @@ Level1
 
 **The Level 1 of FormulaOne** requires the agent to maximize its reach to the goal position while circumventing barriers and racetrack fences. For each episode, the agent is randomly initialized at one of the seven checkpoints.
 
-+-----------------------------+----------------------------------------------------------------+
-| Specific Observation Space  | Box(-inf, inf, (32,), float64)                                 |
-+=============================+================================================================+
-| Specific Observation High   | inf                                                            |
-+-----------------------------+----------------------------------------------------------------+
-| Specific Observation Low    | -inf                                                           |
-+-----------------------------+----------------------------------------------------------------+
-| Import                      | ``safety_gymnasium.make("Safety[Agent]FormulaOne1-v0")``       |
-+-----------------------------+----------------------------------------------------------------+
++-----------------------------+-----------------------------------------------------------------+
+| Specific Observation Space  | Box(-inf, inf, (32,), float64)                                  |
++=============================+=================================================================+
+| Specific Observation High   | inf                                                             |
++-----------------------------+-----------------------------------------------------------------+
+| Specific Observation Low    | -inf                                                            |
++-----------------------------+-----------------------------------------------------------------+
+| Import                      | ``safety_gymnasium2.make("Safety[Agent]FormulaOne1-v0")``       |
++-----------------------------+-----------------------------------------------------------------+
 
 
 Specific Observation Space
@@ -173,15 +173,15 @@ Level2
 
 **The Level 2 of FormulaOne** requires the agent to maximize its reach to the goal position while circumventing barriers and racetrack fences. For each episode, the agent is randomly initialized at one of the seven checkpoints. Notably, the barriers surrounding the checkpoints are denser.
 
-+-----------------------------+-----------------------------------------------------------+
-| Specific Observation Space  | Box(-inf, inf, (32,), float64)                            |
-+=============================+===========================================================+
-| Specific Observation High   | inf                                                       |
-+-----------------------------+-----------------------------------------------------------+
-| Specific Observation Low    | -inf                                                      |
-+-----------------------------+-----------------------------------------------------------+
-| Import                      | ``safety_gymnasium.make("Safety[Agent]FormulaOne2-v0")``  |
-+-----------------------------+-----------------------------------------------------------+
++-----------------------------+------------------------------------------------------------+
+| Specific Observation Space  | Box(-inf, inf, (32,), float64)                             |
++=============================+============================================================+
+| Specific Observation High   | inf                                                        |
++-----------------------------+------------------------------------------------------------+
+| Specific Observation Low    | -inf                                                       |
++-----------------------------+------------------------------------------------------------+
+| Import                      | ``safety_gymnasium2.make("Safety[Agent]FormulaOne2-v0")``  |
++-----------------------------+------------------------------------------------------------+
 
 
 Specific Observation Space

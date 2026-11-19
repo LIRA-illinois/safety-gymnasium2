@@ -11,9 +11,9 @@ Safety-Gymnasium is a standard API for safe reinforcement learning, and a divers
 
 .. code-block:: python
 
-   import safety_gymnasium
+   import safety_gymnasium2
 
-   env = safety_gymnasium.vector.make("SafetyCarGoal1-v0", render_mode="human", num_envs=8)
+   env = safety_gymnasium2.vector.make("SafetyCarGoal1-v0", render_mode="human", num_envs=8)
    observation, info = env.reset(seed=0)
 
    for _ in range(1000):

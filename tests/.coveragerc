@@ -1,8 +1,8 @@
 [run]
 omit =
-    ../safety_gymnasium/version.py
-    ../docs/*
-    ../examples/*
+    safety_gymnasium2/version.py
+    docs/*
+    examples/*
 
 [report]
 exclude_lines =

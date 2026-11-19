@@ -6,6 +6,7 @@ ci:
   autofix_commit_msg: "fix: [pre-commit.ci] auto fixes [...]"
   autoupdate_commit_msg: "chore(pre-commit): [pre-commit.ci] autoupdate"
 default_stages: [commit, push, manual]
+exclude: ^legacy/
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
@@ -13,10 +14,6 @@ repos:
       - id: check-symlinks
       - id: destroyed-symlinks
       - id: trailing-whitespace
-        exclude: |
-          (?x)(
-            ^safety_gymnasium/tasks/safe_isaac_gym/assets/|
-          )
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-toml
@@ -24,36 +21,22 @@ repos:
       - id: check-added-large-files
         exclude: |
           (?x)(
-            ^docs/_static/images/
-            ^safety_gymnasium/tasks/safe_issac_gym/assets/|
-            ^safety_gymnasium/assets/meshes/|
-            ^safety_gymnasium/assets/textures/|
+            ^docs/_static/images/|
+            ^asset_packs/|
+            ^safety_gymnasium2/assets/(meshes|textures)/
           )
       - id: check-merge-conflict
         exclude: \.rst$
       - id: check-executables-have-shebangs
-        exclude: |
-          (?x)(
-            ^safety_gymnasium/tasks/safe_isaac_gym/assets/|
-          )
       - id: check-shebang-scripts-are-executable
       - id: detect-private-key
       - id: debug-statements
-        exclude: |
-          (?x)(
-            ^safety_gymnasium/tasks/safe_isaac_gym/envs/tasks/freight_franka_pick_and_place.py|
-          )
       - id: double-quote-string-fixer
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.4.4
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
-        exclude: |
-          (?x)(
-            ^safety_gymnasium/tasks/safe_isaac_gym/
-            ^safety_gymnasium/tasks/safe_vla/|
-          )
   - repo: https://github.com/PyCQA/isort
     rev: 5.13.2
     hooks:
@@ -66,7 +49,7 @@ repos:
     rev: v3.15.2
     hooks:
       - id: pyupgrade
-        args: [--py38-plus] # sync with requires-python
+        args: [--py311-plus] # sync with requires-python
         exclude: |
           (?x)(
             ^examples/
@@ -83,8 +66,6 @@ repos:
           - flake8-simplify
         exclude: |
           (?x)(
-            ^safety_gymnasium/tasks/safe_isaac_gym/|
-            ^safety_gymnasium/tasks/safe_vla/|
             ^examples/|
             ^tests/|
             ^docs/conf.py$
@@ -96,7 +77,6 @@ repos:
         additional_dependencies: [".[toml]"]
         exclude: |
           (?x)(
-            ^safety_gymnasium/tasks/safe_isaac_gym/|
             ^docs/spelling_wordlist.txt$
           )
   # Todo: uncomment when ready to fix pylint errors
@@ -110,8 +90,6 @@ repos:
   #       require_serial: true
   #       exclude: |
   #         (?x)(
-  #           ^safety_gymnasium/tasks/safe_isaac_gym/|
-  #           ^safety_gymnasium/tasks/safe_vla/|
   #           ^examples/|
   #           ^tests/|
   #           ^setup.py$|
