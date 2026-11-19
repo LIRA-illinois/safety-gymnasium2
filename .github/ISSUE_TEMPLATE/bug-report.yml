@@ -14,7 +14,7 @@ body:
       label: Required prerequisites
       description: Make sure you've completed the following steps before submitting your issue -- thank you!
       options:
-        - label: I have read the [documentation](https://github.com/LIRA-illinois/safety-gymnasium2/tree/main/docs).
+        - label: I have read the [documentation](https://tran.aerospace.illinois.edu/safety-gymnasium2/).
           required: true
         - label: I have searched the [fork issue tracker](https://github.com/LIRA-illinois/safety-gymnasium2/issues) for an existing report.
           required: true

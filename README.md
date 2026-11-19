@@ -14,7 +14,7 @@
 
 <p align="center">
 <a href="#why-safety-gymnasium2">Why Safety-Gymnasium2?</a> |
-  <a href="docs/">Documentation</a> |
+  <a href="https://tran.aerospace.illinois.edu/safety-gymnasium2/">Documentation</a> |
   <a href="#installation">Install guide</a> |
   <a href="#customize-your-environments">Customization</a> | <a href="https://sites.google.com/view/safety-gymnasium">Upstream video</a>
 </p>
@@ -42,17 +42,18 @@ See [CITATION.cff](CITATION.cff) for citation metadata. This fork builds on the 
 
 The original [Safety Gymnasium](https://github.com/PKU-Alignment/safety-gymnasium) has seen little recent maintenance and still pins Gymnasium 0.28.1, Gymnasium-Robotics 1.2.2, and MuJoCo 2.3.3. Safety Gymnasium 2 supports Python 3.11+, Gymnasium 1.2+, Gymnasium-Robotics 1.4.2+, and MuJoCo 4.0.1+. It uses ranged dependencies and a `uv` lockfile for reproducible development.
 
-|                                                                                   SafeRL<br/>Envs                                                                                   |            Engine             | Vectorized<br/> Environments | New Gym API<sup>**(3)**</sup> |    Vision Input     |
-| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------: | :--------------------------: | :---------------------------: | :-----------------: |
-|            [Safety-Gym](https://github.com/openai/safety-gym)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/openai/safety-gym?label=last%20update)            | `mujoco-py`<sup>**(1)**</sup> |              ❌               |               ❌               | minimally supported |
-| [safe-control-gym](https://github.com/utiasDSL/safe-control-gym)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/utiasDSL/safe-control-gym?label=last%20update) |           PyBullet            |              ❌               |               ❌               |          ❌          |
-|                                                                       Velocity-Constraints<sup>**(2)**</sup>                                                                        |              N/A              |              ❌               |               ❌               |          ❌          | ❌ |
-|    [mujoco-circle](https://github.com/ymzhang01/mujoco-circle)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/ymzhang01/mujoco-circle?label=last%20update)     |            PyTorch            |              ❌               |               ❌               |          ❌          | ❌ |
-|                                  [Safety-Gymnasium2](https://github.com/LIRA-illinois/safety-gymnasium2)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/LIRA-illinois/safety-gymnasium2)                                  |       **MuJoCo 4.0.1+**       |              ✅               |               ✅               |          ✅          |
+| SafeRL environments | Engine | Vectorized environments | Modern step API<sup>**(3)**</sup> | Vision input |
+| --- | --- | :---: | --- | :---: |
+| [Safety-Gym](https://github.com/openai/safety-gym)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/openai/safety-gym?label=last%20update) | `mujoco-py`<sup>**(1)**</sup> | ❌ | ❌ | minimally supported |
+| [safe-control-gym](https://github.com/utiasDSL/safe-control-gym)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/utiasDSL/safe-control-gym?label=last%20update) | PyBullet | ❌ | ❌ | ❌ |
+| Velocity-Constraints<sup>**(2)**</sup> | N/A | ❌ | ❌ | ❌ |
+| [mujoco-circle](https://github.com/ymzhang01/mujoco-circle)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/ymzhang01/mujoco-circle?label=last%20update) | PyTorch | ❌ | ❌ | ❌ |
+| [Safety Gymnasium (upstream)](https://github.com/PKU-Alignment/safety-gymnasium)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/PKU-Alignment/safety-gymnasium?label=last%20update) | MuJoCo 2.3.3 (pinned) | ✅ | ✅ Gymnasium 0.28.1 (pinned) | ✅ |
+| [Safety Gymnasium 2](https://github.com/LIRA-illinois/safety-gymnasium2)<br/>![GitHub last commit](https://img.shields.io/github/last-commit/LIRA-illinois/safety-gymnasium2) | **MuJoCo 4.0.1+** | ✅ | ✅ **Gymnasium 1.2+** | ✅ |
 
 <sup>(1): Maintenance (expect bug fixes and minor updates); the last commit is 19 Nov 2021. Safety-Gym depends on `mujoco-py` 2.0.2.7, which was updated on Oct 12, 2019.</sup><br/>
 <sup>(2): There is no official library for speed-related environments, and its associated cost constraints are constructed from info. But the task is widely used in the study of SafeRL, and we encapsulate it in Safety-Gymnasium.</sup><br/>
-<sup>(3): In the gym 0.26.0 release update, a new API of interaction was redefined.</sup>
+<sup>(3) The modern step API reports termination and truncation separately.</sup>
 
 --------------------------------------------------------------------------------
 

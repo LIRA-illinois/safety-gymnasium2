@@ -37,6 +37,7 @@ dynamic = ["version"]
 
 [project.urls]
 Repository = "https://github.com/LIRA-illinois/safety-gymnasium2"
+Documentation = "https://tran.aerospace.illinois.edu/safety-gymnasium2/"
 Issues = "https://github.com/LIRA-illinois/safety-gymnasium2/issues"
 
 [project.optional-dependencies]
