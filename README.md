@@ -31,21 +31,24 @@ Cite this repository when using the fork in research and record the package vers
 }
 ```
 
-See [CITATION.cff](https://github.com/LIRA-illinois/safety-gymnasium2/blob/main/CITATION.cff) for software citation metadata. The fork builds on the [original Safety Gymnasium project](https://github.com/PKU-Alignment/safety-gymnasium) and its [benchmark paper](https://arxiv.org/abs/2310.12567).
+See [CITATION.cff](https://github.com/LIRA-illinois/safety-gymnasium2/blob/main/CITATION.cff) for software citation metadata. The fork builds on [Safety-Gymnasium](https://github.com/PKU-Alignment/safety-gymnasium) and its [benchmark paper](https://arxiv.org/abs/2310.12567).
 
 ---
 
 ## Why Safety-Gymnasium2?
 
-The original Safety Gymnasium is no longer actively maintained and pins Gymnasium 0.28.1, Gymnasium-Robotics 1.2.2, and MuJoCo 2.3.3. Safety Gymnasium 2 updates these dependencies to Gymnasium 1.2+, Gymnasium-Robotics 1.4.2+, and MuJoCo 4.0.1+ on Python 3.11+. The package declares minimum compatible versions and uses a `uv` lockfile for reproducible development. See the [upstream dependency declarations](https://github.com/PKU-Alignment/safety-gymnasium/blob/ae966e511b9927f06b39c727ca5c650136a4e696/pyproject.toml#L25-L34) and the [fork overview](https://tran.aerospace.illinois.edu/safety-gymnasium2/introduction/about_safety_gymnasium.html).
+Safety-Gymnasium is no longer actively maintained and pins Gymnasium 0.28.1, Gymnasium-Robotics 1.2.2, and MuJoCo 2.3.3. Safety Gymnasium 2 updates these dependencies to Gymnasium 1.2+, Gymnasium-Robotics 1.4.2+, and MuJoCo 4.0.1+ on Python 3.11+. The package declares minimum compatible versions and uses a `uv` lockfile for reproducible development. See the [upstream dependency declarations](https://github.com/PKU-Alignment/safety-gymnasium/blob/ae966e511b9927f06b39c727ca5c650136a4e696/pyproject.toml#L25-L34) and the [fork overview](https://tran.aerospace.illinois.edu/safety-gymnasium2/introduction/about_safety_gymnasium.html).
 
-| Safe RL environments | Simulation stack | Step API | Benchmarks |
-| --- | --- | --- | --- |
-| [Safety-Gym](https://github.com/openai/safety-gym) | MuJoCo via `mujoco-py` | Legacy Gym | Goal, Button, and Push navigation |
-| [safe-control-gym](https://github.com/learnsyslab/safe-control-gym) | PyBullet | Gym-style control environments | Cart-pole and quadrotor control |
-| [mujoco-circle](https://github.com/ymzhang01/mujoco-circle) | MuJoCo via `mujoco-py` | Legacy Gym | Circle and gather benchmarks |
-| [Original Safety Gymnasium](https://github.com/PKU-Alignment/safety-gymnasium) | MuJoCo 2.3.3 | Gymnasium 0.28.1 and native safety cost | Navigation, locomotion, and multi-agent tasks |
-| **Safety Gymnasium 2** | **MuJoCo 4.0.1+** | **Gymnasium 1.2+ and native safety cost** | State-based navigation, locomotion, and multi-agent tasks |
+| SafeRL environments | Engine | Vectorized environments | Modern step API | Vision input |
+| --- | --- | :---: | :---: | :---: |
+| [Safety-Gym](https://github.com/openai/safety-gym)<br>![last update](https://img.shields.io/github/last-commit/openai/safety-gym?label=last%20update) | MuJoCo via `mujoco-py` | ❌ | ❌ | Limited |
+| [safe-control-gym](https://github.com/learnsyslab/safe-control-gym)<br>![last update](https://img.shields.io/github/last-commit/learnsyslab/safe-control-gym?label=last%20update) | PyBullet | ✅ [Vector wrappers](https://github.com/learnsyslab/safe-control-gym/tree/main/safe_control_gym/envs/env_wrappers/vectorized_env) | ❌ | ❌ |
+| Velocity-Constraints | — | — | — | — |
+| [mujoco-circle](https://github.com/ymzhang01/mujoco-circle)<br>![last update](https://img.shields.io/github/last-commit/ymzhang01/mujoco-circle?label=last%20update) | MuJoCo via `mujoco-py` | ❌ | ❌ | ❌ |
+| [Safety-Gymnasium](https://github.com/PKU-Alignment/safety-gymnasium)<br>![last update](https://img.shields.io/github/last-commit/PKU-Alignment/safety-gymnasium?label=last%20update) | MuJoCo 2.3.3 (pinned) | ✅ | ✅ Gymnasium 0.28.1 (pinned) | ✅ Dedicated vision environments |
+| **[Safety Gymnasium 2](https://github.com/LIRA-illinois/safety-gymnasium2)**<br>![last update](https://img.shields.io/github/last-commit/LIRA-illinois/safety-gymnasium2?label=last%20update) | **MuJoCo 4.0.1+** | ✅ | ✅ **Gymnasium 1.2+** | ✅ Configurable RGB observations |
+
+The modern step API reports termination and truncation separately. Velocity-Constraints refers to a benchmark setup that adds a speed limit to a locomotion task, so its features depend on the base environment.
 
 The fork retains the native six-value step API and offers namespaced single-agent environments for Gymnasium wrappers and algorithms. Its vector API carries terminal observations and costs through same-step resets.
 
@@ -53,7 +56,7 @@ The fork retains the native six-value step API and offers namespaced single-agen
 
 ## Environments
 
-Navigation environments combine robots, tasks, and difficulty levels. For example, `SafetyPointGoal1-v0` uses the Point robot on Goal level 1. The original Safety Gymnasium ported tasks from Safety-Gym to the native MuJoCo bindings. The [Safety-Gym bug report](https://github.com/LIRA-illinois/safety-gymnasium2/blob/main/safety_gym_bug_report.md) documents the upstream fixes.
+Navigation environments combine robots, tasks, and difficulty levels. For example, `SafetyPointGoal1-v0` uses the Point robot on Goal level 1. Safety-Gymnasium ported tasks from Safety-Gym to the native MuJoCo bindings. The [Safety-Gym bug report](https://github.com/LIRA-illinois/safety-gymnasium2/blob/main/safety_gym_bug_report.md) documents the upstream fixes.
 
 <table>
   <thead>
