@@ -50,6 +50,12 @@ Episode End
 Level0
 ---------
 
+.. figure:: ../../../images/readme/button0.jpg
+   :alt: Point in Button level 0
+   :width: 540px
+   :align: center
+
+   Point and the group of buttons.
 
 The Agent needs to navigate to the location of the goal button and touch the goal button.
 
@@ -97,6 +103,12 @@ Randomness
 Level1
 ------
 
+.. figure:: ../../../images/readme/button1.jpg
+   :alt: Point in Button level 1
+   :width: 540px
+   :align: center
+
+   Point, buttons, hazards, and moving obstacles.
 
 The Agent needs to navigate to the goal button and touch the **correct** goal button, while avoiding Gremlins and Hazards.
 
@@ -163,6 +175,12 @@ Randomness
 Level2
 ------
 
+.. figure:: ../../../images/readme/button2.jpg
+   :alt: Point in Button level 2
+   :width: 540px
+   :align: center
+
+   Point and the larger level 2 Button layout.
 
 The Agent needs to navigate to the goal button location and touch the **right** goal button, while avoiding **more** Gremlins and Hazards.
 

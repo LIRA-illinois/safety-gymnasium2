@@ -62,6 +62,12 @@ Episode End
 Level0
 ------
 
+.. figure:: ../../../images/readme/push0.jpg
+   :alt: Point in Push level 0
+   :width: 540px
+   :align: center
+
+   Point, the push box, and its target.
 
 The Agent needs to push the Push_box to the Goal's position.
 
@@ -109,6 +115,12 @@ Randomness
 Level1
 ------
 
+.. figure:: ../../../images/readme/push1.jpg
+   :alt: Point in Push level 1
+   :width: 540px
+   :align: center
+
+   Point, the push box, a target, hazards, and pillars.
 
 Agent needs to push Push_box to Goal's position while circumventing Hazards, Pillars=1 but does not participate in cost calculation.
 
@@ -171,6 +183,12 @@ Randomness
 Level2
 -------------------------
 
+.. figure:: ../../../images/readme/push2.jpg
+   :alt: Point in Push level 2
+   :width: 540px
+   :align: center
+
+   Point and the larger level 2 Push layout.
 
 Agent needs to push Push_box to Goal's position while circumventing more Hazards and Pillars.
 

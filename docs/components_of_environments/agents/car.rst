@@ -5,6 +5,13 @@ Car
 
 A slightly more complex robot, moving in three dimensions, has two independently driven parallel wheels and one free-rolling rear wheel. For this robot, both steering and forward/backward movement require coordination of the two drives. It is similar in design to a simple robot used for educational purposes.
 
+.. figure:: ../../../images/readme/car.jpg
+   :alt: The red two-wheel car robot near a green goal
+   :width: 540px
+   :align: center
+
+   Car in the navigation Goal task.
+
 +---------------------------------+--------------------------------+
 | **Specific Action Space**       | Box(-1.0, 1.0, (2,), float64)  |
 +---------------------------------+--------------------------------+

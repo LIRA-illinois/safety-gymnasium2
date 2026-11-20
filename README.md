@@ -39,16 +39,16 @@ See [CITATION.cff](https://github.com/LIRA-illinois/safety-gymnasium2/blob/main/
 
 Safety-Gymnasium is no longer actively maintained and pins Gymnasium 0.28.1, Gymnasium-Robotics 1.2.2, and MuJoCo 2.3.3. Safety Gymnasium 2 updates these dependencies to Gymnasium 1.2+, Gymnasium-Robotics 1.4.2+, and MuJoCo 4.0.1+ on Python 3.11+. The package declares minimum compatible versions and uses a `uv` lockfile for reproducible development. See the [upstream dependency declarations](https://github.com/PKU-Alignment/safety-gymnasium/blob/ae966e511b9927f06b39c727ca5c650136a4e696/pyproject.toml#L25-L34) and the [fork overview](https://tran.aerospace.illinois.edu/safety-gymnasium2/introduction/about_safety_gymnasium.html).
 
-| SafeRL environments | Engine | Vectorized environments | Modern step API | Vision input |
+| SafeRL environments | Engine | Vectorized environments | Gymnasium 1.2+ API | Vision input |
 | --- | --- | :---: | :---: | :---: |
 | [Safety-Gym](https://github.com/openai/safety-gym)<br>![last update](https://img.shields.io/github/last-commit/openai/safety-gym?label=last%20update) | MuJoCo via `mujoco-py` | ❌ | ❌ | Limited |
 | [safe-control-gym](https://github.com/learnsyslab/safe-control-gym)<br>![last update](https://img.shields.io/github/last-commit/learnsyslab/safe-control-gym?label=last%20update) | PyBullet | ✅ [Vector wrappers](https://github.com/learnsyslab/safe-control-gym/tree/main/safe_control_gym/envs/env_wrappers/vectorized_env) | ❌ | ❌ |
 | Velocity-Constraints | — | — | — | — |
 | [mujoco-circle](https://github.com/ymzhang01/mujoco-circle)<br>![last update](https://img.shields.io/github/last-commit/ymzhang01/mujoco-circle?label=last%20update) | MuJoCo via `mujoco-py` | ❌ | ❌ | ❌ |
-| [Safety-Gymnasium](https://github.com/PKU-Alignment/safety-gymnasium)<br>![last update](https://img.shields.io/github/last-commit/PKU-Alignment/safety-gymnasium?label=last%20update) | MuJoCo 2.3.3 (pinned) | ✅ | ✅ Gymnasium 0.28.1 (pinned) | ✅ Dedicated vision environments |
-| **[Safety Gymnasium 2](https://github.com/LIRA-illinois/safety-gymnasium2)**<br>![last update](https://img.shields.io/github/last-commit/LIRA-illinois/safety-gymnasium2?label=last%20update) | **MuJoCo 4.0.1+** | ✅ | ✅ **Gymnasium 1.2+** | ✅ Configurable RGB observations |
+| [Safety-Gymnasium](https://github.com/PKU-Alignment/safety-gymnasium)<br>![last update](https://img.shields.io/github/last-commit/PKU-Alignment/safety-gymnasium?label=last%20update) | MuJoCo 2.3.3 (pinned) | ✅ | ❌ | ✅ Dedicated vision environments |
+| **[Safety Gymnasium 2](https://github.com/LIRA-illinois/safety-gymnasium2)**<br>![last update](https://img.shields.io/github/last-commit/LIRA-illinois/safety-gymnasium2?label=last%20update) | **MuJoCo 4.0.1+** | ✅ | ✅ | ✅ Configurable RGB observations |
 
-The modern step API reports termination and truncation separately. Velocity-Constraints refers to a benchmark setup that adds a speed limit to a locomotion task, so its features depend on the base environment.
+Velocity-Constraints refers to a benchmark setup that adds a speed limit to a locomotion task, so its features depend on the base environment.
 
 The fork retains the native six-value step API and offers namespaced single-agent environments for Gymnasium wrappers and algorithms. Its vector API carries terminal observations and costs through same-step resets.
 

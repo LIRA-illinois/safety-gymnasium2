@@ -10,6 +10,11 @@ It is a static object in the environment that cannot change its position by cont
 Goal
 ----
 
+.. figure:: /images/objects/object-goal.jpg
+   :alt: A translucent green cylinder next to the Point robot.
+   :width: 420px
+
+   The green cylinder marks the target in Point Goal 0.
 
 ===================== ===============
 Can be constrained    No collision
@@ -31,6 +36,11 @@ Nothing.
 Buttons
 -------------------------
 
+.. figure:: /images/objects/object-buttons.jpg
+   :alt: An orange button next to the active button marked in green.
+   :width: 420px
+
+   The green marker identifies the target button in Point Button 1.
 
 ===================== ===============
 Can be constrained    No collision
@@ -56,6 +66,11 @@ Constraints
 Circle
 -------------
 
+.. figure:: /images/objects/object-circle-boundary.jpg
+   :alt: A green circular region with four yellow boundary lines crossing its edges.
+   :width: 420px
+
+   Point Circle 2 overlays four yellow :ref:`Sigwalls` on the green circle.
 
 ===================== ===============
 Can be constrained    No collision
@@ -75,6 +90,11 @@ Nothing.
 Pillars
 -------------------------
 
+.. figure:: /images/objects/object-pillar.jpg
+   :alt: A tall blue cylinder beside the Point robot and a yellow push box.
+   :width: 420px
+
+   A blue pillar occupies the foreground in Point Push 1.
 
 ===================== ===============
 Can be constrained    No collision
@@ -98,6 +118,11 @@ Constraints
 Hazards
 -------------------------
 
+.. figure:: /images/objects/object-hazards.jpg
+   :alt: Flat blue discs among raised teal vases.
+   :width: 420px
+
+   The flat blue discs mark hazards in Point Goal 2.
 
 ===================== ===============
 Can be constrained    No collision

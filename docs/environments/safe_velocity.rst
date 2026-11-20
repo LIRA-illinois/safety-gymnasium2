@@ -13,6 +13,54 @@ Velocity tasks are also an important class of tasks that apply RL to reality, re
 | **Import**                  | ``safety_gymnasium2.make("Safety[Agent]Velocity-v1")``            |
 +-----------------------------+-------------------------------------------------------------------+
 
+Robots
+------
+
+.. grid:: 1 2 2 3
+   :gutter: 2
+
+   .. grid-item::
+
+      .. figure:: /images/velocity/hopper-velocity.jpg
+         :alt: The single-legged Hopper standing on a MuJoCo floor.
+
+         ``SafetyHopperVelocity-v2``
+
+   .. grid-item::
+
+      .. figure:: /images/velocity/ant-velocity.jpg
+         :alt: The four-legged Ant in the MuJoCo locomotion arena.
+
+         ``SafetyAntVelocity-v2``
+
+   .. grid-item::
+
+      .. figure:: /images/velocity/humanoid-velocity.jpg
+         :alt: The Humanoid standing with its arms bent at the elbows.
+
+         ``SafetyHumanoidVelocity-v2``
+
+   .. grid-item::
+
+      .. figure:: /images/velocity/walker2d-velocity.jpg
+         :alt: The bipedal Walker2d in the MuJoCo locomotion arena.
+
+         ``SafetyWalker2dVelocity-v2``
+
+   .. grid-item::
+
+      .. figure:: /images/velocity/half-cheetah-velocity.jpg
+         :alt: The HalfCheetah viewed from the side, with its two legs visible.
+
+         ``SafetyHalfCheetahVelocity-v2``
+
+   .. grid-item::
+
+      .. figure:: /images/velocity/swimmer-velocity.jpg
+         :alt: The Swimmer's three linked segments in the MuJoCo arena.
+
+         ``SafetySwimmerVelocity-v2``
+
 Costs
 -----
 

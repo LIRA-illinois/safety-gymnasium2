@@ -10,6 +10,11 @@ Refers to objects in the environment that move autonomously according to a certa
 Gremlins
 --------
 
+.. figure:: /images/objects/object-gremlins.jpg
+   :alt: Solid magenta cubes among orange buttons and flat blue hazard discs.
+   :width: 420px
+
+   The solid magenta cubes are moving gremlins in Point Button 1.
 
 ===================== ===============
 Can be constrained    No collision

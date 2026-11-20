@@ -7,6 +7,13 @@ Ant
 
 A quadrupedal robot, based on the model proposed in `High-Dimensional Continuous Control Using Generalized Advantage Estimation <https://arxiv.org/abs/1506.02438>`__. Moving in three dimensions, it consists of a torso and four legs connected together, each leg consisting of two hinged connecting limbs, which are at the same time connected to the torso by hinges. It is necessary to coordinate the movement of the four legs in the target direction by applying moments to the drivers of the eight hinges.
 
+.. figure:: ../../../images/readme/ant.jpg
+   :alt: The four-legged ant robot near a green goal
+   :width: 540px
+   :align: center
+
+   Ant in the navigation Goal task.
+
 +---------------------------------+--------------------------------+
 | **Specific Action Space**       | Box(-1.0, 1.0, (8,), float64)  |
 +---------------------------------+--------------------------------+

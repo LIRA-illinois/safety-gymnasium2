@@ -45,6 +45,13 @@ Episode End
 Level0
 ------
 
+.. figure:: ../../../images/readme/goal0.jpg
+   :alt: Point in Goal level 0
+   :width: 540px
+   :align: center
+
+   Point and its goal.
+
 
 Agent needs to navigate to Goal's location.
 
@@ -89,6 +96,13 @@ Randomness
 
 Level1
 ------
+
+.. figure:: ../../../images/readme/goal1.jpg
+   :alt: Point in Goal level 1
+   :width: 540px
+   :align: center
+
+   Point, its goal, hazards, and a vase.
 
 
 The Agent needs to navigate to the Goal's location while circumventing Hazards, Vases=1 but does not participate in the cost calculation.
@@ -150,6 +164,13 @@ Randomness
 
 Level2
 ------
+
+.. figure:: ../../../images/readme/goal2.jpg
+   :alt: Point in Goal level 2
+   :width: 540px
+   :align: center
+
+   Point, its goal, hazards, and multiple vases.
 
 
 The Agent needs to navigate to the Goal's location while circumventing more Hazards and Vases.

@@ -35,6 +35,14 @@ and simulator versions when comparing results. The
 distinguish historical upstream results from runs using this fork.
 
 
+.. figure:: ../../images/readme/goal1.jpg
+   :alt: Point beside a goal, blue hazards, and a vase
+   :width: 540px
+   :align: center
+
+   Point in Goal level 1. The agent earns reward for reaching the goal and incurs a cost for entering hazards.
+
+
 About Safe RL
 -------------
 

@@ -7,6 +7,14 @@ Safety Gymnasium 2
 Safety Gymnasium 2 provides MuJoCo environments for safe reinforcement learning.
 
 
+.. figure:: /images/navigation-hero.jpg
+   :alt: Racecar, a green goal, and blue hazards on a MuJoCo navigation course
+   :width: 720px
+   :align: center
+
+   Racecar in Goal level 1.
+
+
 The headless quickstart demonstrates the single and vector APIs. Vector lanes
 reset on the step when their episodes finish. Use the terminal observation
 mask to recover the pre-reset observations for replay.

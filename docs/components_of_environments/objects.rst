@@ -9,6 +9,19 @@ The objects of the environment are divided into three groups: **Geom**, **FreeGe
 - FreeGeom refers to a movable static object in the environment, with which interaction may result in a cost, or which may need to be moved to complete a task. It is used to model realistic static objects that can be moved.
 - Mocap refers to objects in the environment that move autonomously according to a certain pattern, with which interaction may produce cost, and can also influence the way they move through physical interaction. It is used to model realistic controlled moving objects.
 
+.. list-table:: Object examples from the released navigation tasks
+   :header-rows: 1
+
+   * - :doc:`objects/geom`
+     - :doc:`objects/free_geom`
+     - :doc:`objects/mocap`
+   * - .. image:: /images/objects/object-pillar.jpg
+          :alt: A tall blue pillar beside the Point robot in Push 1.
+     - .. image:: /images/objects/object-vases.jpg
+          :alt: Three teal cube-shaped vases among blue hazards in Goal 2.
+     - .. image:: /images/objects/object-gremlins.jpg
+          :alt: Four solid magenta gremlins among the hazards and buttons in Button 1.
+
 .. Note::
 
     1. Some objects in the environment have one and only one instance, while others can have more than one. This is distinguished by the singular and plural forms of naming, e.g., Vases, which means that the object can have more than one instance, and Goal, which means that the object has one and only one instance.

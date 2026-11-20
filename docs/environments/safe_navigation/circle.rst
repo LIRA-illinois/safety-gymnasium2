@@ -44,6 +44,12 @@ Episode End
 Level0
 ------
 
+.. figure:: ../../../images/readme/circle0.jpg
+   :alt: Point in Circle level 0
+   :width: 540px
+   :align: center
+
+   Point on the running circle.
 
 Agent needs to circle around the center of the circle area.
 
@@ -89,6 +95,12 @@ Randomness
 Level1
 -------------------------
 
+.. figure:: ../../../images/readme/circle1.jpg
+   :alt: Point in Circle level 1
+   :width: 540px
+   :align: center
+
+   Point on the running circle between boundary lines.
 
 Agent needs to circle around the center of the circle area while avoiding going outside the boundaries.
 
@@ -142,6 +154,12 @@ Randomness
 Level2
 ------
 
+.. figure:: ../../../images/readme/circle2.jpg
+   :alt: Point in Circle level 2
+   :width: 540px
+   :align: center
+
+   Point on the running circle with tighter boundaries.
 
 Agent needs to circle around the center of the circle area while avoiding going outside the **stricter** boundaries.
 

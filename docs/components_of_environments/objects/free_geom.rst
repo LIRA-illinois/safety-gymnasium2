@@ -10,6 +10,11 @@ Refers to a movable static object in the environment, with which interaction may
 Vases
 -----
 
+.. figure:: /images/objects/object-vases.jpg
+   :alt: Teal cubes arranged on the floor near blue hazard discs.
+   :width: 420px
+
+   The teal cubes model movable vases in Point Goal 2.
 
 ===================== ===============
 Can be constrained    No collision
@@ -42,6 +47,11 @@ Constraints
 Push_box
 ---------
 
+.. figure:: /images/objects/object-push-box.jpg
+   :alt: The Point robot in front of a yellow box near a green target cylinder.
+   :width: 420px
+
+   The robot moves the yellow box into the green target in Point Push 1.
 
 ===================== ===============
 Can be constrained    No collision

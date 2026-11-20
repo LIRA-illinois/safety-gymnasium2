@@ -7,6 +7,12 @@ Multi-Agent Velocity
 
 Drawing insights from :doc:`../safe_velocity/`, velocity safety constraints have also been extended to the same robots under multi-agent settings. These adhere to the interface consistent with Multi-Agent Mujoco. For specific definitions and usage of this interface, please consult the Multi-Agent Mujoco's `Documentation <https://robotics.farama.org/envs/MaMuJoCo/>`__.
 
+.. figure:: /images/velocity/ant-2x4-velocity.jpg
+   :alt: One four-legged Ant robot in the 2x4 multi-agent velocity environment.
+
+   ``make_ma('Ant', '2x4')`` partitions control of one Ant between two
+   agents, each with four actuators.
+
 
 +-----------------------------+------------------------------------------------------------------+
 | scenario                    | agent_conf                                                       |

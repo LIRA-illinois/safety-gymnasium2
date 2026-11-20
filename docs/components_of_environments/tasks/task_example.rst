@@ -8,6 +8,13 @@ Task Example
 Goal0
 -------------------------
 
+.. figure:: ../../../images/readme/goal0.jpg
+   :alt: Point and a green goal
+   :width: 540px
+   :align: center
+
+   The Goal level 0 environment defined below.
+
 .. code-block:: python
 
     """Goal level 0."""

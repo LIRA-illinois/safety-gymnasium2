@@ -48,6 +48,12 @@ Episode End
 Level0
 ------
 
+.. figure:: /images/extra_tasks/ant_multigoal0.jpg
+   :alt: Red and blue Ant robots with matching colored goals in MultiGoal level 0.
+   :width: 540px
+   :align: center
+
+   ``SafetyAntMultiGoal0-v0``
 
 Agents are required to navigate to targets matching their respective colors.
 
@@ -94,6 +100,12 @@ Randomness
 Level1
 ------
 
+.. figure:: /images/extra_tasks/ant_multigoal1.jpg
+   :alt: Two Ant robots with colored goals, hazards, and one vase in MultiGoal level 1.
+   :width: 540px
+   :align: center
+
+   ``SafetyAntMultiGoal1-v0``
 
 Agents are obliged to navigate to targets of their corresponding colors, steering clear of collisions with other agents and avoiding stepping on hazards. Although Vases=1, it does not contribute to the cost computation.
 
@@ -157,6 +169,12 @@ Randomness
 Level2
 ------
 
+.. figure:: /images/extra_tasks/ant_multigoal2.jpg
+   :alt: Two Ant robots with colored goals, hazards, and multiple vases in MultiGoal level 2.
+   :width: 540px
+   :align: center
+
+   ``SafetyAntMultiGoal2-v0``
 
 Agents must navigate to targets matching their designated colors, while concurrently evading collisions with other agents and refraining from contact with obstacles or stepping on hazards.
 

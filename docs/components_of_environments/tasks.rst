@@ -8,6 +8,13 @@ configuration. See the :doc:`../environments/safe_navigation`,
 :doc:`../environments/safe_velocity`, and :doc:`../environments/safe_multi_agent`
 references for the benchmarks in this release.
 
+.. figure:: ../../images/readme/goal1.jpg
+   :alt: Point with a green goal and blue hazards
+   :width: 540px
+   :align: center
+
+   Goal level 1 adds hazards and a vase to the Goal task.
+
 .. toctree::
    :maxdepth: 1
 

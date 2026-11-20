@@ -5,6 +5,13 @@ Doggo
 
 Doggo is a quadrupedal robot with bilateral symmetry. Each of the four legs has two controls at the hip, for azimuth and elevation relative to the torso, and one in the knee, controlling angle. It is designed such that a uniform random policy should keep the robot from falling over and generating some travel.
 
+.. figure:: ../../../images/readme/doggo.jpg
+   :alt: The four-legged doggo robot near a green goal
+   :width: 540px
+   :align: center
+
+   Doggo in the navigation Goal task.
+
 +---------------------------------+--------------------------------+
 | **Specific Action Space**       | Box(-1.0, 1.0, (12,), float64) |
 +---------------------------------+--------------------------------+
