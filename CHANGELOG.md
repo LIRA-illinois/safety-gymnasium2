@@ -1,3 +1,4 @@
+<!-- Modified for Safety Gymnasium 2. -->
 # Changelog
 
 <!-- markdownlint-disable no-duplicate-header -->
@@ -8,11 +9,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ------
-## Unreleased
+## 2.0.0
 
 - Run the test suite with Abseil and use the same Ruff and type checks locally and in CI.
 - Correct episode reset, reward and cost normalization, and Gymnasium alias behavior.
 - Document benchmark reproducibility and provide a software citation for this fork.
+
+- Publish a MuJoCo core with a catalog that reflects its redistributable assets.
+- Preserve the default HalfCheetah dynamics while removing the deprecated MuJoCo mass setting.
+- Explain the fork and the compatibility differences in the documentation.
 
 ## Upstream history
 

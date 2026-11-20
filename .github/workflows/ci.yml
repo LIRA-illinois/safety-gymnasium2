@@ -1,3 +1,4 @@
+# Modified for Safety Gymnasium 2.
 name: ci
 
 on:
@@ -57,14 +58,10 @@ jobs:
           core_source=$(find "$wheelhouse" -maxdepth 1 -name 'safety_gymnasium2-*.tar.gz')
           cd "$RUNNER_TEMP"
 
-          for mode in core racing building; do
-            uv venv --seed "$mode"
-            case "$mode" in
-              core) artifact="$core_wheel" ;;
-              racing) artifact="$core_wheel[racing]" ;;
-              building) artifact="$core_source[building]" ;;
-            esac
-            "$mode/bin/python" -m pip install --find-links "$wheelhouse" "$artifact"
-            "$mode/bin/python" -m pip check
-            "$mode/bin/python" -I "$smoke" "$mode"
+          for artifact in "$core_wheel" "$core_source"; do
+            install_dir=$(mktemp -d)
+            uv venv --seed "$install_dir"
+            "$install_dir/bin/python" -m pip install "$artifact"
+            "$install_dir/bin/python" -m pip check
+            "$install_dir/bin/python" -I "$smoke" core
           done

@@ -1,20 +1,7 @@
+.. Modified for Safety Gymnasium 2.
+
 Racecar
 =======
-
-.. list-table::
-
-    * - .. figure:: ../../_static/images/racecar_front.jpeg
-            :width: 200px
-        .. centered:: front
-      - .. figure:: ../../_static/images/racecar_back.jpeg
-            :width: 200px
-        .. centered:: back
-      - .. figure:: ../../_static/images/racecar_left.jpeg
-            :width: 200px
-        .. centered:: left
-      - .. figure:: ../../_static/images/racecar_right.jpeg
-            :width: 200px
-        .. centered:: right
 
 A robot closer to realistic car dynamics, moving in three dimensions, has one velocity servo and one position servo, one to adjust the rear wheel speed to the target speed and the other to adjust the front wheel steering angle to the target angle. Racecar references the widely known MIT Racecar project's dynamics model. For it to accomplish the specified goal, it must coordinate the relationship between the steering angle of the tires and the speed, just like a human driving a car.
 

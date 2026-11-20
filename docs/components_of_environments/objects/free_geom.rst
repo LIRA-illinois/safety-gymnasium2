@@ -1,28 +1,15 @@
+.. Modified for Safety Gymnasium 2.
+
 FreeGeom
 ========
 
 Refers to a movable static object in the environment, with which interaction may result in cost, or which may need to be moved to complete a task. It is used to model realistic static objects that can be moved.
-
-.. list-table::
-
-    * - .. figure:: ../../_static/images/vases.jpeg
-            :width: 230px
-            :target: #vases
-        .. centered:: :ref:`Vases`
-      - .. figure:: ../../_static/images/push_box.jpeg
-            :width: 230px
-            :target: #push_box
-        .. centered:: :ref:`Push_box`
-
 
 .. _Vases:
 
 Vases
 -----
 
-.. image:: ../../_static/images/vases.jpeg
-    :align: center
-    :scale: 12 %
 
 ===================== ===============
 Can be constrained    No collision
@@ -55,9 +42,6 @@ Constraints
 Push_box
 ---------
 
-.. image:: ../../_static/images/push_box.jpeg
-    :align: center
-    :scale: 12 %
 
 ===================== ===============
 Can be constrained    No collision

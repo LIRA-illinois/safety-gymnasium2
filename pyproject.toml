@@ -1,3 +1,4 @@
+# Modified for Safety Gymnasium 2.
 [build-system]
 requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
@@ -8,8 +9,8 @@ description = "MuJoCo environments for safe reinforcement learning."
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{ name = "Safety Gymnasium 2 Contributors" }]
-license = "Apache-2.0"
-license-files = ["LICENSE"]
+license = "Apache-2.0 AND MIT"
+license-files = ["LICENSE", "LICENSE-MIT", "NOTICE"]
 keywords = ["Safe Reinforcement Learning", "RL Environment", "MuJoCo"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -40,13 +41,6 @@ Repository = "https://github.com/LIRA-illinois/safety-gymnasium2"
 Documentation = "https://tran.aerospace.illinois.edu/safety-gymnasium2/"
 Issues = "https://github.com/LIRA-illinois/safety-gymnasium2/issues"
 
-[project.optional-dependencies]
-racing = ["safety-gymnasium2-racing-assets>=1.0,<2"]
-building = [
-    "safety-gymnasium2-building-scenery>=1.0,<2",
-    "safety-gymnasium2-building-structure>=1.0,<2",
-]
-
 [dependency-groups]
 test = ["absl-py", "coverage"]
 lint = ["pre-commit", "ruff", "ty"]
@@ -65,14 +59,6 @@ docs = [
     "sphinxcontrib-spelling",
 ]
 
-[tool.uv.workspace]
-members = ["asset_packs/*"]
-
-[tool.uv.sources]
-safety-gymnasium2-racing-assets = { workspace = true }
-safety-gymnasium2-building-scenery = { workspace = true }
-safety-gymnasium2-building-structure = { workspace = true }
-
 [tool.setuptools]
 include-package-data = false
 
@@ -85,7 +71,6 @@ include = ["safety_gymnasium2", "safety_gymnasium2.*"]
 [tool.setuptools.package-data]
 safety_gymnasium2 = [
     "assets/meshes/*",
-    "assets/textures/*",
     "assets/xmls/*.xml",
     "configs/*.yaml",
     "tasks/safe_multi_agent/assets/xmls/*.xml",
@@ -114,7 +99,7 @@ max-line-length = 500
 # Sync with requires-python
 target-version = "py311"
 line-length = 100
-src = ["safety_gymnasium2", "tests", "examples", "asset_packs"]
+src = ["safety_gymnasium2", "tests", "examples"]
 
 [tool.ruff.format]
 quote-style = "single"

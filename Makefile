@@ -1,10 +1,10 @@
+# Modified for Safety Gymnasium 2.
 UV ?= uv
 PROJECT_PATH = safety_gymnasium2
-SOURCE_FOLDERS = $(PROJECT_PATH) examples tests docs asset_packs
-COMPATIBILITY_PATHS = $(PROJECT_PATH)/utils/registration.py $(PROJECT_PATH)/assets/paths.py \
+SOURCE_FOLDERS = $(PROJECT_PATH) examples tests docs
+COMPATIBILITY_PATHS = $(PROJECT_PATH)/utils/registration.py \
                       $(PROJECT_PATH)/vector $(PROJECT_PATH)/wrappers
-FORMAT_PATHS = $(COMPATIBILITY_PATHS) examples tests docs asset_packs
-TEST_EXTRAS = --extra racing --extra building
+FORMAT_PATHS = $(COMPATIBILITY_PATHS) examples tests docs
 TESTOPTS ?=
 SPHINXOPTS ?=
 
@@ -26,10 +26,10 @@ uninstall:
 	$(UV) pip uninstall safety-gymnasium2
 
 build:
-	$(UV) build --all-packages --no-sources
+	$(UV) build --no-sources
 
 test:
-	$(UV) run --locked --group test $(TEST_EXTRAS) coverage run -m unittest discover \
+	$(UV) run --locked --group test coverage run -m unittest discover \
 		-s tests -p 'test_*.py' $(TESTOPTS)
 	$(UV) run --locked --group test coverage report
 	$(UV) run --locked --group test coverage xml

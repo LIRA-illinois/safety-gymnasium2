@@ -1,3 +1,5 @@
+.. Modified for Safety Gymnasium 2.
+
 Push
 ====
 
@@ -60,9 +62,6 @@ Episode End
 Level0
 ------
 
-.. image:: ../../_static/images/push0.jpeg
-    :align: center
-    :scale: 12 %
 
 The Agent needs to push the Push_box to the Goal's position.
 
@@ -110,9 +109,6 @@ Randomness
 Level1
 ------
 
-.. image:: ../../_static/images/push1.jpeg
-    :align: center
-    :scale: 12 %
 
 Agent needs to push Push_box to Goal's position while circumventing Hazards, Pillars=1 but does not participate in cost calculation.
 
@@ -175,9 +171,6 @@ Randomness
 Level2
 -------------------------
 
-.. image:: ../../_static/images/push2.jpeg
-    :align: center
-    :scale: 12 %
 
 Agent needs to push Push_box to Goal's position while circumventing more Hazards and Pillars.
 

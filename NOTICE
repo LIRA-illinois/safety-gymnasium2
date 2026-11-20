@@ -1,0 +1,17 @@
+Safety Gymnasium 2
+
+This independent LIRA fork includes and modifies work from Safety Gymnasium,
+Copyright 2022-2023 OmniSafe Team, under the Apache License, Version 2.0.
+Source: https://github.com/PKU-Alignment/safety-gymnasium/tree/ae966e511b9927f06b39c727ca5c650136a4e696
+Original benchmark paper: https://arxiv.org/abs/2310.12567
+
+The bundled HalfCheetah model in safety_gymnasium2/assets/xmls/half_cheetah.xml
+comes from Gymnasium under the MIT License. The source and modifications are
+identified in the model. The text of that license is included as LICENSE-MIT.
+
+The Racecar chassis, steering hinges, and wheel meshes are the seven files
+retained from OpenAI Safety Gym's MIT-licensed data/racecar/meshes. Those files
+also match the original MIT-licensed Bullet Racecar assets. The original
+Blackrock Digital and OpenAI notices are included in LICENSE-MIT.
+OpenAI source: https://github.com/openai/safety-gym/tree/f31042f2f9ee61b9034dd6a416955972911544f5/data/racecar/meshes
+Bullet asset license: https://github.com/bulletphysics/bullet3/blob/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb/data/racecar/LICENSE.txt

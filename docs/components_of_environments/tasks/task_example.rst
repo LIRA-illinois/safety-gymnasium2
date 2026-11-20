@@ -1,3 +1,5 @@
+.. Modified for Safety Gymnasium 2.
+
 Task Example
 ==============
 

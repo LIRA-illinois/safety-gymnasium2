@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# Modified by Safety Gymnasium 2 contributors for the core release.
 # ==============================================================================
 """Env builder."""
 
@@ -24,7 +25,6 @@ import gymnasium
 import numpy as np
 
 from safety_gymnasium2 import tasks
-from safety_gymnasium2.assets.paths import require_task_assets
 from safety_gymnasium2.bases.base_task import BaseTask
 from safety_gymnasium2.utils.common_utils import ResamplingError, quat2zalign
 from safety_gymnasium2.utils.task_utils import get_task_class_name
@@ -161,7 +161,6 @@ class Builder(gymnasium.Env, gymnasium.utils.EzPickle):
     def _get_task(self) -> BaseTask:
         """Instantiate a task object."""
         class_name = self.config.get('task_name', get_task_class_name(self.task_id))
-        require_task_assets(class_name)
         assert hasattr(tasks, class_name), f'Task={class_name} not implemented.'
         task_class = getattr(tasks, class_name)
         task = task_class(config=self.config)

@@ -1,3 +1,5 @@
+.. Modified for Safety Gymnasium 2.
+
 Circle
 ==========
 
@@ -25,7 +27,6 @@ Rewards
 -------------------------
 
 
-
  - loop reward：
 
  .. math:: R_t = \frac{1}{1 + |r_{agent} - r_{circle}|} * \frac{(-uy + vx)}{r_{agent}}
@@ -43,9 +44,6 @@ Episode End
 Level0
 ------
 
-.. image:: ../../_static/images/circle0.jpeg
-    :align: center
-    :scale: 12 %
 
 Agent needs to circle around the center of the circle area.
 
@@ -91,9 +89,6 @@ Randomness
 Level1
 -------------------------
 
-.. image:: ../../_static/images/circle1.jpeg
-    :align: center
-    :scale: 12 %
 
 Agent needs to circle around the center of the circle area while avoiding going outside the boundaries.
 
@@ -147,9 +142,6 @@ Randomness
 Level2
 ------
 
-.. image:: ../../_static/images/circle2.jpeg
-    :align: center
-    :scale: 12 %
 
 Agent needs to circle around the center of the circle area while avoiding going outside the **stricter** boundaries.
 

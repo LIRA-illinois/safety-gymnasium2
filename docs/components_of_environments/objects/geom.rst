@@ -1,44 +1,15 @@
+.. Modified for Safety Gymnasium 2.
+
 Geom
 ====
 
 It is a static object in the environment that cannot change its position by contact and collision. It is used to model static objects that are fixed in reality.
-
-.. list-table::
-
-    * - .. figure:: ../../_static/images/goal.jpeg
-            :width: 230px
-            :target: #goal
-        .. centered:: :ref:`Goal`
-      - .. figure:: ../../_static/images/buttons.jpeg
-            :width: 230px
-            :target: #buttons
-        .. centered:: :ref:`Buttons`
-      - .. figure:: ../../_static/images/circle.jpeg
-            :width: 230px
-            :target: #circle
-        .. centered:: :ref:`Circle`
-    * - .. figure:: ../../_static/images/pillars.jpeg
-            :width: 230px
-            :target: #pillars
-        .. centered:: :ref:`Pillars`
-      - .. figure:: ../../_static/images/hazards.jpeg
-            :width: 230px
-            :target: #hazards
-        .. centered:: :ref:`Hazards`
-      - .. figure:: ../../_static/images/sigwalls.jpeg
-            :width: 230px
-            :target: #sigwalls
-        .. centered:: :ref:`Sigwalls`
-
 
 .. _Goal:
 
 Goal
 ----
 
-.. image:: ../../_static/images/goal.jpeg
-    :align: center
-    :scale: 12 %
 
 ===================== ===============
 Can be constrained    No collision
@@ -60,9 +31,6 @@ Nothing.
 Buttons
 -------------------------
 
-.. image:: ../../_static/images/buttons.jpeg
-    :align: center
-    :scale: 12 %
 
 ===================== ===============
 Can be constrained    No collision
@@ -88,9 +56,6 @@ Constraints
 Circle
 -------------
 
-.. image:: ../../_static/images/circle.jpeg
-    :align: center
-    :scale: 12 %
 
 ===================== ===============
 Can be constrained    No collision
@@ -110,9 +75,6 @@ Nothing.
 Pillars
 -------------------------
 
-.. image:: ../../_static/images/pillars.jpeg
-    :align: center
-    :scale: 12 %
 
 ===================== ===============
 Can be constrained    No collision
@@ -136,9 +98,6 @@ Constraints
 Hazards
 -------------------------
 
-.. image:: ../../_static/images/hazards.jpeg
-    :align: center
-    :scale: 12 %
 
 ===================== ===============
 Can be constrained    No collision
@@ -160,9 +119,6 @@ Constraints
 Sigwalls
 -------------------------
 
-.. image:: ../../_static/images/sigwalls.jpeg
-    :align: center
-    :scale: 12 %
 
 ===================== ===============
 Can be constrained    No collision
@@ -187,9 +143,6 @@ Constraints
 Fixedwalls
 -------------------------
 
-.. image:: ../../_static/images/fixedwalls.jpeg
-    :align: center
-    :scale: 22 %
 
 ===================== ===============
 Can be constrained    No collision

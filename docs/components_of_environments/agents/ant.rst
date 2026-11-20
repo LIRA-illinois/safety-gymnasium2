@@ -1,23 +1,9 @@
+.. Modified for Safety Gymnasium 2.
+
 Ant
 ===
 
 .. _Ant:
-
-.. list-table::
-
-    * - .. figure:: ../../_static/images/ant_front.jpeg
-            :width: 200px
-        .. centered:: front
-      - .. figure:: ../../_static/images/ant_back.jpeg
-            :width: 200px
-        .. centered:: back
-      - .. figure:: ../../_static/images/ant_left.jpeg
-            :width: 200px
-        .. centered:: left
-      - .. figure:: ../../_static/images/ant_right.jpeg
-            :width: 200px
-        .. centered:: right
-
 
 A quadrupedal robot, based on the model proposed in `High-Dimensional Continuous Control Using Generalized Advantage Estimation <https://arxiv.org/abs/1506.02438>`__. Moving in three dimensions, it consists of a torso and four legs connected together, each leg consisting of two hinged connecting limbs, which are at the same time connected to the torso by hinges. It is necessary to coordinate the movement of the four legs in the target direction by applying moments to the drivers of the eight hinges.
 

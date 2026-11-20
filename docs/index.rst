@@ -1,13 +1,11 @@
+.. Modified for Safety Gymnasium 2.
+
 
 Safety Gymnasium 2
 ==================
 
 Safety Gymnasium 2 provides MuJoCo environments for safe reinforcement learning.
 
-.. image:: _static/images/car_demo.gif
-   :alt: racecar
-   :width: 500
-   :align: center
 
 The headless quickstart demonstrates the single and vector APIs. Vector lanes
 reset on the step when their episodes finish. Use the terminal observation
@@ -39,9 +37,7 @@ mask to recover the pre-reset observations for replay.
 
    environments/safe_navigation
    environments/safe_velocity
-   environments/safe_vision
    environments/safe_multi_agent
-   environments/safe_isaac_gym
 
 
 .. toctree::

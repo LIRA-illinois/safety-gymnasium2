@@ -1,0 +1,143 @@
+name: publish safety-gymnasium2
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: pypi-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  MUJOCO_GL: osmesa
+  PYOPENGL_PLATFORM: osmesa
+
+jobs:
+  build:
+    if: github.repository == 'LIRA-illinois/safety-gymnasium2' && github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          python-version: '3.11'
+      - name: Verify release ref
+        id: version
+        run: |
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+          version=$(uv run --locked python -c 'from importlib.metadata import version; print(version("safety-gymnasium2"))')
+          test "$GITHUB_REF_NAME" = "v$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - name: Build and validate distributions
+        run: |
+          make build
+          uv run --no-project python tests/smoke_install.py archives
+          uvx twine check --strict dist/*.whl dist/*.tar.gz
+      - name: Upload reviewed distributions
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: distributions
+          path: dist/
+          if-no-files-found: error
+
+  testpypi:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: testpypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: distributions
+          path: dist/
+      - name: Publish to TestPyPI
+        uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          skip-existing: true
+
+  verify-testpypi:
+    needs: [build, testpypi]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    env:
+      RELEASE_VERSION: ${{ needs.build.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: distributions
+          path: dist/
+      - name: Check the staged files and smoke-test the wheel
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libosmesa6
+          bash .github/scripts/verify-index.sh test.pypi.org "$RELEASE_VERSION"
+          cd "$RUNNER_TEMP"
+          uv venv --seed staging
+          staging/bin/python -m pip download --no-deps --only-binary=:all: \
+            --index-url https://test.pypi.org/simple --dest staged "safety-gymnasium2==$RELEASE_VERSION"
+          cmp staged/*.whl "$GITHUB_WORKSPACE"/dist/*.whl
+          staging/bin/python -m pip install staged/*.whl
+          staging/bin/python -m pip check
+          staging/bin/python -I "$GITHUB_WORKSPACE/tests/smoke_install.py" core
+
+  pypi:
+    needs: verify-testpypi
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: distributions
+          path: dist/
+      - name: Publish the staged files to PyPI
+        uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3
+        with:
+          skip-existing: true
+
+  verify-pypi:
+    needs: [build, pypi]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    env:
+      RELEASE_VERSION: ${{ needs.build.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: distributions
+          path: dist/
+      - name: Install from PyPI and smoke-test the package
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libosmesa6
+          bash .github/scripts/verify-index.sh pypi.org "$RELEASE_VERSION"
+          cd "$RUNNER_TEMP"
+          uv venv --seed published
+          published/bin/python -m pip install --index-url https://pypi.org/simple "safety-gymnasium2==$RELEASE_VERSION"
+          published/bin/python -m pip check
+          published/bin/python -I "$GITHUB_WORKSPACE/tests/smoke_install.py" core

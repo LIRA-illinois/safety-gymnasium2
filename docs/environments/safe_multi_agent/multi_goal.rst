@@ -1,3 +1,5 @@
+.. Modified for Safety Gymnasium 2.
+
 MultiGoal
 =========
 
@@ -46,9 +48,6 @@ Episode End
 Level0
 ------
 
-.. image:: ../../_static/images/ant_multi_goal0.jpeg
-    :align: center
-    :scale: 12 %
 
 Agents are required to navigate to targets matching their respective colors.
 
@@ -95,9 +94,6 @@ Randomness
 Level1
 ------
 
-.. image:: ../../_static/images/ant_multi_goal1.jpeg
-    :align: center
-    :scale: 12 %
 
 Agents are obliged to navigate to targets of their corresponding colors, steering clear of collisions with other agents and avoiding stepping on hazards. Although Vases=1, it does not contribute to the cost computation.
 
@@ -161,9 +157,6 @@ Randomness
 Level2
 ------
 
-.. image:: ../../_static/images/ant_multi_goal2.jpeg
-    :align: center
-    :scale: 12 %
 
 Agents must navigate to targets matching their designated colors, while concurrently evading collisions with other agents and refraining from contact with obstacles or stepping on hazards.
 

@@ -1,3 +1,4 @@
+# Modified for Safety Gymnasium 2.
 """Configuration for the Sphinx documentation build."""
 
 from importlib.metadata import version as package_version
@@ -48,5 +49,4 @@ html_context: dict[str, str | bool] = {
     'slug': 'safety-gymnasium2',
 }
 
-html_static_path = ['_static']
 html_css_files = []

@@ -1,22 +1,9 @@
+.. Modified for Safety Gymnasium 2.
+
 Point
 =====
 
 .. _Point:
-
-.. list-table::
-
-    * - .. figure:: ../../_static/images/point_front.jpeg
-            :width: 200px
-        .. centered:: front
-      - .. figure:: ../../_static/images/point_back.jpeg
-            :width: 200px
-        .. centered:: back
-      - .. figure:: ../../_static/images/point_left.jpeg
-            :width: 200px
-        .. centered:: left
-      - .. figure:: ../../_static/images/point_right.jpeg
-            :width: 200px
-        .. centered:: right
 
 A simple robot constrained to a 2D plane has two actuators, one for rotation and the other for forward/backward movement. This decomposed control scheme makes it particularly easy to control the robot's navigation. It has a small square in front of it, which makes it easier to visually determine the robot's orientation and also helps Point push the box that appears in Push.
 

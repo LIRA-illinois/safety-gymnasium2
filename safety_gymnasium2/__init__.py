@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# Modified by Safety Gymnasium 2 contributors for the core release.
 # ==============================================================================
 """Safety-Gymnasium Environments."""
 
@@ -34,7 +35,6 @@ __all__ = [
 
 VERSION = 'v0'
 ROBOT_NAMES = ('Point', 'Car', 'Doggo', 'Racecar', 'Ant')
-MAKE_VISION_ENVIRONMENTS = True
 MAKE_DEBUG_ENVIRONMENTS = True
 
 # ========================================
@@ -82,21 +82,6 @@ def __combine(tasks, agents, max_episode_steps):
                 spec_kwargs={'config': combined_config, 'task_id': env_id},
                 max_episode_steps=max_episode_steps,
             )
-
-            if MAKE_VISION_ENVIRONMENTS:
-                # Vision inputs
-                vision_env_name = f'{PREFIX}{robot_name}{task_name}Vision-{VERSION}'
-                vision_config = {
-                    'observe_vision': True,
-                    'observation_flatten': False,
-                }
-                vision_config.update(combined_config)
-                __register_helper(
-                    env_id=vision_env_name,
-                    entry_point='safety_gymnasium2.builder:Builder',
-                    spec_kwargs={'config': vision_config, 'task_id': env_id},
-                    max_episode_steps=max_episode_steps,
-                )
 
             if MAKE_DEBUG_ENVIRONMENTS and robot_name in ['Point', 'Car', 'Racecar']:
                 # Keyboard inputs for debugging
@@ -153,60 +138,6 @@ __combine(circle_tasks, robots, max_episode_steps=500)
 # ----------------------------------------
 run_tasks = {'RunBase': {'task_name': 'RunBase'}, 'Run0': {}}
 __combine(run_tasks, robots, max_episode_steps=500)
-
-
-# ----------------------------------------
-# Safety Vision
-# ----------------------------------------
-
-# Building Button Environments
-# ----------------------------------------
-building_button_tasks = {
-    'BuildingButton0': {'floor_conf.type': 'mud'},
-    'BuildingButton1': {'floor_conf.type': 'mud'},
-    'BuildingButton2': {'floor_conf.type': 'mud'},
-}
-__combine(building_button_tasks, robots, max_episode_steps=1000)
-
-
-# Building Push Environments
-# ----------------------------------------
-building_push_tasks = {
-    'BuildingPush0': {'floor_conf.type': 'mud'},
-    'BuildingPush1': {'floor_conf.type': 'mud'},
-    'BuildingPush2': {'floor_conf.type': 'mud'},
-}
-__combine(building_push_tasks, robots, max_episode_steps=1000)
-
-
-# Building Goal Environments
-# ----------------------------------------
-building_goal_tasks = {
-    'BuildingGoal0': {'floor_conf.type': 'mud'},
-    'BuildingGoal1': {'floor_conf.type': 'mud'},
-    'BuildingGoal2': {'floor_conf.type': 'mud'},
-}
-__combine(building_goal_tasks, robots, max_episode_steps=1000)
-
-
-# Race Environments
-# ----------------------------------------
-race_tasks = {
-    'Race0': {'floor_conf.type': 'village'},
-    'Race1': {'floor_conf.type': 'village'},
-    'Race2': {'floor_conf.type': 'village'},
-}
-__combine(race_tasks, robots, max_episode_steps=500)
-
-
-# Racing Environments
-# ----------------------------------------
-race_tasks = {
-    'FormulaOne0': {'floor_conf.type': 'none'},
-    'FormulaOne1': {'floor_conf.type': 'none'},
-    'FormulaOne2': {'floor_conf.type': 'none'},
-}
-__combine(race_tasks, robots, max_episode_steps=1000)
 
 
 # Fading Environments
@@ -331,23 +262,6 @@ def __combine_multi(tasks, agents, max_episode_steps):
                 disable_env_checker=True,
                 gymnasium_alias=False,
             )
-
-            if MAKE_VISION_ENVIRONMENTS:
-                # Vision inputs
-                vision_env_name = f'{PREFIX}{robot_name}{task_name}Vision-{VERSION}'
-                vision_config = {
-                    'observe_vision': True,
-                    'observation_flatten': False,
-                }
-                vision_config.update(combined_config)
-                __register_helper(
-                    env_id=vision_env_name,
-                    entry_point='safety_gymnasium2.tasks.safe_multi_agent.builder:Builder',
-                    spec_kwargs={'config': vision_config, 'task_id': env_id},
-                    max_episode_steps=max_episode_steps,
-                    disable_env_checker=True,
-                    gymnasium_alias=False,
-                )
 
             if MAKE_DEBUG_ENVIRONMENTS and robot_name in ['Point', 'Car', 'Racecar']:
                 # Keyboard inputs for debugging

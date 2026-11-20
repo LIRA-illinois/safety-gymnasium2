@@ -1,44 +1,7 @@
+.. Modified for Safety Gymnasium 2.
+
 Objects
 =======
-
-.. list-table::
-
-    * - .. figure:: ../_static/images/goal.jpeg
-            :width: 230px
-            :target: objects/geom.html#goal
-        .. centered:: :ref:`Goal`
-      - .. figure:: ../_static/images/buttons.jpeg
-            :width: 230px
-            :target: objects/geom.html#buttons
-        .. centered:: :ref:`Buttons`
-      - .. figure:: ../_static/images/circle.jpeg
-            :width: 230px
-            :target: objects/geom.html#circle
-        .. centered:: :ref:`Circle`
-    * - .. figure:: ../_static/images/pillars.jpeg
-            :width: 230px
-            :target: objects/geom.html#pillars
-        .. centered:: :ref:`Pillars`
-      - .. figure:: ../_static/images/hazards.jpeg
-            :width: 230px
-            :target: objects/geom.html#hazards
-        .. centered:: :ref:`Hazards`
-      - .. figure:: ../_static/images/sigwalls.jpeg
-            :width: 230px
-            :target: objects/geom.html#sigwalls
-        .. centered:: :ref:`Sigwalls`
-    * - .. figure:: ../_static/images/vases.jpeg
-            :width: 230px
-            :target: objects/free_geom.html#vases
-        .. centered:: :ref:`Vases`
-      - .. figure:: ../_static/images/push_box.jpeg
-            :width: 230px
-            :target: objects/free_geom.html#push-box
-        .. centered:: :ref:`Push_box`
-      - .. figure:: ../_static/images/gremlins.jpeg
-            :width: 230px
-            :target: objects/mocap.html#gremlins
-        .. centered:: :ref:`Gremlins`
 
 The objects of the environment are divided into three groups: **Geom**, **FreeGeom**, **Mocap**.
 
@@ -137,40 +100,13 @@ Group mechanism
 
 In the underlying implementation, we divide different objects into different groups, and each group is detected by a different lidar. For example: Buttons are not present for the lidar that detects Goal, and vice versa.
 
-.. Note::
-    Such a mechanism is also reflected in the visualization.
-
-    .. list-table::
-
-        * - .. figure:: ../_static/images/group_far.jpeg
-                :width: 230px
-          - .. figure:: ../_static/images/group_near.jpeg
-                :width: 230px
-
-    It can be seen that as the variety of objects becomes larger, a corresponding number of lidars that do not interfere with each other are presented.
-
 Render lidar
 ^^^^^^^^^^^^
 
 The lidar will be visualized when rendered, corresponding to the small ball enclosed in a circle above the agent's head, which lights up in the same color as the object. When the lidar at a location detects a target, it lights up, and the closer it is to the target, the brighter the color.
 
-The following is a visualization of the lidar at different distances from the object.
-
-.. list-table::
-
-    * - .. figure:: ../_static/images/lidar_far_distance.jpeg
-            :width: 230px
-        .. centered:: far
-      - .. figure:: ../_static/images/lidar_mid_distance.jpeg
-            :width: 230px
-        .. centered:: mid
-      - .. figure:: ../_static/images/lidar_near_distance.jpeg
-            :width: 230px
-        .. centered:: near
-
 .. Note::
     Lidar visualization markers are not physical and serve only the researcher.
-
 
 
 .. toctree::

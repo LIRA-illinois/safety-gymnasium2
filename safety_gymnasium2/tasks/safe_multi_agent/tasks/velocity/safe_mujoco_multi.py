@@ -1,30 +1,26 @@
+# Modified for Safety Gymnasium 2.
 # Copyright 2022-2023 OmniSafe Team. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 # ==============================================================================
 """Safety-Gymnasium Environments for Multi-Agent RL."""
 
 from __future__ import annotations
 
 import warnings
+from collections.abc import Sequence
 from typing import Any, cast
 
 import numpy as np
 from gymnasium.envs.mujoco import MujocoEnv
 from gymnasium_robotics.envs.multiagent_mujoco.mujoco_multi import MultiAgentMujocoEnv
-
+from safety_gymnasium2.tasks.safe_velocity import _half_cheetah_model
 from safety_gymnasium2.utils.task_utils import add_velocity_marker, clear_viewer
-
 
 TASK_VELCITY_THRESHOLD = {
     'Ant': {'2x4': 2.522, '4x2': 2.418},
@@ -45,7 +41,7 @@ class SafeMAEnv:
         agent_conf: str | None,
         agent_obsk: int | None = 1,
         agent_factorization: dict | None = None,
-        local_categories: list[list[str]] | None = None,
+        local_categories: Sequence[Sequence[str]] | None = None,
         global_categories: tuple[str, ...] | None = None,
         render_mode: str | None = None,
         **kwargs,
@@ -64,17 +60,29 @@ class SafeMAEnv:
             )
         else:
             self._velocity_threshold = TASK_VELCITY_THRESHOLD[scenario][agent_conf]
+        default_xml = _half_cheetah_model.DEFAULT_HALF_CHEETAH_XML
+        use_bundled_model = (
+            scenario == 'HalfCheetah'
+            and kwargs.get('gym_env') is None
+            and kwargs.get('xml_file', default_xml) == default_xml
+        )
+        if use_bundled_model:
+            kwargs['xml_file'] = _half_cheetah_model.HALF_CHEETAH_XML_PATH
         self.env: MultiAgentMujocoEnv = MultiAgentMujocoEnv(
             scenario,
             agent_conf,
             agent_obsk,
             agent_factorization,
-            local_categories,
+            cast('list[list[str]] | None', local_categories),
             global_categories,
             render_mode,
             **kwargs,
         )
         self._physics_env = cast(MujocoEnv, self.env.single_agent_env.unwrapped)
+        if use_bundled_model:
+            _half_cheetah_model.scale_half_cheetah_model(
+                self._physics_env.model, self._physics_env.data
+            )
         if self._physics_env.model.nlight:
             self._physics_env.model.light(0).castshadow = False
 

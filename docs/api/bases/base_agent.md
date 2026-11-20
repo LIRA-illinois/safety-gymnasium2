@@ -1,6 +1,7 @@
 ---
 title: BaseAgent
 ---
+<!-- Modified for Safety Gymnasium 2. -->
 
 # BaseAgent
 

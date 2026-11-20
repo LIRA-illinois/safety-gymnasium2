@@ -1,57 +1,9 @@
+<!-- Modified for Safety Gymnasium 2. -->
 # Safety-Gym Bug Report
 
 ## The Bug of Natural Lidar
 
 The original Natural Lidar in [Safety-Gym](https://github.com/openai/safety-gym) has a problem of not being able to detect low-lying objects, which may affect comprehensive environmental observations.
-
-<table class="docutils align-default">
-  <tbody>
-    <tr class="row-odd">
-      <td>
-        <figure class="align-default">
-          <img
-              alt="Lidar detecting an elevated object from the first position"
-              src="images/bug_report/detect_high_lying_0.jpg" style="width: 230px;">
-        </figure>
-        <p class="centered">
-          <strong><a class="reference internal"><span class="std std-ref">can detect high_lying object</span></a></strong>
-        </p>
-      </td>
-      <td>
-        <figure class="align-default">
-          <a class="reference external image-reference"><img
-              alt="Lidar detecting an elevated object from the second position"
-              src="images/bug_report/detect_high_lying_1.jpg" style="width: 230px;"></a>
-        </figure>
-        <p class="centered">
-          <strong><a class="reference internal"><span class="std std-ref">can detect high_lying object</span></a></strong>
-        </p>
-      </td>
-    </tr>
-    <tr class="row-even">
-      <td>
-        <figure class="align-default">
-          <a class="reference external image-reference"><img
-              alt="Lidar missing a low object from the first position"
-              src="images/bug_report/detect_low_lying_0.jpg" style="width: 230px;"></a>
-        </figure>
-        <p class="centered">
-          <strong><a class="reference internal"><span class="std std-ref">cannot detect low_lying object</span></a></strong>
-        </p>
-      </td>
-      <td>
-        <figure class="align-default">
-          <a class="reference external image-reference" href="./button#button2"><img
-              alt="Lidar missing a low object from the second position"
-              src="images/bug_report/detect_low_lying_1.jpg" style="width: 230px;"></a>
-        </figure>
-        <p class="centered">
-          <strong><a class="reference internal"><span class="std std-ref">cannot detect low_lying object</span></a></strong>
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
 
 ## The Problem of Observation Space
 

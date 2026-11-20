@@ -1,3 +1,4 @@
+# Modified for Safety Gymnasium 2.
 name: tests
 
 on:
@@ -56,7 +57,7 @@ jobs:
         run: |
           uv pip compile --python 3.11 --resolution lowest-direct pyproject.toml \
             --output-file "$RUNNER_TEMP/minimum.txt"
-          uv build --package safety-gymnasium2 --no-sources --out-dir "$RUNNER_TEMP/dist"
+          uv build --no-sources --out-dir "$RUNNER_TEMP/dist"
           smoke="$GITHUB_WORKSPACE/tests/smoke_install.py"
           cd "$RUNNER_TEMP"
           uv venv --seed minimum

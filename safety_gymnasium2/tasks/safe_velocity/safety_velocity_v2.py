@@ -2,15 +2,10 @@
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 # ==============================================================================
 """Safety velocity benchmarks based on Gymnasium's v5 locomotion environments."""
 
@@ -19,8 +14,8 @@ from __future__ import annotations
 import math
 from typing import Any, ClassVar
 
-from gymnasium.envs.mujoco import MujocoEnv
 from gymnasium.envs.mujoco import (
+    MujocoEnv,
     ant_v5,
     half_cheetah_v5,
     hopper_v5,
@@ -30,6 +25,7 @@ from gymnasium.envs.mujoco import (
 )
 from numpy.typing import NDArray
 
+from safety_gymnasium2.tasks.safe_velocity import _half_cheetah_model
 from safety_gymnasium2.utils import task_utils
 
 
@@ -51,7 +47,7 @@ class _SafetyVelocity(MujocoEnv):
         except (IndexError, KeyError):
             self._marker_body_id = None
 
-    def step(  # ty: ignore[invalid-method-override]
+    def step(  # ty: ignore[incompatible-method-override]
         self,
         action: NDArray,
     ) -> tuple[NDArray, float, float, bool, bool, dict[str, Any]]:
@@ -104,7 +100,9 @@ class SafetyAntVelocityEnv(_SafetyVelocity, ant_v5.AntEnv):
     _use_planar_velocity = True
 
 
-class SafetyHalfCheetahVelocityEnv(_SafetyVelocity, half_cheetah_v5.HalfCheetahEnv):
+class SafetyHalfCheetahVelocityEnv(
+    _SafetyVelocity, _half_cheetah_model.BundledHalfCheetahModel, half_cheetah_v5.HalfCheetahEnv
+):
     """HalfCheetah v5 with a forward velocity constraint."""
 
     _velocity_threshold = 3.2096

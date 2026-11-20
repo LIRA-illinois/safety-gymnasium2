@@ -1,3 +1,4 @@
+<!-- Modified for Safety Gymnasium 2. -->
 # Contributor Covenant Code of Conduct
 
 ## Our Pledge

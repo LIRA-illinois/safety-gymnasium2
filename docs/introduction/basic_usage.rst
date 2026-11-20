@@ -1,3 +1,5 @@
+.. Modified for Safety Gymnasium 2.
+
 Basic Usage
 ===========
 
@@ -7,10 +9,6 @@ Installation
 Safety Gymnasium 2 requires Python 3.11 or newer. Install from a checkout using
 ``python -m pip install .`` in an active virtual environment, or use
 ``uv sync --locked`` for development.
-
-Race and FormulaOne require the ``racing`` extra. Building requires the
-``building`` extra. Run ``uv sync --locked --extra racing --extra building``
-to install both from the workspace.
 
 
 Specification

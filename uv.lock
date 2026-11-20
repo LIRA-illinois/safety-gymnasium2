@@ -9,14 +9,6 @@ resolution-markers = [
     "python_full_version < '3.11.5'",
 ]
 
-[manifest]
-members = [
-    "safety-gymnasium2",
-    "safety-gymnasium2-building-scenery",
-    "safety-gymnasium2-building-structure",
-    "safety-gymnasium2-racing-assets",
-]
-
 [[package]]
 name = "absl-py"
 version = "2.5.1"
@@ -1490,15 +1482,6 @@ dependencies = [
     { name = "xmltodict" },
 ]
 
-[package.optional-dependencies]
-building = [
-    { name = "safety-gymnasium2-building-scenery" },
-    { name = "safety-gymnasium2-building-structure" },
-]
-racing = [
-    { name = "safety-gymnasium2-racing-assets" },
-]
-
 [package.dev-dependencies]
 docs = [
     { name = "doc8" },
@@ -1537,12 +1520,8 @@ requires-dist = [
     { name = "numpy", specifier = ">=1.26.4" },
     { name = "pygame-ce", specifier = ">=2.5" },
     { name = "pyyaml", specifier = ">=6.0.1" },
-    { name = "safety-gymnasium2-building-scenery", marker = "extra == 'building'", editable = "asset_packs/building-scenery" },
-    { name = "safety-gymnasium2-building-structure", marker = "extra == 'building'", editable = "asset_packs/building-structure" },
-    { name = "safety-gymnasium2-racing-assets", marker = "extra == 'racing'", editable = "asset_packs/racing" },
     { name = "xmltodict", specifier = ">=1.0.1" },
 ]
-provides-extras = ["racing", "building"]
 
 [package.metadata.requires-dev]
 docs = [
@@ -1568,21 +1547,6 @@ test = [
     { name = "absl-py" },
     { name = "coverage" },
 ]
-
-[[package]]
-name = "safety-gymnasium2-building-scenery"
-version = "1.0.0"
-source = { editable = "asset_packs/building-scenery" }
-
-[[package]]
-name = "safety-gymnasium2-building-structure"
-version = "1.0.0"
-source = { editable = "asset_packs/building-structure" }
-
-[[package]]
-name = "safety-gymnasium2-racing-assets"
-version = "1.0.0"
-source = { editable = "asset_packs/racing" }
 
 [[package]]
 name = "setuptools"

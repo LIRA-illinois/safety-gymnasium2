@@ -1,3 +1,5 @@
+.. Modified for Safety Gymnasium 2.
+
 Button
 =======
 
@@ -48,9 +50,6 @@ Episode End
 Level0
 ---------
 
-.. image:: ../../_static/images/button0.jpeg
-    :align: center
-    :scale: 12 %
 
 The Agent needs to navigate to the location of the goal button and touch the goal button.
 
@@ -98,9 +97,6 @@ Randomness
 Level1
 ------
 
-.. image:: ../../_static/images/button1.jpeg
-    :align: center
-    :scale: 12 %
 
 The Agent needs to navigate to the goal button and touch the **correct** goal button, while avoiding Gremlins and Hazards.
 
@@ -167,9 +163,6 @@ Randomness
 Level2
 ------
 
-.. image:: ../../_static/images/button2.jpeg
-    :align: center
-    :scale: 12 %
 
 The Agent needs to navigate to the goal button location and touch the **right** goal button, while avoiding **more** Gremlins and Hazards.
 

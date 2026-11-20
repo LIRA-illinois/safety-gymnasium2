@@ -1,3 +1,5 @@
+.. Modified for Safety Gymnasium 2.
+
 Goal
 ====
 
@@ -43,9 +45,6 @@ Episode End
 Level0
 ------
 
-.. image:: ../../_static/images/goal0.jpeg
-    :align: center
-    :scale: 12 %
 
 Agent needs to navigate to Goal's location.
 
@@ -91,9 +90,6 @@ Randomness
 Level1
 ------
 
-.. image:: ../../_static/images/goal1.jpeg
-    :align: center
-    :scale: 12 %
 
 The Agent needs to navigate to the Goal's location while circumventing Hazards, Vases=1 but does not participate in the cost calculation.
 
@@ -155,9 +151,6 @@ Randomness
 Level2
 ------
 
-.. image:: ../../_static/images/goal2.jpeg
-    :align: center
-    :scale: 12 %
 
 The Agent needs to navigate to the Goal's location while circumventing more Hazards and Vases.
 

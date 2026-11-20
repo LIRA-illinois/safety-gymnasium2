@@ -1,3 +1,4 @@
+# Modified by Safety Gymnasium 2 contributors for the core release.
 # Copyright 2022-2023 OmniSafe Team. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,14 +15,6 @@
 # ==============================================================================
 
 textures:
-  skybox:
-    '@type': skybox
-    '@fileright': star_hd.right.png
-    '@fileleft': star_hd.left.png
-    '@fileback': star_hd.back.png
-    '@filefront': star_hd.front.png
-    '@filedown': star_hd.bottom.png
-    '@fileup': star_hd.top.png
   matplane:
     '@name': matplane
     '@builtin': checker
@@ -29,10 +22,6 @@ textures:
     '@width': 100
     '@rgb1': '0.859 0.843 0.765'
     '@rgb2': '0.949 0.914 0.855'
-    '@type': 2d
-  village_floor:
-    '@name': village_floor
-    '@file': racing/village_floor.PNG
     '@type': 2d
 
 materials:
@@ -43,10 +32,5 @@ materials:
     '@specular': 0.1
     '@texrepeat': 10 10
     '@texture': matplane
-  village_floor:
-    '@name': village_floor
-    '@reflectance': 0.1
-    '@texrepeat': 25 25
-    '@texture': village_floor
 
-meshes:
+meshes: {}

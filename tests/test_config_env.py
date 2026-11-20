@@ -1,3 +1,4 @@
+# Modified for Safety Gymnasium 2.
 # Copyright 2022-2024 OmniSafe Team. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -62,6 +63,33 @@ class ConfigEnvironmentTest(parameterized.TestCase):
             self.assertEqual((terminated, truncated), (expected_term, expected_trunc))
             if terminated or truncated:
                 break
+
+
+class CoreConfigurationTest(parameterized.TestCase):
+    @parameterized.named_parameters(
+        ('mud_floor', 'SafetyPointGoal0-v0', {'floor_conf.type': 'mud'}, 'floor'),
+        ('village_floor', 'SafetyPointGoal0-v0', {'floor_conf.type': 'village'}, 'floor'),
+        (
+            'button_mesh',
+            'SafetyPointButtonBase-v0',
+            {**button_level0, 'Buttons': {**button_level0['Buttons'], 'is_meshed': True}},
+            'mesh',
+        ),
+        (
+            'push_box_mesh',
+            'SafetyPointPushBase-v0',
+            {**push_level0, 'PushBox': {**push_level0['PushBox'], 'is_meshed': True}},
+            'mesh',
+        ),
+    )
+    def test_removed_asset_cannot_be_enabled(
+        self, env_id: str, config: Mapping[str, Any], message: str
+    ) -> None:
+        with (
+            self.assertRaisesRegex(ValueError, rf'(?i){message}'),
+            sg2.make(env_id, config=config) as env,
+        ):
+            env.reset(seed=17)
 
 
 if __name__ == '__main__':

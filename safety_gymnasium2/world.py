@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# Modified by Safety Gymnasium 2 contributors for the core release.
 # ==============================================================================
 """World."""
 
@@ -28,7 +29,6 @@ import xmltodict
 import yaml
 
 import safety_gymnasium2
-from safety_gymnasium2.assets.paths import resolve_asset_files
 from safety_gymnasium2.utils.common_utils import build_xml_from_dict, convert, rot2quat
 from safety_gymnasium2.utils.task_utils import get_body_xvelp
 
@@ -165,21 +165,13 @@ class World:  # pylint: disable=too-many-instance-attributes
         with open(os.path.join(BASE_DIR, 'configs/assets.yaml'), encoding='utf-8') as file:
             assets_config = yaml.load(file, Loader=yaml.FullLoader)  # noqa: S506
 
-        texture.append(assets_config['textures']['skybox'])
-
         if self.floor_type == 'mat':  # pylint: disable=no-member
             texture.append(assets_config['textures']['matplane'])
             material.append(assets_config['materials']['matplane'])
-        elif self.floor_type == 'village':  # pylint: disable=no-member
-            texture.append(assets_config['textures']['village_floor'])
-            material.append(assets_config['materials']['village_floor'])
-        elif self.floor_type == 'mud':  # pylint: disable=no-member
-            texture.append(assets_config['textures']['mud_floor'])
-            material.append(assets_config['materials']['mud_floor'])
         elif self.floor_type == 'none':  # pylint: disable=no-member
             self.floor_size = [1e-9, 1e-9, 0.1]  # pylint: disable=attribute-defined-outside-init
         else:
-            raise NotImplementedError
+            raise ValueError(f'Floor type {self.floor_type!r} is unavailable in the core release.')
 
         selected_textures = {}
         selected_materials = {}
@@ -199,18 +191,19 @@ class World:  # pylint: disable=too-many-instance-attributes
                     if mesh_name in assets_config['textures']:
                         selected_textures[mesh_name] = assets_config['textures'][mesh_name]
                         selected_materials[mesh_name] = assets_config['materials'][mesh_name]
-                    selected_meshes[mesh_name] = assets_config['meshes'][mesh_name]
+                    selected_meshes[mesh_name] = assets_config['meshes'].get(mesh_name)
             elif config['type'] == 'mesh':
                 mesh_name = config['mesh']
                 if mesh_name in assets_config['textures']:
                     selected_textures[mesh_name] = assets_config['textures'][mesh_name]
                     selected_materials[mesh_name] = assets_config['materials'][mesh_name]
-                selected_meshes[mesh_name] = assets_config['meshes'][mesh_name]
+                selected_meshes[mesh_name] = assets_config['meshes'].get(mesh_name)
+        unavailable_meshes = [name for name, asset in selected_meshes.items() if asset is None]
+        if unavailable_meshes:
+            raise ValueError(f'Mesh assets {unavailable_meshes!r} are unavailable in the core release.')
         texture += selected_textures.values()
         material += selected_materials.values()
         mesh += selected_meshes.values()
-        resolve_asset_files(texture, 'textures')
-        resolve_asset_files(mesh, 'meshes')
 
         # Add light to the XML dictionary
         light = xmltodict.parse(
@@ -241,10 +234,6 @@ class World:  # pylint: disable=too-many-instance-attributes
                 )
                 if self.floor_type == 'mat':  # pylint: disable=no-member
                     g.update({'@material': 'matplane'})
-                elif self.floor_type == 'village':  # pylint: disable=no-member
-                    g.update({'@material': 'village_floor'})
-                elif self.floor_type == 'mud':  # pylint: disable=no-member
-                    g.update({'@material': 'mud_floor'})
                 elif self.floor_type == 'none':  # pylint: disable=no-member
                     pass
                 else:

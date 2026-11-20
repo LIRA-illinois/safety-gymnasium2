@@ -1,3 +1,5 @@
+.. Modified for Safety Gymnasium 2.
+
 Safe Velocity
 ================
 
@@ -10,45 +12,6 @@ Velocity tasks are also an important class of tasks that apply RL to reality, re
 +-----------------------------+-------------------------------------------------------------------+
 | **Import**                  | ``safety_gymnasium2.make("Safety[Agent]Velocity-v1")``            |
 +-----------------------------+-------------------------------------------------------------------+
-
-.. list-table::
-
-    * - .. figure:: ../_static/images/hopper_vel_unsafe.gif
-            :width: 300px
-        .. centered:: HopperVelocity UNSAFE
-      - .. figure:: ../_static/images/hopper_vel_safe.gif
-            :width: 300px
-        .. centered:: HopperVelocity SAFE
-    * - .. figure:: ../_static/images/ant_vel_unsafe.gif
-            :width: 300px
-        .. centered:: AntVelocity UNSAFE
-      - .. figure:: ../_static/images/ant_vel_safe.gif
-            :width: 300px
-        .. centered:: AntVelocity SAFE
-    * - .. figure:: ../_static/images/humanoid_vel_unsafe.gif
-            :width: 300px
-        .. centered:: HumanoidVelocity UNSAFE
-      - .. figure:: ../_static/images/humanoid_vel_safe.gif
-            :width: 300px
-        .. centered:: HumanoidVelocity SAFE
-    * - .. figure:: ../_static/images/walker2d_vel_unsafe.gif
-            :width: 300px
-        .. centered:: Walker2dVelocity UNSAFE
-      - .. figure:: ../_static/images/walker2d_vel_safe.gif
-            :width: 300px
-        .. centered:: Walker2dVelocity SAFE
-    * - .. figure:: ../_static/images/half_cheetah_vel_unsafe.gif
-            :width: 300px
-        .. centered:: HalfCheetahVelocity UNSAFE
-      - .. figure:: ../_static/images/half_cheetah_vel_safe.gif
-            :width: 300px
-        .. centered:: HalfCheetahVelocity SAFE
-    * - .. figure:: ../_static/images/swimmer_vel_unsafe.gif
-            :width: 300px
-        .. centered:: SwimmerVelocity UNSAFE
-      - .. figure:: ../_static/images/swimmer_vel_safe.gif
-            :width: 300px
-        .. centered:: SwimmerVelocity SAFE
 
 Costs
 -----

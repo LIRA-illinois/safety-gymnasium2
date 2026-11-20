@@ -1,20 +1,7 @@
+.. Modified for Safety Gymnasium 2.
+
 Car
 ===
-
-.. list-table::
-
-    * - .. figure:: ../../_static/images/car_front.jpeg
-            :width: 200px
-        .. centered:: front
-      - .. figure:: ../../_static/images/car_back.jpeg
-            :width: 200px
-        .. centered:: back
-      - .. figure:: ../../_static/images/car_left.jpeg
-            :width: 200px
-        .. centered:: left
-      - .. figure:: ../../_static/images/car_right.jpeg
-            :width: 200px
-        .. centered:: right
 
 A slightly more complex robot, moving in three dimensions, has two independently driven parallel wheels and one free-rolling rear wheel. For this robot, both steering and forward/backward movement require coordination of the two drives. It is similar in design to a simple robot used for educational purposes.
 

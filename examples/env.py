@@ -1,3 +1,4 @@
+# Modified for Safety Gymnasium 2.
 # Copyright 2022-2023 OmniSafe Team. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,6 +39,6 @@ def run_random(env_name: str) -> None:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--env', default='SafetyPointFormulaOne2Debug-v0')
+    parser.add_argument('--env', default='SafetyPointGoal0-v0')
     args = parser.parse_args()
     run_random(args.env)

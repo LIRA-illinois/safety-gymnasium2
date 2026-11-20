@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# Modified by Safety Gymnasium 2 contributors for the core release.
 # ==============================================================================
 """World."""
 
@@ -28,7 +29,6 @@ import xmltodict
 import yaml
 
 import safety_gymnasium2
-from safety_gymnasium2.assets.paths import resolve_asset_files
 from safety_gymnasium2.tasks.safe_multi_agent.utils.common_utils import convert, rot2quat
 from safety_gymnasium2.tasks.safe_multi_agent.utils.task_utils import get_body_xvelp
 
@@ -174,16 +174,11 @@ class World:  # pylint: disable=too-many-instance-attributes
         with open(os.path.join(BASE_DIR, 'configs/assets.yaml'), encoding='utf-8') as file:
             assets_config = yaml.load(file, Loader=yaml.FullLoader)  # noqa: S506
 
-        texture.append(assets_config['textures']['skybox'])
-
         if self.floor_type == 'mat':  # pylint: disable=no-member
             texture.append(assets_config['textures']['matplane'])
             material.append(assets_config['materials']['matplane'])
-        elif self.floor_type == 'village':  # pylint: disable=no-member
-            texture.append(assets_config['textures']['village_floor'])
-            material.append(assets_config['materials']['village_floor'])
         else:
-            raise NotImplementedError
+            raise ValueError(f'Floor type {self.floor_type!r} is unavailable in the core release.')
 
         selected_textures = {}
         selected_materials = {}
@@ -191,26 +186,30 @@ class World:  # pylint: disable=too-many-instance-attributes
         for config in self.geoms.values():  # pylint: disable=no-member
             if config['type'] == 'mesh':
                 mesh_name = config['mesh']
-                selected_textures[mesh_name] = assets_config['textures'][mesh_name]
-                selected_materials[mesh_name] = assets_config['materials'][mesh_name]
-                selected_meshes[mesh_name] = assets_config['meshes'][mesh_name]
+                if mesh_name in assets_config['textures']:
+                    selected_textures[mesh_name] = assets_config['textures'][mesh_name]
+                    selected_materials[mesh_name] = assets_config['materials'][mesh_name]
+                selected_meshes[mesh_name] = assets_config['meshes'].get(mesh_name)
         for config in self.free_geoms.values():  # pylint: disable=no-member
             if config['type'] == 'mesh':
                 mesh_name = config['mesh']
-                selected_textures[mesh_name] = assets_config['textures'][mesh_name]
-                selected_materials[mesh_name] = assets_config['materials'][mesh_name]
-                selected_meshes[mesh_name] = assets_config['meshes'][mesh_name]
+                if mesh_name in assets_config['textures']:
+                    selected_textures[mesh_name] = assets_config['textures'][mesh_name]
+                    selected_materials[mesh_name] = assets_config['materials'][mesh_name]
+                selected_meshes[mesh_name] = assets_config['meshes'].get(mesh_name)
         for config in self.mocaps.values():  # pylint: disable=no-member
             if config['type'] == 'mesh':
                 mesh_name = config['mesh']
-                selected_textures[mesh_name] = assets_config['textures'][mesh_name]
-                selected_materials[mesh_name] = assets_config['materials'][mesh_name]
-                selected_meshes[mesh_name] = assets_config['meshes'][mesh_name]
+                if mesh_name in assets_config['textures']:
+                    selected_textures[mesh_name] = assets_config['textures'][mesh_name]
+                    selected_materials[mesh_name] = assets_config['materials'][mesh_name]
+                selected_meshes[mesh_name] = assets_config['meshes'].get(mesh_name)
+        unavailable_meshes = [name for name, asset in selected_meshes.items() if asset is None]
+        if unavailable_meshes:
+            raise ValueError(f'Mesh assets {unavailable_meshes!r} are unavailable in the core release.')
         texture += selected_textures.values()
         material += selected_materials.values()
         mesh += selected_meshes.values()
-        resolve_asset_files(texture, 'textures')
-        resolve_asset_files(mesh, 'meshes')
 
         # Add light to the XML dictionary
         light = xmltodict.parse(
@@ -241,8 +240,6 @@ class World:  # pylint: disable=too-many-instance-attributes
                 )
                 if self.floor_type == 'mat':  # pylint: disable=no-member
                     g.update({'@material': 'matplane'})
-                elif self.floor_type == 'village':  # pylint: disable=no-member
-                    g.update({'@material': 'village_floor'})
                 else:
                     raise NotImplementedError
         # Add cameras to the XML dictionary

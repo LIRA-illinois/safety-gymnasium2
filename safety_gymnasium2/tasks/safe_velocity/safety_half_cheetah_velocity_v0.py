@@ -1,28 +1,27 @@
+# Modified for Safety Gymnasium 2.
 # Copyright 2022-2023 OmniSafe Team. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 # ==============================================================================
 """HalfCheetah environment with a safety constraint on velocity."""
 
+from typing import Any
+
 from gymnasium.envs.mujoco.half_cheetah_v4 import HalfCheetahEnv
 
+from safety_gymnasium2.tasks.safe_velocity import _half_cheetah_model
 from safety_gymnasium2.utils.task_utils import add_velocity_marker, clear_viewer
 
 
-class SafetyHalfCheetahVelocityEnv(HalfCheetahEnv):
+class SafetyHalfCheetahVelocityEnv(_half_cheetah_model.BundledHalfCheetahModel, HalfCheetahEnv):
     """HalfCheetah environment with a safety constraint on velocity."""
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self._velocity_threshold = 2.8795
         self.model.light(0).castshadow = False
@@ -40,7 +39,7 @@ class SafetyHalfCheetahVelocityEnv(HalfCheetahEnv):
         observation = self._get_obs()
         reward = forward_reward - ctrl_cost
         terminated = False
-        info = {
+        info_by_key = {
             'x_position': x_position_after,
             'x_velocity': x_velocity,
             'reward_run': forward_reward,
@@ -60,4 +59,4 @@ class SafetyHalfCheetahVelocityEnv(HalfCheetahEnv):
             )
         if self.render_mode == 'human':
             self.render()
-        return observation, reward, cost, terminated, False, info
+        return observation, reward, cost, terminated, False, info_by_key

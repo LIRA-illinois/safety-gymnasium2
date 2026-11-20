@@ -1,6 +1,7 @@
 ---
 title: BaseObject
 ---
+<!-- Modified for Safety Gymnasium 2. -->
 
 # BaseObject
 
