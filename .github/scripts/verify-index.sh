@@ -5,7 +5,9 @@ registry=$1
 version=$2
 index_json="$RUNNER_TEMP/$registry.json"
 
-curl --fail --silent --show-error --retry 8 --retry-delay 5 --retry-all-errors \
+# A newly published version may take time to appear across the public index.
+curl --fail --silent --show-error --retry 15 --retry-delay 10 --retry-all-errors \
+  --retry-max-time 160 --max-time 15 \
   "https://$registry/pypi/safety-gymnasium2/$version/json" --output "$index_json"
 
 for artifact in dist/*.whl dist/*.tar.gz; do

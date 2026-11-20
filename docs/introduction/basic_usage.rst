@@ -6,9 +6,16 @@ Basic Usage
 Installation
 ------------
 
-Safety Gymnasium 2 requires Python 3.11 or newer. Install from a checkout using
-``python -m pip install .`` in an active virtual environment, or use
-``uv sync --locked`` for development.
+Safety Gymnasium 2 requires Python 3.11 or newer. Install from
+`PyPI <https://pypi.org/project/safety-gymnasium2/>`__ in an active virtual
+environment.
+
+.. code-block:: sh
+
+    python -m pip install safety-gymnasium2
+
+From a checkout, use ``uv sync --locked`` for development or
+``python -m pip install .`` to install the checkout.
 
 
 Specification
