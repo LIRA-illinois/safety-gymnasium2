@@ -118,6 +118,13 @@ Render lidar
 
 The lidar will be visualized when rendered, corresponding to the small ball enclosed in a circle above the agent's head, which lights up in the same color as the object. When the lidar at a location detects a target, it lights up, and the closer it is to the target, the brighter the color.
 
+.. figure:: /images/objects/object-lidar.jpg
+   :alt: Rings of blue, green, and teal lidar markers above the Point robot.
+   :width: 420px
+
+   The markers above the Point robot show lidar detections of hazards, the goal,
+   and a vase in Point Goal 1.
+
 .. Note::
     Lidar visualization markers are not physical and serve only the researcher.
 
